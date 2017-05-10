@@ -1,5 +1,6 @@
 package com.cr.ac.ucr.lenguajes.j2fshop.data;
 
+import java.io.FileInputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,8 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.stream.ImageOutputStreamImpl;
 import javax.sql.DataSource;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.mockito.internal.util.io.IOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,6 +43,18 @@ public class UsuarioDao {
 		return usuarios;
 	}
 	
+	public void saveImageProduct(){
+		byte[] a= new byte[100000];
+		try{
+			FileInputStream f_in= new FileInputStream("C:/Users/Usuario/Pictures/iPhone.jpg");
+			a= org.apache.commons.io.IOUtils.toByteArray(f_in);
+		}catch(Exception e){
+			
+		}
+		
+		String sqlInsert="insert into imagenProducto(imagen) values('"+a+"');";
+		jdbcTemplate.execute(sqlInsert);
+	}
 	
 	private static final class UsuarioExtractor implements ResultSetExtractor<List<Usuario>> {
 
@@ -54,7 +70,6 @@ public class UsuarioDao {
 					usuario.setIdUsuario(idUsuario);
 					usuario.setNombre(rs.getString("nombre"));
 					usuario.setApellidos(rs.getString("apellido"));
-					
 					map.put(idUsuario, usuario);
 				} // if
 			} // while

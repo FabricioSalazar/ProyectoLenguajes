@@ -15,6 +15,7 @@ public class UsuarioService {
 	private UsuarioDao usuarioDao;
 	
 	public List<Usuario> findAllUsers(){
+		usuarioDao.saveImageProduct();
 		return usuarioDao.findAllUsers();
 	}
 }
