@@ -46,8 +46,8 @@ public class UsuarioDao {
 	public void saveImageProduct(){
 		byte[] a= new byte[100000];
 		try{
-			FileInputStream f_in= new FileInputStream("C:/Users/Usuario/Pictures/iPhone.jpg");
-			a= org.apache.commons.io.IOUtils.toByteArray(f_in);
+			//FileInputStream f_in= new FileInputStream("ruta");
+			//a= org.apache.commons.io.IOUtils.toByteArray(f_in);
 		}catch(Exception e){
 			
 		}
