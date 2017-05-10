@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Mantenimiento de peliculas</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="all"
+	href="css/bootstrap-glyphicons.css"></link>
+<link rel="stylesheet" type="text/css" media="all" href="css/styles.css"></link>
+
+</head>
+<body>
+<div class="container">
+<h1>Mantenimiento de películas</h1>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+  </tr>
+  <tr th:each="entry,status : ${usuarios}">
+    <td><span th:text="${entry.idUsuario}"></span></td>
+    <td><span th:text="${entry.nombre}"></span></td>
+    <td><span th:text="${entry.apellidos}"></span></td>
+  </tr>
+</table>
+
+
+</div>
+
+
+</body>
+</html>
