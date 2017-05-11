@@ -2,11 +2,13 @@ package com.cr.ac.ucr.lenguajes.j2fshop.domain;
 
 import java.awt.Image;
 
+import javax.swing.ImageIcon;
+
 public class Categoria {
 
 	private int idCategoria;
 	private String nombreCategoria;
-	private Image imagenCategoria;
+	private ImageIcon imagenCategoria;
 	
 	public Categoria() {
 	}
@@ -27,11 +29,11 @@ public class Categoria {
 		this.nombreCategoria = nombreCategoria;
 	}
 
-	public Image getImagenCategoria() {
+	public ImageIcon getImagenCategoria() {
 		return imagenCategoria;
 	}
 
-	public void setImagenCategoria(Image imagenCategoria) {
+	public void setImagenCategoria(ImageIcon imagenCategoria) {
 		this.imagenCategoria = imagenCategoria;
 	}
 	

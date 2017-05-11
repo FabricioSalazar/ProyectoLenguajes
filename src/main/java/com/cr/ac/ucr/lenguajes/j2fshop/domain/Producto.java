@@ -3,6 +3,8 @@ package com.cr.ac.ucr.lenguajes.j2fshop.domain;
 import java.awt.Image;
 import java.util.LinkedList;
 
+import javax.swing.ImageIcon;
+
 public class Producto {
 
 	private int idProducto;
@@ -12,7 +14,7 @@ public class Producto {
 	private int unidadesStock;
 	private boolean impuesto;
 	private float porcentajeImpuesto;
-	private Image imagen;
+	private ImageIcon imagen;
 	private LinkedList<Categoria> categorias;
 	
 	public Producto() {
@@ -75,11 +77,11 @@ public class Producto {
 		this.porcentajeImpuesto = porcentajeImpuesto;
 	}
 
-	public Image getImagen() {
+	public ImageIcon getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(Image imagen) {
+	public void setImagen(ImageIcon imagen) {
 		this.imagen = imagen;
 	}
 

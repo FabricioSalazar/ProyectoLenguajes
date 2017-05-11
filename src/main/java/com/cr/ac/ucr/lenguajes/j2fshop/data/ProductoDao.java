@@ -1,5 +1,8 @@
 package com.cr.ac.ucr.lenguajes.j2fshop.data;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.sql.DataSource;
+import javax.swing.ImageIcon;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -20,6 +25,7 @@ import com.cr.ac.ucr.lenguajes.j2fshop.domain.Categoria;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Producto;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Role;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Usuario;
+import com.mysql.jdbc.Blob;
 
 @Repository
 public class ProductoDao {
@@ -45,10 +51,10 @@ public class ProductoDao {
 		return productos;
 	}
 	
-	public void saveImageProduct(){
+	public void saveImageProduct(String ruta){
 		byte[] a= new byte[100000];
 		try{
-			FileInputStream f_in= new FileInputStream("C:/Users/Usuario/Pictures/Saved Pictures/accesorios.jpg");
+			FileInputStream f_in= new FileInputStream(ruta);
 			a= org.apache.commons.io.IOUtils.toByteArray(f_in);
 		}catch(Exception e){
 			
@@ -58,8 +64,35 @@ public class ProductoDao {
 		jdbcTemplate.execute(sqlInsert);
 	}
 	
-	private static final class ProductoExtractor implements ResultSetExtractor<List<Producto>> {
+	public ImageIcon obtenerImagen(java.sql.Blob blob) {
+		ImageIcon imagen = null;
+		// primero me aseguro que no este vacío.
+		if (blob != null) {
+			try {
+				byte[] data = blob.getBytes(1, (int) blob.length());
+				BufferedImage img = null;
 
+				try {
+					img = ImageIO.read(new ByteArrayInputStream(data));
+				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
+				}
+				imagen = new ImageIcon(img);
+
+			} catch (Exception ex) {
+				// No hay imagen
+			}
+		} else {
+			// No hay imagen
+		}
+		return imagen;
+	}
+	
+	private static final class ProductoExtractor implements ResultSetExtractor<List<Producto>> {
+		
+		@Autowired
+		private ProductoDao productoDao;
+		
 		@Override
 		public List<Producto> extractData(ResultSet rs) throws SQLException, DataAccessException {
 			Map<Integer, Producto> map = new HashMap<Integer, Producto>();
@@ -76,14 +109,14 @@ public class ProductoDao {
 					producto.setUnidadesStock(rs.getInt("unidadesStock"));
 					producto.setImpuesto(rs.getBoolean("impuesto"));
 					producto.setPorcentajeImpuesto(rs.getFloat("porcentajeImpuesto"));
-					producto.setImagen(imagen);
+					producto.setImagen(productoDao.obtenerImagen(rs.getBlob("image")));
 				} // if
 				int idCategoria = rs.getInt("idCategoria");
 				if (idCategoria > 0) {
 					Categoria categoria= new Categoria();
 					categoria.setIdCategoria(idCategoria);
 					categoria.setNombreCategoria(rs.getString("nombreCategoria"));
-					categoria.setImagenCategoria(imagenCategoria);
+					categoria.setImagenCategoria(productoDao.obtenerImagen(rs.getBlob("imagenCategoria")));
 					producto.getCategorias().add(categoria);
 				} // if
 			} // while
