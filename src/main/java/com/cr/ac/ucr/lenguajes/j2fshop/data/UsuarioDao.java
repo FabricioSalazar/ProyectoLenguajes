@@ -83,7 +83,7 @@ public class UsuarioDao {
 					usuario.setPassword(rs.getString("password"));
 					usuario.setEnabled(rs.getBoolean("enabled"));
 					usuario.setDireccion1(rs.getString("direccion1"));
-					usuario.setDireccion2(rs.getString("direccion2"));
+					usuario.setDireccion2(rs.getString("dirreccion2"));
 					usuario.setPais(rs.getString("pais"));
 					usuario.setCiudad(rs.getString("ciudad"));
 					usuario.setEstado(rs.getString("estado"));

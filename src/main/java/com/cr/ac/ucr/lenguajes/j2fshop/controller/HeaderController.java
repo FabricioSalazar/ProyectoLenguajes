@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HeaderController {
 
-	@RequestMapping("header")
+	@RequestMapping("/header")
 	public String iniciar(Model model) {
 		return "header";
 	}

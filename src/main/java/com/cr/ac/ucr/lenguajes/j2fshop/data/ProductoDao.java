@@ -51,6 +51,34 @@ public class ProductoDao {
 		return productos;
 	}
 	
+	public List<Producto> findProducts(String criterioBusqueda){
+
+		String sqlSelect = "select p.idProducto,p.nombre, p.descripcion, p.precio, p.unidadesStock, p.impuesto, p.porcentajeImpuesto,"
+				+ " ip.imagen, c.idCategoria, c.nombreCategoria, c.imagenCategoria"
+				+ " from Producto p left join imagenproducto ip on p.idImagenProducto=ip.idImagenProducto"
+				+ " left join categoria_producto cp on p.idProducto=cp.idProducto "
+				+ " left join categoria c on cp.idCategoria= c.idCategoria" 
+				+ " where p.nombre like '%"+criterioBusqueda + "%' or p.descripcion like '%" + criterioBusqueda + "%';";
+
+		List<Producto> productos = jdbcTemplate.query(sqlSelect, new ProductoExtractor());
+
+		return productos;
+	}
+	
+	public List<Producto> findProductsByCategoria(String nombreCategoria){
+
+		String sqlSelect = "select p.idProducto,p.nombre, p.descripcion, p.precio, p.unidadesStock, p.impuesto, p.porcentajeImpuesto,"
+				+ " ip.imagen, c.idCategoria, c.nombreCategoria, c.imagenCategoria"
+				+ " from Producto p left join imagenproducto ip on p.idImagenProducto=ip.idImagenProducto"
+				+ " left join categoria_producto cp on p.idProducto=cp.idProducto "
+				+ " left join categoria c on cp.idCategoria= c.idCategoria" 
+				+ " where c.nombreCategoria = '"+nombreCategoria + "';";
+
+		List<Producto> productos = jdbcTemplate.query(sqlSelect, new ProductoExtractor());
+
+		return productos;
+	}
+	
 	public void saveImageProduct(String ruta){
 		byte[] a= new byte[100000];
 		try{
