@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class J2fShopController {
 
-	@RequestMapping("/J2FShop"  )
+	@RequestMapping("/J2FShop")
 	public String iniciar(Model model) {
 		return "J2FShop";
 	}
