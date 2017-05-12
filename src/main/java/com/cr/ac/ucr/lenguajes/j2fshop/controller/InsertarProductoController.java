@@ -12,19 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.cr.ac.ucr.lenguajes.j2fshop.data.ProductoDao;
 import com.cr.ac.ucr.lenguajes.j2fshop.form.ProductoForm;
-import com.cr.ac.ucr.lenguajes.j2fshop.storage.StorageService;
+
 
 @Controller
 public class InsertarProductoController {
 	
-	//private final StorageService storageService;
-	
-	//@Autowired
-//	public InsertarProductoController(StorageService storageService) {
-	//    this.storageService = storageService;
-//	}
 
 	@RequestMapping("insertarProducto")
 	public String iniciar(ProductoForm productoForm, Model model) {
