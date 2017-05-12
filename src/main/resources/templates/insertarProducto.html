@@ -98,42 +98,37 @@ input, input::-webkit-input-placeholder {
 				</div>
 			</div>
 			<div class="main-login main-center">
-				<form class="form-horizontal" method="post" action="#">
-
+				<form class="form-horizontal" th:object="${productoForm}" th:action="@{/insertarProducto/salvar}" action="#" method="post">
 					<div class="form-group">
-						<label for="name" class="cols-sm-2 control-label">Nombre
-							del producto</label>
+						<label class="cols-sm-2 control-label">Nombre del producto</label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-font" aria-hidden="true"></i></span> <input
-									type="text" class="form-control" name="name" id="name"
-									placeholder="Ingrese el nombre" />
+								<span class="input-group-addon"><i class="glyphicon glyphicon-font" aria-hidden="true"></i></span> 
+								<input th:field="*{nombre}"  type="text" class="form-control" name="inputNombre" placeholder="Ingrese el nombre" />
 							</div>
+							<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"  class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label for="email" class="cols-sm-2 control-label">Precio</label>
+						<label class="cols-sm-2 control-label">Precio</label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-euro" aria-hidden="true"></i></span> <input
-									type="text" class="form-control" name="email" id="email"
-									placeholder="EIngrese el precio" />
+								<span class="input-group-addon"><i class="glyphicon glyphicon-euro" aria-hidden="true"></i></span> 
+								<input th:field="*{precio}" type="text" class="form-control" name="inputPrecio" placeholder="Ingrese el precio" />
 							</div>
+							<div th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"  class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label for="username" class="cols-sm-2 control-label">Impuesto</label>
+						<label class="cols-sm-2 control-label">Impuesto</label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i></span>
-								<input type="text" class="form-control" name="username"
-									id="username" placeholder="% de impuesto" />
+								<span class="input-group-addon"><i class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i></span>
+								<input th:field="*{porcentajeImpuesto}" type="number" class="form-control" name="inputImpuesto"/>
 							</div>
+							<div th:if="${#fields.hasErrors('porcentajeImpuesto')}" th:errors="*{porcentajeImpuesto}"  class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
@@ -141,10 +136,16 @@ input, input::-webkit-input-placeholder {
 						<label for="password" class="cols-sm-2 control-label">Categoria</label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-glass" aria-hidden="true"></i></span> <select
-									type="" class="form-control" name="password" id="password"></select>
+								<span class="input-group-addon"><i class="glyphicon glyphicon-glass" aria-hidden="true"></i></span> 
+								<select th:field="*{categoria}" class="form-control" name="inputCategoria" >
+
+									<option value="2" selected>Telefono</option>
+									<option value="3">Accesorios</option>
+									<option value="1">Apartados Electronicos</option>
+			
+								</select>
 							</div>
+							<div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"  class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
@@ -152,10 +153,10 @@ input, input::-webkit-input-placeholder {
 						<label for="confirm" class="cols-sm-2 control-label">Cantidad</label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span> <input
-									type="number" class="form-control" name="confirm" id="confirm" />
+								<span class="input-group-addon"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
+								 <input th:field="*{unidadesStock}" type="number" class="form-control" name="inputCantidad"/>
 							</div>
+							<div th:if="${#fields.hasErrors('unidadesStock')}" th:errors="*{unidadesStock}"  class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
@@ -163,15 +164,26 @@ input, input::-webkit-input-placeholder {
 						<label for="confirm" class="cols-sm-2 control-label">Descripcion</label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<textarea class="form-control"  rows="4" cols="50" name="confirm"
-									id="confirm" >></textarea>
+								<textarea style="resize:none; " class="form-control"  maxlength="255"
+                					th:field="*{descripcion}" rows="3" cols="50" name="inputDescripcion" ></textarea>
 							</div>
+							<div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"  class="alert alert-danger">ERROR</div>
+						</div>
+					</div>
+
+          			<div class="form-group">
+						<label for="password" class="cols-sm-2 control-label">Imagen</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-picture" aria-hidden="true"></i></span>
+                  				<input th:field="*{imagen}"  class="file-loading"  type="file" name="pic" accept="image/*">
+							</div>
+							<div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"  class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
 					<div class="form-group ">
-						<button type="button"
-							class="btn btn-primary btn-lg btn-block login-button">Register</button>
+						<button type="submit" class="btn btn-default">Salvar</button>
 					</div>
 				</form>
 			</div>

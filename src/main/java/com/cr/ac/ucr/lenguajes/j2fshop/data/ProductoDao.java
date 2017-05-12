@@ -3,6 +3,7 @@ package com.cr.ac.ucr.lenguajes.j2fshop.data;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -79,11 +80,14 @@ public class ProductoDao {
 		return productos;
 	}
 	
-	public void saveImageProduct(String ruta){
+	public void saveImageProduct(File image){
 		byte[] a= new byte[100000];
 		try{
-			FileInputStream f_in= new FileInputStream(ruta);
+			FileInputStream f_in= new FileInputStream(image);
 			a= org.apache.commons.io.IOUtils.toByteArray(f_in);
+			for(int i =0; i<a.length;i++){
+				System.out.println(a[i]);
+			}
 		}catch(Exception e){
 			
 		}
