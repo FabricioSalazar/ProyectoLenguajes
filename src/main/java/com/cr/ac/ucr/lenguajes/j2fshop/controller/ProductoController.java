@@ -58,7 +58,6 @@ public class ProductoController {
 	@RequestMapping(value="/catalogoProductos/buscar", method= RequestMethod.POST)
 	public String buscar(@RequestParam Map<String, String> requestParams, Model model){
 
-	
 		return "catalogoProductos";
 	}
 	
