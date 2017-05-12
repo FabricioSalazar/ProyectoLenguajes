@@ -39,7 +39,7 @@ public class ProductoController {
 		String criterioBusqueda = (String) request.getParameter("search");
 		
 		listaProductos = productoService.findProducts(criterioBusqueda.trim());
-		
+		System.out.print(listaProductos.size());
 		pagActual = 0; // reinicia la pagina visible actual a 0
 		paged = new PagedList(ELEM_POR_PAG, listaProductos);
 

@@ -31,7 +31,7 @@
 			
 				<div class="row" th:each="entry,status : ${productos}">
 					<div class="col-sm-12">
-						<a th:text="${entry.nombre}"></a>
+						<a>Nombre: </a><a th:text="${entry.nombre}"></a>
 					</div>
 					
 					<div class="row col-sm-12">
@@ -46,7 +46,7 @@
 							</div>
 							<div class="row col-sm-6">
 								<a>Cantidad: </a><input type=number
-									th:text="${entry.unidadesStock}"></a>
+									th:value="${entry.unidadesStock}"></a>
 							</div>
 							<div class="row col-sm-6">
 								<div class="btn-group-horizontal">

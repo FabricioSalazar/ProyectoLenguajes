@@ -53,7 +53,7 @@ public class ProductoDao {
 	}
 	
 	public List<Producto> findProducts(String criterioBusqueda){
-
+		System.out.println(criterioBusqueda);
 		String sqlSelect = "select p.idProducto,p.nombre, p.descripcion, p.precio, p.unidadesStock, p.impuesto, p.porcentajeImpuesto,"
 				+ " ip.imagen, c.idCategoria, c.nombreCategoria, c.imagenCategoria"
 				+ " from Producto p left join imagenproducto ip on p.idImagenProducto=ip.idImagenProducto"
@@ -141,14 +141,16 @@ public class ProductoDao {
 					producto.setUnidadesStock(rs.getInt("unidadesStock"));
 					producto.setImpuesto(rs.getBoolean("impuesto"));
 					producto.setPorcentajeImpuesto(rs.getFloat("porcentajeImpuesto"));
-					producto.setImagen(productoDao.obtenerImagen(rs.getBlob("imagen")));
+					//producto.setImagen(productoDao.obtenerImagen(rs.getBlob("imagen")));
+					
+					map.put(idProducto, producto);
 				} // if
 				int idCategoria = rs.getInt("idCategoria");
 				if (idCategoria > 0) {
 					Categoria categoria= new Categoria();
 					categoria.setIdCategoria(idCategoria);
 					categoria.setNombreCategoria(rs.getString("nombreCategoria"));
-					categoria.setImagenCategoria(productoDao.obtenerImagen(rs.getBlob("imagenCategoria")));
+					//categoria.setImagenCategoria(productoDao.obtenerImagen(rs.getBlob("imagenCategoria")));
 					producto.getCategorias().add(categoria);
 				} // if
 			} // while
