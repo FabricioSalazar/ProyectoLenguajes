@@ -17,6 +17,6 @@ public class GeneralController {
 		}
 		if(!auth.getName().equals("anonymousUser"))
 			model.addAttribute("username",auth.getName());
-		return "index";
+		return "J2FShop";
 	}
 }
