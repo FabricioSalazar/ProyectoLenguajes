@@ -18,4 +18,11 @@ public class ProductoService {
 	public List<Producto> findAllProducts(){
 		return productoDao.findAllProducts();
 	}
+	
+	public List<Producto> findProducts(String criterioBusqueda){
+		return productoDao.findProducts(criterioBusqueda);
+	}
+	public List<Producto> findProductsByCategoria(String nombreCategoria){
+		return productoDao.findProductsByCategoria(nombreCategoria);
+	}
 }
