@@ -19,12 +19,12 @@ import com.cr.ac.ucr.lenguajes.j2fshop.storage.StorageService;
 @Controller
 public class InsertarProductoController {
 	
-	private final StorageService storageService;
+	//private final StorageService storageService;
 	
-	@Autowired
-	public InsertarProductoController(StorageService storageService) {
-	    this.storageService = storageService;
-	}
+	//@Autowired
+//	public InsertarProductoController(StorageService storageService) {
+	//    this.storageService = storageService;
+//	}
 
 	@RequestMapping("insertarProducto")
 	public String iniciar(ProductoForm productoForm, Model model) {
