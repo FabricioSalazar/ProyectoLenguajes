@@ -26,7 +26,7 @@ public class ProductoController {
 
 	private int pagActual = 0;
 	private int cantidad = 0;
-	private final int ELEM_POR_PAG = 3; // elementos visibles por cada pagina
+	private final int ELEM_POR_PAG = 5; // elementos visibles por cada pagina
 	
 	@RequestMapping(value = "/catalogoProductos", method = RequestMethod.GET)
 	public String iniciar(Model model){

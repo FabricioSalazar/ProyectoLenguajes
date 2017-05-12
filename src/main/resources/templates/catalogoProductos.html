@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>J2F Shop Catalogo Productos</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<iframe src="header.html" style="width: 100%; background-color: black;"
+		height="450" scrolling="no" frameborder="0"></iframe>
+
+
+	<div th:if="${productos}">
+		<div th:if="${productos.isEmpty()}">
+			<br>
+			<div class="alert alert-danger">
+					<strong>Atencion:</strong> <h4>No se encontraron resultados</h4>
+			</div>
+		</div>
+		<div th:if="${!productos.isEmpty()}">
+			<br>
+			<h3>Total de resultados de la busqueda: <span th:text="${cantidadProductos}"></span></h3>
+			
+			<div class="container" >
+				<div class="row" th:each="entry,status : ${productos}">
+					<a class="col-sm-12" th:text="${entry.nombre}"></a>
+					<div class="row col-sm-12">
+						<div clas="col-sm-4">
+							<textarea rows="4" cols="50" readonly th:text="${entry.descripcion}">
+						</div>
+						<div class="col-sm-4">
+							<div class="row col-sm-6">
+							<a>Precio: $</a><a th:text="${entry.precio}"></a>
+							</div>
+							<div class="row col-sm-6">
+							<a>Cantidad: </a><input class=number th:text="${entry.unidadesStock}"></a>
+							</div>
+							<div class="row col-sm-6">
+								<div class="btn-group-horizontal">
+									<button type="button" class="btn btn-primary">Añadir al carrito</button>
+									<button type="button" class="btn btn-primary">Pagar</button>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+				
+			<div th:if="${cantidadProductos>5}">
+				<div class="container">
+					<ul class="pagination">
+					<li th:if="${pagActual>0}"><a href="/catalogoProductos/buscar/prev" name="prev">Prev</a></li>
+					<li th:if="${totalPag>pagActual}"><a href="/catalogoProductos/buscar/next" name="next">Next</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
