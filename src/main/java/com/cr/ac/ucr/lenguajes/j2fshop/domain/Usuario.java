@@ -10,8 +10,8 @@ public class Usuario {
 	private String login;
 	private String password;
 	private boolean enabled;
-	private String dirrecion1;
-	private String dirrecion2;
+	private String direccion1;
+	private String direccion2;
 	private String pais;
 	private String ciudad;
 	private String estado;
@@ -74,20 +74,20 @@ public class Usuario {
 		this.enabled = enabled;
 	}
 
-	public String getDirrecion1() {
-		return dirrecion1;
+	public String getDireccion1() {
+		return direccion1;
 	}
 
-	public void setDirrecion1(String dirrecion1) {
-		this.dirrecion1 = dirrecion1;
+	public void setDireccion1(String direccion1) {
+		this.direccion1 = direccion1;
 	}
 
-	public String getDirrecion2() {
-		return dirrecion2;
+	public String getDireccion2() {
+		return direccion2;
 	}
 
-	public void setDirrecion2(String dirrecion2) {
-		this.dirrecion2 = dirrecion2;
+	public void setDireccion2(String direccion2) {
+		this.direccion2 = direccion2;
 	}
 
 	public String getPais() {
