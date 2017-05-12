@@ -5,9 +5,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,19 +33,13 @@ public class ProductoController {
 	private final int ELEM_POR_PAG = 5; // elementos visibles por cada pagina
 	
 	@RequestMapping(value = "/catalogoProductos", method = RequestMethod.GET)
-	public String iniciar(Model model){
+	public String iniciar(HttpServletRequest request, Model model){
 		model.addAttribute("productos", listaProductos);
-		
-		return "catalogoProductos";
-	}
 	
-	@RequestMapping(value="/catalogoProductos/buscar", method= RequestMethod.POST)
-	public String buscar(@RequestParam Map<String, String> requestParams, Model model){
-		String criterioBusqueda = requestParams.get("nombrePublicador");
-
+		String criterioBusqueda = (String) request.getParameter("search");
 		
 		listaProductos = productoService.findProducts(criterioBusqueda.trim());
-			
+		
 		pagActual = 0; // reinicia la pagina visible actual a 0
 		paged = new PagedList(ELEM_POR_PAG, listaProductos);
 
@@ -52,6 +50,15 @@ public class ProductoController {
 		model.addAttribute("pagActual", pagActual);
 		model.addAttribute("totalPag", paged.totalPaginas-1);
 		
+		
+		
+		return "catalogoProductos";
+	}
+	
+	@RequestMapping(value="/catalogoProductos/buscar", method= RequestMethod.POST)
+	public String buscar(@RequestParam Map<String, String> requestParams, Model model){
+
+	
 		return "catalogoProductos";
 	}
 	

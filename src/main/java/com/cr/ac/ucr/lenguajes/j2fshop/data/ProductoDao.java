@@ -141,7 +141,7 @@ public class ProductoDao {
 					producto.setUnidadesStock(rs.getInt("unidadesStock"));
 					producto.setImpuesto(rs.getBoolean("impuesto"));
 					producto.setPorcentajeImpuesto(rs.getFloat("porcentajeImpuesto"));
-					producto.setImagen(productoDao.obtenerImagen(rs.getBlob("image")));
+					producto.setImagen(productoDao.obtenerImagen(rs.getBlob("imagen")));
 				} // if
 				int idCategoria = rs.getInt("idCategoria");
 				if (idCategoria > 0) {

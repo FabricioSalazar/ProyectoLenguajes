@@ -102,22 +102,28 @@
 
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
 	<script type="text/javascript">
 		$('#search').animate({
 			width : 'toggle'
 		}).focus();
 	</script>
+
 	<script type="text/javascript">
 		(function() {
 			$('#btn-search').on('click', function(e) {
-				e.preventDefault();
-				$('#search').animate({
-					width : 'toggle'
-				}).focus();
+				var text = document.getElementById('search').value;
+				if (text == "") {
+					e.preventDefault();
+					$('#search').animate({
+						width : 'toggle'
+					}).focus();
+				} else {
+					location.href="catalogoProductos?search="+text;
+				}
 			});
+
 		}());
 	</script>
 </body>
 </html>
-
-
