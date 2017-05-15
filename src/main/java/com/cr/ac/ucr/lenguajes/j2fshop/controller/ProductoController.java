@@ -34,12 +34,13 @@ public class ProductoController {
 	
 	@RequestMapping(value = "/catalogoProductos", method = RequestMethod.GET)
 	public String iniciar(HttpServletRequest request, Model model){
+		
 		model.addAttribute("productos", listaProductos);
 	
 		String criterioBusqueda = (String) request.getParameter("search");
-		
+
 		listaProductos = productoService.findProducts(criterioBusqueda.trim());
-		System.out.print(listaProductos.size());
+
 		pagActual = 0; // reinicia la pagina visible actual a 0
 		paged = new PagedList(ELEM_POR_PAG, listaProductos);
 

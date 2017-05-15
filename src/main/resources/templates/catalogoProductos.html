@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="header-menu"></div>
-<div class="container" style="width: 600px; background-color: yellow;">
+<div class="container" style="width: 600px;">
 	<div th:if="${productos}">
 		<div th:if="${productos.isEmpty()}">
 			<br>
@@ -24,52 +24,47 @@
 		</div>
 		<div th:if="${!productos.isEmpty()}">
 			<br>
-			<h3>
-				Total de resultados de la busqueda: <span
-					th:text="${cantidadProductos}"></span>
-			</h3>
-
-			
-				<div class="row" th:each="entry,status : ${productos}">
-					<div  style="padding-bottom: 10px; padding-left: 10px;">
-						<a>Nombre: </a><a th:text="${entry.nombre}"></a>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="col-sm-4" style="border-left: 10px;">
-								<span class="input-group-addon col-sm-6"  style="width: 150px; height: 100px;"><i class="glyphicon glyphicon-picture col-sm-6" aria-hidden="true" style="align-items: center"></i></span>
+			<div class="alert alert-success">
+				<h3>
+					Total de resultados de la busqueda: <span th:text="${cantidadProductos}"></span>
+				</h3>
+			</div>
+				<div class="row" th:each="entry,status : ${productos}" style="padding-top:10px;">
+				<div  style="padding-bottom: 10px; padding-left: 10px;">
+					<a>Nombre: </a><a th:text="${entry.nombre}"></a>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="col-sm-4" style="border-left: 10px;">
+							<span class="input-group-addon col-sm-6"  style="width: 150px; height: 100px;"><i class="glyphicon glyphicon-picture col-sm-6" aria-hidden="true" style="align-items: center"></i></span>
+						</div>
+						<div class="col-sm-4" style="max-height: 100px; max-width: 200px;">
+							<textarea rows="4" cols="20" readonly th:text="${entry.descripcion}">
+							</textarea>
+						</div>
+						<div class="col-sm-4">
+							<div style="padding-bottom: 10px;">
+								<a>Precio: $</a><a th:text="${entry.precio}"></a>
 							</div>
-							<div clas="col-sm-4" style="max-height: 100px;max-width: 200px;">>
-								<textarea rows="4" cols="20" readonly
-									th:text="${entry.descripcion}">
-								</textarea>
+							<div style="padding-bottom: 10px;">
+								<a>Cantidad: <input type=number	th:value="${entry.unidadesStock}" style="width: 45px;">
 							</div>
-							<div class="col-sm-4">
-								<div style="padding-bottom: 10px;">
-									<a>Precio: $</a><a th:text="${entry.precio}"></a>
-								</div>
-								<div style="padding-bottom: 10px;">
-									<a>Cantidad: </a><input type=number
-										th:value="${entry.unidadesStock}"></a>
-								</div>
-								<div class="btn-group">
-									<button type="button" class="btn-xs btn-primary">Añadir	al carrito</button>
-									<button type="button" class="btn-xs btn-primary">Pagar</button>
-								</div>
+							<div class="btn-group">
+								<button type="button" class="btn-xs btn-primary">Añadir al carrito</button>
+								<button type="button" class="btn-xs btn-primary">Pagar</button>
 							</div>
 						</div>
-					</div>
+					</div>	
 				</div>
+			</div>
 			<div th:if="${cantidadProductos>5}">
-					<div class="container">
-						<ul class="pagination">
-						<li th:if="${pagActual>0}"><a
-							href="@{/catalogoProductos/buscar/prev}" name="prev">Prev</a></li>
-						<li th:if="${totalPag>pagActual}"><a
-							th:href="@{/catalogoProductos/buscar/next}" name="next">Next</a></li>
-						</ul>
-					</div>
+				<div class="container">
+					<ul class="pagination">
+					<li th:if="${pagActual>0}"><a th:href="@{/catalogoProductos/buscar/prev}" name="prev">Prev</a></li>
+					<li th:if="${totalPag>pagActual}"><a th:href="@{/catalogoProductos/buscar/next}" name="next">Next</a></li>
+					</ul>
 				</div>
+			</div>
 		</div>
 	</div>
 </div>

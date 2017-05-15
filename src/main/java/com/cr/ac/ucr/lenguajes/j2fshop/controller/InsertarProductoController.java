@@ -12,15 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cr.ac.ucr.lenguajes.j2fshop.business.CategoriaService;
 import com.cr.ac.ucr.lenguajes.j2fshop.form.ProductoForm;
 
 
 @Controller
 public class InsertarProductoController {
 	
+	@Autowired
+	private CategoriaService categoriaService;
 
 	@RequestMapping("insertarProducto")
 	public String iniciar(ProductoForm productoForm, Model model) {
+		model.addAttribute("categorias", categoriaService.findAllCategories());
 		return "insertarProducto";
 	}
 
@@ -29,7 +33,7 @@ public class InsertarProductoController {
 		BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
-			
+			model.addAttribute("categorias", categoriaService.findAllCategories());
 			return "insertarProducto";
 		} else {
 			
