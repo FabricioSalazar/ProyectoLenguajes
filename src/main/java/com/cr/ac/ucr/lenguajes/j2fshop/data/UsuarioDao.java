@@ -39,7 +39,7 @@ public class UsuarioDao {
 	
 	public Usuario findUserByLogIn(String login) {
 		String sqlSelect="select u.idUsuario, u.nombre, u.apellido, u.login, u.password, u.enabled, du.direccion1,"
-				+ " du.dirreccion2, du.pais, du.ciudad, du.estado, du.codigoPostal, iu.telefono,iu.numeroTarjeta, "
+				+ " du.direccion2, du.pais, du.ciudad, du.estado, du.codigoPostal, iu.telefono,iu.numeroTarjeta, "
 				+ " iu.ccv, iu.saldo, r.idRole, r.role_Name"
 				+ " from Usuario u left join DireccionUsuario as du on u.idDireccionUsuario=du.idDireccion"
 				+ " left join InformacionUsuario iu on u.idInformacionUsuario= iu.idInformacionUsuario"
@@ -53,7 +53,7 @@ public class UsuarioDao {
 	
 	public List<Usuario> findAllUsers(){
 		String sqlSelect="select u.idUsuario, u.nombre, u.apellido, u.login, u.password, u.enabled, du.direccion1,"
-				+ " du.dirreccion2, du.pais, du.ciudad, du.estado, du.codigoPostal, iu.telefono,iu.numeroTarjeta, "
+				+ " du.direccion2, du.pais, du.ciudad, du.estado, du.codigoPostal, iu.telefono,iu.numeroTarjeta, "
 				+ " iu.ccv, iu.saldo, r.idRole, r.role_Name"
 				+ " from Usuario u left join DireccionUsuario as du on u.idDireccionUsuario=du.idDireccion"
 				+ " left join InformacionUsuario iu on u.idInformacionUsuario= iu.idInformacionUsuario"
@@ -83,7 +83,7 @@ public class UsuarioDao {
 					usuario.setPassword(rs.getString("password"));
 					usuario.setEnabled(rs.getBoolean("enabled"));
 					usuario.setDireccion1(rs.getString("direccion1"));
-					usuario.setDireccion2(rs.getString("dirreccion2"));
+					usuario.setDireccion2(rs.getString("direccion2"));
 					usuario.setPais(rs.getString("pais"));
 					usuario.setCiudad(rs.getString("ciudad"));
 					usuario.setEstado(rs.getString("estado"));
