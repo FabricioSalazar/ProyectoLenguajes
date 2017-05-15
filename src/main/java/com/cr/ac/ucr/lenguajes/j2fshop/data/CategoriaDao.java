@@ -39,7 +39,7 @@ public class CategoriaDao {
 				+ " from categoria c ";
 		
 		List<Categoria> categorias= jdbcTemplate.query(sqlSelect, new CategoriaExtractor());
-		
+		//System.out.println(categorias.size());
 		return categorias;
 	}
 	
@@ -90,14 +90,15 @@ public class CategoriaDao {
 			Categoria categoria = null;
 			while (rs.next()) {
 				Integer idCategoria = rs.getInt("idCategoria");
+				System.out.println(idCategoria);
 				categoria = map.get(idCategoria);
 				if (categoria == null) {
 					categoria = new Categoria();
 					categoria.setIdCategoria(idCategoria);
 					categoria.setNombreCategoria(rs.getString("nombreCategoria"));
-					categoria.setImagenCategoria(categoriaDao.obtenerImagen(rs.getBlob("imagenCategoria")));
+					//categoria.setImagenCategoria(categoriaDao.obtenerImagen(rs.getBlob("imagenCategoria")));
 				} // if
-
+				categoria.toString();
 			} // while
 			return new ArrayList<Categoria>(map.values());
 

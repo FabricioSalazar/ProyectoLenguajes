@@ -133,10 +133,10 @@ input, input::-webkit-input-placeholder {
 								<span class="input-group-addon"><i class="glyphicon glyphicon-glass" aria-hidden="true"></i></span> 
 								<select th:field="*{categoria}" class="form-control" name="inputCategoria" >
 
-									<option th:each="categoria: ${categorias}" th:value="${categoria.idCategoria}" 
-										th:text="${categoria.nombreCategoria}">
+									
+									<option th:each="categorias: ${categorias}" th:value="${categorias.idCategoria}"
+										th:text="${categorias.nombreCategorias}">
 									</option>
-			
 								</select>
 							</div>
 							<div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"  class="alert alert-danger">ERROR</div>
