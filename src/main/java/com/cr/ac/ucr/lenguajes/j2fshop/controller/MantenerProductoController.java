@@ -133,7 +133,6 @@ public class MantenerProductoController {
 		try {
 			productoService.eliminarProducto(producto.getIdProducto());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			model.addAttribute("mensaje", "Ocurrio un error a la hora de borrar");
 			return "error";
 		}
@@ -152,7 +151,7 @@ public class MantenerProductoController {
 	
 	@RequestMapping(value="/mantenerProductos/buscar", method= RequestMethod.POST)
 	public String buscar(@RequestParam Map<String, String> requestParams, Model model){
-		String criterioBusqueda = requestParams.get("criterio de busqueda");
+		String criterioBusqueda = requestParams.get("criterioBusqueda");
 		
 		
 		productos = productoService.findProducts(criterioBusqueda);

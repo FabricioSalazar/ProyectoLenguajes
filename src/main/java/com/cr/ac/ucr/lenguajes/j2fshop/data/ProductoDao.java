@@ -112,7 +112,7 @@ public class ProductoDao {
 				.addValue("_descripcion",productoForm.getDescripcion())
 				.addValue("_precio",productoForm.getPrecio())
 				.addValue("_unidadesStock", productoForm.getUnidadesStock())
-				.addValue("porcentajeImpuesto", productoForm.getPorcentajeImpuesto())
+				.addValue("_porcentajeImpuesto", productoForm.getPorcentajeImpuesto())
 				.addValue("_imagen", productoForm.getImagen())
 				.addValue("_idCategoria", productoForm.getIdCategoria());
 		
