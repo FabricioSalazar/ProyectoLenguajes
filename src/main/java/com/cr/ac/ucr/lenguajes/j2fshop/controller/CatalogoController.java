@@ -20,7 +20,7 @@ import com.cr.ac.ucr.lenguajes.j2fshop.business.ProductoService;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Producto;
 
 @Controller
-public class ProductoController {
+public class CatalogoController {
 
 	@Autowired
 	private ProductoService productoService;
