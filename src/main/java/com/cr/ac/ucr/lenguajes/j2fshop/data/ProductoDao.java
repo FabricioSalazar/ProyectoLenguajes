@@ -46,7 +46,7 @@ public class ProductoDao {
 	public void setDataSource(DataSource datasource){
 		this.datasource= datasource;
 		this.jdbcTemplate= new JdbcTemplate(datasource);
-		this.simpleJdbcCallEditarProducto = new SimpleJdbcCall(datasource).withProcedureName("modificarProducto");
+		this.simpleJdbcCallEditarProducto = new SimpleJdbcCall(datasource).withProcedureName("modificarproducto");
 		this.simpleJdbcCallEliminarProducto = new SimpleJdbcCall(datasource).withProcedureName("eliminarProducto");
 		this.simpleJdbcCallInsertarProducto = new SimpleJdbcCall(datasource).withProcedureName("insertarProducto");
 	}
@@ -105,6 +105,7 @@ public class ProductoDao {
 		return productos.isEmpty()?null:productos.get(0);
 	}
 	
+	@Transactional
 	public void editarProducto(ProductoForm productoForm) throws SQLException{
 		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
 				.addValue("_idProducto", productoForm.getIdProducto())
