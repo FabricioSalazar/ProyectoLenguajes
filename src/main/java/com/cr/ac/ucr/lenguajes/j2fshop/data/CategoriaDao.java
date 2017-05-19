@@ -22,6 +22,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Categoria;
 
+
 @Repository
 public class CategoriaDao {
 
@@ -35,11 +36,16 @@ public class CategoriaDao {
 	}
 	
 	public List<Categoria> findAllCategories(){
-		String sqlSelect="select c.idCategoria, c.nombreCategoria, c.imagenCategoria"
-				+ " from categoria c ";
 		
-		List<Categoria> categorias= jdbcTemplate.query(sqlSelect, new CategoriaExtractor());
-		//System.out.println(categorias.size());
+		List<Categoria> categorias= new ArrayList<>();
+		
+		String sqlSelect="select c.idCategoria, c.nombreCategoria, c.imagenCategoria"
+				+ " from categoria c ;";
+		
+		jdbcTemplate.query(sqlSelect, new Object []{}, (rs, row)-> new Categoria(rs.getInt("idCategoria"),
+				rs.getString("nombreCategoria")))
+				.forEach(entry -> categorias.add(entry));
+
 		return categorias;
 	}
 	
@@ -90,7 +96,6 @@ public class CategoriaDao {
 			Categoria categoria = null;
 			while (rs.next()) {
 				Integer idCategoria = rs.getInt("idCategoria");
-				System.out.println(idCategoria);
 				categoria = map.get(idCategoria);
 				if (categoria == null) {
 					categoria = new Categoria();

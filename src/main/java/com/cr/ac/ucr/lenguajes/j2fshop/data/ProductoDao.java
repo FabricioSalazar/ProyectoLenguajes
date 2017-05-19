@@ -20,12 +20,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Categoria;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Producto;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Role;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Usuario;
+import com.cr.ac.ucr.lenguajes.j2fshop.form.ProductoForm;
 import com.mysql.jdbc.Blob;
 
 @Repository
@@ -78,6 +81,24 @@ public class ProductoDao {
 		List<Producto> productos = jdbcTemplate.query(sqlSelect, new ProductoExtractor());
 
 		return productos;
+	}
+	
+	public Producto findProductByCode(int idProducto){
+		
+		String sqlSelect = "select p.idProducto,p.nombre, p.descripcion, p.precio, p.unidadesStock, p.impuesto, p.porcentajeImpuesto,"
+				+ " ip.imagen, c.idCategoria, c.nombreCategoria, c.imagenCategoria"
+				+ " from Producto p left join imagenproducto ip on p.idImagenProducto=ip.idImagenProducto"
+				+ " left join categoria_producto cp on p.idProducto=cp.idProducto "
+				+ " left join categoria c on cp.idCategoria= c.idCategoria" 
+				+ " where p.idProducto = "+idProducto+";";
+
+		List<Producto> productos = jdbcTemplate.query(sqlSelect, new ProductoExtractor());
+		
+		return productos.isEmpty()?null:productos.get(0);
+	}
+	
+	public void editarProducto(ProductoForm productoForm) throws SQLException{
+
 	}
 	
 	public void saveImageProduct(File image){
@@ -142,17 +163,12 @@ public class ProductoDao {
 					producto.setImpuesto(rs.getBoolean("impuesto"));
 					producto.setPorcentajeImpuesto(rs.getFloat("porcentajeImpuesto"));
 					//producto.setImagen(productoDao.obtenerImagen(rs.getBlob("imagen")));
+					producto.getCategoria().setIdCategoria(rs.getInt("idCategoria"));
+					producto.getCategoria().setNombreCategoria(rs.getString("nombreCategoria"));
+					//producto.getCategoria().setImagenCategoria(productoDao.obtenerImagen(rs.getBlob("imagenCategoria")));
 					
 					map.put(idProducto, producto);
-				} // if
-				int idCategoria = rs.getInt("idCategoria");
-				if (idCategoria > 0) {
-					Categoria categoria= new Categoria();
-					categoria.setIdCategoria(idCategoria);
-					categoria.setNombreCategoria(rs.getString("nombreCategoria"));
-					//categoria.setImagenCategoria(productoDao.obtenerImagen(rs.getBlob("imagenCategoria")));
-					producto.getCategorias().add(categoria);
-				} // if
+				}
 			} // while
 			return new ArrayList<Producto>(map.values());
 

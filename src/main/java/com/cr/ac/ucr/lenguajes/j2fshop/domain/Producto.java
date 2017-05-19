@@ -15,10 +15,10 @@ public class Producto {
 	private boolean impuesto;
 	private float porcentajeImpuesto;
 	private ImageIcon imagen;
-	private LinkedList<Categoria> categorias;
+	private Categoria categoria;
 	
 	public Producto() {
-		this.categorias= new LinkedList<>();
+		this.categoria= new Categoria();
 	}
 
 	public int getIdProducto() {
@@ -85,12 +85,12 @@ public class Producto {
 		this.imagen = imagen;
 	}
 
-	public LinkedList<Categoria> getCategorias() {
-		return categorias;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setCategorias(LinkedList<Categoria> categorias) {
-		this.categorias = categorias;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 	
 	

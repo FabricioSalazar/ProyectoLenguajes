@@ -17,7 +17,13 @@
 
 <style>
 
-
+/*
+/* Created by Filipe Pina
+ * Specific styles of signin, register, component
+ */
+/*
+ * General styles
+ */
 body, html {
 	height: 100%;
 	background-repeat: no-repeat;
@@ -131,15 +137,13 @@ input, input::-webkit-input-placeholder {
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-glass" aria-hidden="true"></i></span> 
-								<select th:field="*{categoria}" class="form-control" name="inputCategoria" >
-
-									
-									<option th:each="categorias: ${categorias}" th:value="${categorias.idCategoria}"
-										th:text="${categorias.nombreCategorias}">
+								<select th:field="*{idCategoria}" class="form-control">
+									<option th:each="categoria: ${categorias}" th:value="${categoria.idCategoria}"
+										th:text="${categoria.nombreCategoria}">
 									</option>
 								</select>
 							</div>
-							<div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"  class="alert alert-danger">ERROR</div>
+							<div th:if="${#fields.hasErrors('idCategoria')}" th:errors="*{idCategoria}"  class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
@@ -156,13 +160,7 @@ input, input::-webkit-input-placeholder {
 
 					<div class="form-group">
 						<label for="confirm" class="cols-sm-2 control-label">Descripcion</label>
-						<div class="cols-sm-10">
-							<div class="input-group">
-								<textarea style="resize:none; " class="form-control"  maxlength="255"
-                					th:field="*{descripcion}" rows="3" cols="50" name="inputDescripcion" ></textarea>
-							</div>
-							<div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"  class="alert alert-danger">ERROR</div>
-						</div>
+						
 					</div>
 
           			<div class="form-group">

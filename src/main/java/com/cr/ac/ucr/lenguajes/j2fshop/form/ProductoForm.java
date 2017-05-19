@@ -23,7 +23,7 @@ public class ProductoForm {
 	@NotNull
 	private File imagen;
 	@NotNull
-	private String categoria;
+	private int idCategoria;
 	
 	public ProductoForm() {
 		
@@ -93,19 +93,19 @@ public class ProductoForm {
 		this.imagen = imagen;
 	}
 
-	public String getCategoria() {
-		return categoria;
+	public int getIdCategoria() {
+		return idCategoria;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setIDcategoria(int idCategoria) {
+		this.idCategoria = idCategoria;
 	}
 
 	@Override
 	public String toString() {
 		return "ProductoForm [idProducto=" + idProducto + ", nombre=" + nombre + ", descripcion=" + descripcion
 				+ ", precio=" + precio + ", unidadesStock=" + unidadesStock + ", impuesto=" + impuesto
-				+ ", porcentajeImpuesto=" + porcentajeImpuesto + ", imagen=" + imagen.getPath()+ " "+imagen.getTotalSpace()+" "+imagen.length() + ", categoria=" + categoria
+				+ ", porcentajeImpuesto=" + porcentajeImpuesto + ", imagen=" + imagen.getPath()+ " "+imagen.getTotalSpace()+" "+imagen.length() + ", categoria=" + idCategoria
 				+ "]";
 	}
 	
