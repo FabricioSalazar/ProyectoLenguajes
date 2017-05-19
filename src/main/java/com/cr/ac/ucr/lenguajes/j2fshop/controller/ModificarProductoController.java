@@ -16,15 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cr.ac.ucr.lenguajes.j2fshop.business.CategoriaService;
 import com.cr.ac.ucr.lenguajes.j2fshop.business.ProductoService;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Producto;
 import com.cr.ac.ucr.lenguajes.j2fshop.form.ProductoForm;
 
 @Controller
-public class ModificarProducto {
+public class ModificarProductoController {
 
 	@Autowired
 	private ProductoService productoService;
+	
+	@Autowired
+	private CategoriaService categoriaService;
 	
 	private Producto productoModificar;
 	
@@ -47,9 +51,11 @@ public class ModificarProducto {
 		productoForm.setPorcentajeImpuesto(productoModificar.getPorcentajeImpuesto());
 		//productoForm.setImagen(productoModificar.getImagen());
 		productoForm.setIDcategoria(productoModificar.getCategoria().getIdCategoria());
+		
 		model.addAttribute("productoForm", productoForm);
-
-		return "/modificarProducto";
+		model.addAttribute("categorias", categoriaService.findAllCategories());
+		
+		return "modificarProducto";
 	}
 	
 	@RequestMapping(value="/modificarProducto/salvar", method=RequestMethod.POST)
@@ -58,7 +64,8 @@ public class ModificarProducto {
 		boolean insertado;
 		
 		if(bindingResult.hasErrors()){
-			model.addAttribute("productoModificar", productoModificar);
+			//model.addAttribute("productoModificar", productoModificar);
+			model.addAttribute("categorias", categoriaService.findAllCategories());
 			model.addAttribute("productoForm", productoForm);
 			return "editarAutor";
 		}else{
