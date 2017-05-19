@@ -29,12 +29,16 @@ public class UsuarioDao {
 
 	private JdbcTemplate jdbcTemplate;
 	private SimpleJdbcCall simpleJdbcCallSaveUsers;
+	private SimpleJdbcCall simpleJdbcCallEraseUsers; //Borra virtualmente el usuario (set enabled=0)
+	private SimpleJdbcCall simpleJdbcCallModifyUsers;
 	private float saldoDefault=500000;
 	
 	@Autowired
 	public void setDataSource(DataSource datasource){
 		this.jdbcTemplate= new JdbcTemplate(datasource);
 		this.simpleJdbcCallSaveUsers = new SimpleJdbcCall(datasource).withProcedureName("InsertarUsuario");
+		this.simpleJdbcCallEraseUsers = new SimpleJdbcCall(datasource).withProcedureName("EliminarUsuario");
+		this.simpleJdbcCallModifyUsers = new SimpleJdbcCall(datasource).withProcedureName("ModificarUsuario");
 	}
 	
 	public Usuario findUserByLogIn(String login) {
@@ -130,6 +134,30 @@ public class UsuarioDao {
 		
 		simpleJdbcCallSaveUsers.execute(parameterSource);
 	}
-
 	
+	@Transactional
+	public void erase(String login) {
+		SqlParameterSource parameterSource = new MapSqlParameterSource()
+				.addValue("_login", login);
+		simpleJdbcCallEraseUsers.execute(parameterSource);
+	}
+	
+	@Transactional
+	public void modify(Usuario user) {
+		SqlParameterSource parameterSource = new MapSqlParameterSource()
+				.addValue("_idUsuario", user.getIdUsuario())
+				.addValue("_login",user.getLogin())
+				.addValue("_password", user.getPassword())
+				.addValue("_direccion1", user.getDireccion1())
+				.addValue("_direccion2", user.getDireccion2())
+				.addValue("_pais", user.getPais())
+				.addValue("_ciudad", user.getCiudad())
+				.addValue("_estado", user.getEstado())
+				.addValue("_codigoPostal", user.getCodigoPostal())
+				.addValue("_telefono", user.getTelefono())
+				.addValue("_numeroTarjeta", user.getNumeroTarjeta())
+				.addValue("_ccv", user.getCcv());
+		
+		simpleJdbcCallModifyUsers.execute(parameterSource);
+	}
 }

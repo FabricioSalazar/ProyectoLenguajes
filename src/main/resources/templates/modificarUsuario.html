@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Modificar Usuario</title>
+
+<!-- Foundation -->
+<link rel="stylesheet" th:href="@{/css/app.css}">
+<link rel="stylesheet" th:href="@{/css/foundation.css}">
+<link rel="stylesheet"
+	th:href="@{/foundation-icons/foundation-icons.css}">
+
+</head>
+<body>
+<body style="background: #92b6c8;">
+	<!-- Blank space -->
+	<div class="row">
+		<div class="small-12 columns">
+			<p></p>
+		</div>
+	</div>
+
+	<div class="row">
+		<!-- Blank spacing -->
+		<div class="small-2 columns">
+			<p></p>
+		</div>
+		<!-- Form row -->
+		<div class="small-8 columns callout primary">
+
+			<form method="POST" th:action="@{/modificarUsuario}"
+				th:object="${usuarioForm}">
+				<!-- Title -->
+				<div class="row">
+					<div class="small-12 columns text-center">
+						<h2>
+							<i class="fi-key" style="padding-right: 10px; text-size: 24;"></i>
+							<span>Create your account</span>
+						</h2>
+					</div>
+				</div>
+				<!-- Login field -->
+				<div class="row">
+					<div class="small-12 columns">
+						<input type="email" th:field="*{login}" autofocus="true" />
+					</div>
+				</div>
+
+				<div class="row" th:if="${#fields.hasErrors('login')}">
+					<div class="small-12 columns callout alert">
+						<span>ERROR LOGIN INVALIDO</span>
+					</div>
+				</div>
+				<div class="row" th:if="${errLogin}">
+					<div class="small-8 columns callout alert">
+						<span>El login ya esta asociado a una cuenta</span>
+					</div>
+				</div> 
+				<!-- Password field -->
+				<div class="row">
+					<div class="small-12 columns">
+						<input type="password" th:field="*{password}"
+							placeholder="Password" />
+					</div>
+				</div>
+				<div class="row" th:if="${#fields.hasErrors('password')}">
+					<div class="small-12 columns callout alert">
+						<span>ERROR</span>
+					</div>
+				</div>
+				<!-- Name field -->
+				<div class="row">
+					<div class="small-12 columns">
+						<input type="text" th:field="*{nombre}" th:readonly="readonly" />
+					</div>
+				</div>
+				<!-- Last Name field -->
+				<div class="row">
+					<div class="small-12 columns">
+						<input type="text" th:field="*{apellidos}" th:readonly="readonly" />
+					</div>
+				</div>
+				<!-- Address 1 -->
+				<div class="row">
+					<div class="small-12 columns">
+						<textarea th:field="*{direccion1}" rows="4" cols="50"
+							placeholder="Dirección 1">
+		          		</textarea>
+					</div>
+				</div>
+				<div class="row" th:if="${#fields.hasErrors('direccion1')}">
+					<div class="small-12 columns callout alert">
+						<span>ERROR</span>
+					</div>
+				</div>
+				<!-- Address 2 -->
+				<div class="row">
+					<div class="small-12 columns">
+						<textarea th:field="*{direccion2}" rows="4" cols="50"
+							placeholder="Dirección 2"></textarea>
+					</div>
+				</div>
+				<div class="row" th:if="${#fields.hasErrors('direccion2')}">
+					<div class="small-12 columns callout alert">
+						<span>ERROR</span>
+					</div>
+				</div>
+				<!-- Country, City, State, Postal code -->
+				<div class="row">
+					<div class="small-12 columns">
+						<div class="input-group">
+
+							<input class="input-group-field" type="text" th:field="*{pais}"
+								placeholder="País" />
+							<input class="input-group-field"
+								type="text" th:field="*{ciudad}" placeholder="Ciudad" />
+							<input
+								class="input-group-field" type="text" th:field="*{estado}"
+								placeholder="Estado" />
+							<input class="input-group-field"
+								type="text" th:field="*{codigoPostal}"
+								placeholder="Código Postal" />
+
+						</div>
+						<div class="row" th:if="${#fields.hasErrors('pais')}">
+							<div class="small-12 columns callout alert">
+								<span>ERROR EN PAIS</span>
+							</div>
+						</div>
+						<div class="row" th:if="${#fields.hasErrors('ciudad')}">
+							<div class="small-12 columns callout alert">
+								<span>ERROR EN CIUDAD</span>
+							</div>
+						</div>
+						<div class="row" th:if="${#fields.hasErrors('estado')}">
+							<div class="small-12 columns callout alert">
+								<span>ERROR EN ESTADO</span>
+							</div>
+						</div>
+						<div class="row" th:if="${#fields.hasErrors('codigoPostal')}">
+							<div class="small-12 columns callout alert">
+								<span>ERROR EN CODIGO POSTAL</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Phone -->
+				<div class="row">
+					<div class="small-12 columns">
+						<input type="text" th:field="*{telefono}" placeholder="Teléfono" />
+					</div>
+				</div>
+				<div class="row" th:if="${#fields.hasErrors('telefono')}">
+					<div class="small-12 columns callout alert">
+						<span>ERROR</span>
+					</div>
+				</div>
+				<!-- Card number, CCV -->
+				<div class="row">
+					<div class="small-12 columns">
+						<div class="input-group">
+							<input class="input-field" type="text"
+								th:field="*{numeroTarjeta}" placeholder="Número de Tarjeta" /> <input
+								type="text" class="input-field" th:field="*{ccv}"
+								placeholder="CCV" />
+						</div>
+					</div>
+				</div>
+				<div class="row" th:if="${#fields.hasErrors('ccv')}">
+					<div class="small-12 columns callout alert">
+						<span>ERROR CCV</span>
+					</div>
+				</div>
+				<div class="row" th:if="${#fields.hasErrors('numeroTarjeta')}">
+					<div class="small-12 columns callout alert">
+						<span>ERROR TARJETA</span>
+					</div>
+				</div>
+				<!-- Account balance TODO -->
+
+				<input type="submit" class="button secondary" value="Update" />
+			</form>
+
+
+		</div>
+		<!-- Blank spacing -->
+		<div class="small-2 columns">
+			<p></p>
+		</div>
+	</div>
+</body>
+</html>

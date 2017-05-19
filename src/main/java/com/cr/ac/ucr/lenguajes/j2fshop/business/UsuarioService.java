@@ -22,6 +22,15 @@ public class UsuarioService {
         usuarioDao.save(user);
     }
 	
+	public void erase(String login) {
+		usuarioDao.erase(login);
+	}
+	
+	public void modify(Usuario user) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		usuarioDao.modify(user);
+	}
+	
 	public Usuario findUserByLogIn(String login) {
 		return usuarioDao.findUserByLogIn(login);
 	}

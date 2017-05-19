@@ -19,6 +19,8 @@ public class UserValidator implements Validator {
 		return Usuario.class.equals(arg0);
 	}
 
+	
+	//TODO Validar el resto de campos!!!! 
 	@Override
 	public void validate(Object o, Errors errors) {
 		Usuario user = (Usuario) o;
