@@ -34,6 +34,15 @@ public class ProductoService {
 	}
 	
 	public void editarProducto(ProductoForm productoForm) throws SQLException{
-		
+		productoDao.editarProducto(productoForm);
 	}
+	
+	public void insertarProducto(ProductoForm productoForm) throws SQLException{
+		productoDao.insertarProducto(productoForm);
+	}
+	
+	public void eliminarProducto(int idProducto) throws SQLException{
+		productoDao.eliminarProducto(idProducto);
+	}
+	
 }

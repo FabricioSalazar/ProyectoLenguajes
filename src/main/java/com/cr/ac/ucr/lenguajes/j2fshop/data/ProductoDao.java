@@ -22,7 +22,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Categoria;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Producto;
@@ -36,11 +38,17 @@ public class ProductoDao {
 
 	private DataSource datasource;
 	private JdbcTemplate jdbcTemplate;
+	private SimpleJdbcCall simpleJdbcCallEditarProducto;
+	private SimpleJdbcCall simpleJdbcCallInsertarProducto;
+	private SimpleJdbcCall simpleJdbcCallEliminarProducto;
 	
 	@Autowired
 	public void setDataSource(DataSource datasource){
 		this.datasource= datasource;
 		this.jdbcTemplate= new JdbcTemplate(datasource);
+		this.simpleJdbcCallEditarProducto = new SimpleJdbcCall(datasource).withProcedureName("modificarproducto");
+		this.simpleJdbcCallEliminarProducto = new SimpleJdbcCall(datasource).withProcedureName("eliminarProducto");
+		this.simpleJdbcCallInsertarProducto = new SimpleJdbcCall(datasource).withProcedureName("insertarProducto");
 	}
 	
 	public List<Producto> findAllProducts(){
@@ -62,7 +70,7 @@ public class ProductoDao {
 				+ " from Producto p left join imagenproducto ip on p.idImagenProducto=ip.idImagenProducto"
 				+ " left join categoria_producto cp on p.idProducto=cp.idProducto "
 				+ " left join categoria c on cp.idCategoria= c.idCategoria" 
-				+ " where p.nombre like '%"+criterioBusqueda + "%' or p.descripcion like '%" + criterioBusqueda + "%';";
+				+ " where p.nombre like '%"+criterioBusqueda + "%' or p.descripcion like '%" + criterioBusqueda + "%' or c.nombreCategoria like '%"+criterioBusqueda+"%';";
 
 		List<Producto> productos = jdbcTemplate.query(sqlSelect, new ProductoExtractor());
 
@@ -97,8 +105,42 @@ public class ProductoDao {
 		return productos.isEmpty()?null:productos.get(0);
 	}
 	
+	@Transactional
 	public void editarProducto(ProductoForm productoForm) throws SQLException{
-
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
+				.addValue("_idProducto", productoForm.getIdProducto())
+				.addValue("_nombre", productoForm.getNombre())
+				.addValue("_descripcion",productoForm.getDescripcion())
+				.addValue("_precio",productoForm.getPrecio())
+				.addValue("_unidadesStock", productoForm.getUnidadesStock())
+				.addValue("_porcentajeImpuesto", productoForm.getPorcentajeImpuesto())
+				.addValue("_imagen", productoForm.getImagen())
+				.addValue("_idCategoria", productoForm.getIdCategoria());
+		
+		simpleJdbcCallEditarProducto.execute(sqlParameterSource);
+	}
+	
+	@Transactional
+	public void insertarProducto(ProductoForm productoForm) throws SQLException{
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
+				.addValue("_nombre", productoForm.getNombre())
+				.addValue("_descripcion",productoForm.getDescripcion())
+				.addValue("_precio",productoForm.getPrecio())
+				.addValue("_unidadesStock", productoForm.getUnidadesStock())
+				.addValue("impuesto", true)
+				.addValue("porcentajeImpuesto", productoForm.getPorcentajeImpuesto())
+				.addValue("_imagen", productoForm.getImagen())
+				.addValue("_idCategoria", productoForm.getIdCategoria());
+		
+		simpleJdbcCallInsertarProducto.execute(sqlParameterSource);
+	}
+	
+	@Transactional
+	public void eliminarProducto(int idProducto) throws SQLException{
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
+				.addValue("_idProducto", idProducto);
+		
+		simpleJdbcCallEliminarProducto.execute(sqlParameterSource);
 	}
 	
 	public void saveImageProduct(File image){
