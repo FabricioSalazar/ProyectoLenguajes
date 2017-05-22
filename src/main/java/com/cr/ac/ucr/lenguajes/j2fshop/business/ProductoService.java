@@ -1,5 +1,6 @@
 package com.cr.ac.ucr.lenguajes.j2fshop.business;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,6 +17,9 @@ public class ProductoService {
 	@Autowired
 	private ProductoDao productoDao;
 	
+	public void saveImageProduct(File imagen){
+		productoDao.saveImageProduct(imagen);	
+	}
 	
 	public List<Producto> findAllProducts(){
 		return productoDao.findAllProducts();
@@ -44,5 +48,6 @@ public class ProductoService {
 	public void eliminarProducto(int idProducto) throws SQLException{
 		productoDao.eliminarProducto(idProducto);
 	}
+	
 	
 }

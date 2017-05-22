@@ -31,7 +31,7 @@
 			</div>
 				<div class="row" th:each="entry,status : ${productos}" style="padding-top:10px;">
 				<div  style="padding-bottom: 10px; padding-left: 10px;">
-					<a>Nombre: </a><a th:text="${entry.nombre}"></a>
+					<span th:text="${entry.nombre}"></span>
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
@@ -44,10 +44,10 @@
 						</div>
 						<div class="col-sm-4">
 							<div style="padding-bottom: 10px;">
-								<a>Precio: $</a><a th:text="${entry.precio}"></a>
+								<span>Precio: $</span><span th:text="${entry.precio}"></span>
 							</div>
 							<div style="padding-bottom: 10px;">
-								<a>Cantidad: <input type=number	th:value="${entry.unidadesStock}" style="width: 45px;">
+								<span>Cantidad: <input type=number	th:value="${entry.unidadesStock}" style="width: 45px;"></span>
 							</div>
 							<div class="btn-group">
 								<button type="button" class="btn-xs btn-primary">Añadir al carrito</button>

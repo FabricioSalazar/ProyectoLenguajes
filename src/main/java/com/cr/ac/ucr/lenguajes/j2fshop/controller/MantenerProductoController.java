@@ -41,7 +41,7 @@ public class MantenerProductoController {
 	}
 
 	@RequestMapping(value = "/insertarProducto/salvar", method = RequestMethod.POST)
-	public String saveInsertarProducto(@RequestParam Map<String, String> requestParams, @Valid ProductoForm producto,
+	public String saveInsertarProducto(@RequestParam Map<String, String> requestParams, @Valid ProductoForm productoForm,
 		BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
@@ -49,12 +49,12 @@ public class MantenerProductoController {
 			return "insertarProducto";
 		} else {
 			
-			System.out.println(producto.toString());
-			
-			//ProductoDao dao = new ProductoDao();
-		//	dao.saveImageProduct(producto.getImagen());
-			
-			
+			try {
+				//productoService.saveImageProduct(productoForm.getImagen());
+				productoService.insertarProducto(productoForm);
+			} catch (SQLException e) {
+				 return "error";
+			}
 			return "success";
 		}
 
@@ -99,6 +99,7 @@ public class MantenerProductoController {
 			return "editarAutor";
 		}else{
 			try {
+				System.out.println(productoForm.toString());
 				productoService.editarProducto(productoForm);
 				insertado=true;
 			} catch (SQLException e) {
@@ -138,7 +139,7 @@ public class MantenerProductoController {
 		}
 		
 		model.addAttribute("mensaje", "El producto fue borrado con exito");
-		return "succes";
+		return "success";
 	}
 	
 	//obtener productos
