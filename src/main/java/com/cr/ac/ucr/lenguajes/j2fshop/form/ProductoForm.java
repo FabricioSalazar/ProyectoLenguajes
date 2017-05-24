@@ -97,7 +97,7 @@ public class ProductoForm {
 		return idCategoria;
 	}
 
-	public void setIDcategoria(int idCategoria) {
+	public void setIdCategoria(int idCategoria) {
 		this.idCategoria = idCategoria;
 	}
 

@@ -32,8 +32,9 @@ public class MantenerProductoController {
 	
 	private Producto producto;
 	private List<Producto> productos;
-	//insertar un producto
 	
+	
+	//insertar un producto	
 	@RequestMapping("insertarProducto")
 	public String iniciarInsertarProducto(ProductoForm productoForm, Model model) {
 		model.addAttribute("categorias", categoriaService.findAllCategories());
@@ -55,6 +56,7 @@ public class MantenerProductoController {
 			} catch (SQLException e) {
 				 return "error";
 			}
+			model.addAttribute("msg", "Producto insertado con exito");
 			return "success";
 		}
 
@@ -80,7 +82,7 @@ public class MantenerProductoController {
 		productoForm.setImpuesto(producto.isImpuesto());
 		productoForm.setPorcentajeImpuesto(producto.getPorcentajeImpuesto());
 		//productoForm.setImagen(producto.getImagen());
-		productoForm.setIDcategoria(producto.getCategoria().getIdCategoria());
+		productoForm.setIdCategoria(producto.getCategoria().getIdCategoria());
 		
 		model.addAttribute("productoForm", productoForm);
 		model.addAttribute("categorias", categoriaService.findAllCategories());
@@ -108,10 +110,9 @@ public class MantenerProductoController {
 		}
 		
 		if(insertado){
-			model.addAttribute("mensaje", "El producto fue modificado con exito");
+			model.addAttribute("msg", "Producto modificado con exito");
 			return "success";
 		}else{
-			model.addAttribute("mensaje", "No se puedo modificar el autor");
 			return "error";
 		}
 	}
@@ -134,11 +135,10 @@ public class MantenerProductoController {
 		try {
 			productoService.eliminarProducto(producto.getIdProducto());
 		} catch (SQLException e) {
-			model.addAttribute("mensaje", "Ocurrio un error a la hora de borrar");
 			return "error";
 		}
 		
-		model.addAttribute("mensaje", "El producto fue borrado con exito");
+		model.addAttribute("msg", "Producto eliminado con exito");
 		return "success";
 	}
 	

@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
+
 
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Categoria;
 
@@ -26,13 +28,20 @@ import com.cr.ac.ucr.lenguajes.j2fshop.domain.Categoria;
 @Repository
 public class CategoriaDao {
 
-	private DataSource datasource;
+	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
+	private SimpleJdbcCall simpleJdbcCallEditarCategoria;
+	private SimpleJdbcCall simpleJdbcCallInsertarCategoria;
+	private SimpleJdbcCall simpleJdbcCallEliminarCategoria;
 	
 	@Autowired
-	public void setDataSource(DataSource datasource){
-		this.datasource= datasource;
-		this.jdbcTemplate= new JdbcTemplate(datasource);
+	public void setDataSource(DataSource dataSource){
+		this.dataSource= dataSource;
+		this.jdbcTemplate= new JdbcTemplate(dataSource);
+		simpleJdbcCallEditarCategoria = new SimpleJdbcCall(dataSource).withProcedureName("modificarCategoria");
+		simpleJdbcCallEliminarCategoria = new SimpleJdbcCall(dataSource).withProcedureName("eliminarCategoria");
+		simpleJdbcCallInsertarCategoria = new SimpleJdbcCall(dataSource).withProcedureName("insertarCategoria");
+		
 	}
 	
 	public List<Categoria> findAllCategories(){
@@ -48,6 +57,39 @@ public class CategoriaDao {
 
 		return categorias;
 	}
+	
+	
+	public List<Categoria> findCategoriaByNombre(String nombre){
+		List<Categoria> categorias= new ArrayList<>();
+		
+		String sqlSelect="select c.idCategoria, c.nombreCategoria, c.imagenCategoria"
+				+ " from categoria c "
+				+ " where nombreCategoria like '%"+nombre+"%';";
+		
+		jdbcTemplate.query(sqlSelect, new Object []{}, (rs, row)-> new Categoria(rs.getInt("idCategoria"),
+				rs.getString("nombreCategoria")))
+				.forEach(entry -> categorias.add(entry));
+
+		return categorias;
+	}
+	
+	public Categoria findCategoriaByCode(int idCategoria){
+		
+		List<Categoria> categorias= new ArrayList<>();
+
+		String sqlSelect="select c.idCategoria, c.nombreCategoria, c.imagenCategoria"
+				+ " from categoria c "
+				+ " where idCategoria"+idCategoria+";";
+		
+		jdbcTemplate.query(sqlSelect, new Object []{}, (rs, row)-> new Categoria(rs.getInt("idCategoria"),
+				rs.getString("nombreCategoria")))
+				.forEach(entry -> categorias.add(entry));
+
+		return categorias.isEmpty()?null:categorias.get(0);
+	}
+	
+	
+	
 	
 	public void saveImageCategory(String ruta, int idCategoria){
 		byte[] a= new byte[100000];
