@@ -18,11 +18,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Categoria;
+import com.cr.ac.ucr.lenguajes.j2fshop.form.CategoriaForm;
+import com.cr.ac.ucr.lenguajes.j2fshop.form.ProductoForm;
 
 
 @Repository
@@ -88,6 +92,29 @@ public class CategoriaDao {
 		return categorias.isEmpty()?null:categorias.get(0);
 	}
 	
+	public void insertarCategoria(CategoriaForm categoriaForm) throws SQLException{
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
+				.addValue("_nombre", categoriaForm.getNombre())
+				.addValue("_imagen", categoriaForm.getImagen());
+		
+		simpleJdbcCallInsertarCategoria.execute(sqlParameterSource);
+	}
+	
+	public void modificarCategoria(CategoriaForm categoriaForm) throws SQLException{
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
+				.addValue("_idCategoria", categoriaForm.getIdCategoria())
+				.addValue("_nombre", categoriaForm.getNombre())
+				.addValue("_imagen", categoriaForm.getImagen());
+		
+		simpleJdbcCallEditarCategoria.execute(sqlParameterSource);
+	}
+	
+	public void eliminarCategoria(int idCategoria) throws SQLException{
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
+				.addValue("_idCategoria ", idCategoria);
+		
+		simpleJdbcCallEliminarCategoria.execute(sqlParameterSource);
+	}
 	
 	
 	

@@ -1,27 +1,20 @@
 package com.cr.ac.ucr.lenguajes.j2fshop.domain;
 
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
+import java.io.File;
 
 public class Categoria {
 
 	private int idCategoria;
 	private String nombreCategoria;
-	private ImageIcon imagenCategoria;
+	private File imagenCategoria;
 	
 	public Categoria() {
 	}
-	
-	
 
 	public Categoria(int idCategoria, String nombreCategoria) {
-		super();
 		this.idCategoria = idCategoria;
 		this.nombreCategoria = nombreCategoria;
 	}
-
-
 
 	public int getIdCategoria() {
 		return idCategoria;
@@ -39,11 +32,11 @@ public class Categoria {
 		this.nombreCategoria = nombreCategoria;
 	}
 
-	public ImageIcon getImagenCategoria() {
+	public File getImagenCategoria() {
 		return imagenCategoria;
 	}
 
-	public void setImagenCategoria(ImageIcon imagenCategoria) {
+	public void setImagenCategoria(File imagenCategoria) {
 		this.imagenCategoria = imagenCategoria;
 	}
 	
