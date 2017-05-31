@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="all"
+	href="css/bootstrap-glyphicons.css"></link>
+<link rel="stylesheet" type="text/css" media="all" href="css/styles.css"></link>
+<title>Borrar Producto</title>
+<style>
+body, html {
+	height: 100%;
+	background-repeat: no-repeat;
+	background-color: #d3d3d3;
+	font-family: 'Oxygen', sans-serif;
+}
+
+</style>
+
+</head>
+<body>
+<div class="header-menu"></div>
+	<div class="container">
+		<div class="jumbotron">
+			<div th:if="${categoriaBorrar} == null">
+				<p class="small"><label th:text="'La categoria que desea eliminar no existe"></label></p>
+			</div>
+			<div th:if="${categoriaBorrar} != null">
+				<p class="small"><label th:text="'¿Esta seguro que desea eliminar la siguiente categoria?'"></label></p>
+				<br>
+				<p class="small"><label th:text="'Codigo de categoria: ' + ${categoriaBorrar.idCategoria}"></label></p>
+				<br>
+				<p class="small"><label th:text="'Nombre: ' + ${categoriaBorrar.nombreCategoria}"></label></p>
+			</div>
+			
+			<a th:href="@{/mantenerCategorias}" class="btn btn-success">Cancelar</a>
+			<a th:href="@{/borrarCategoria/accept}" class="btn btn-danger">Aceptar</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -83,7 +83,7 @@ public class CategoriaDao {
 
 		String sqlSelect="select c.idCategoria, c.nombreCategoria, c.imagenCategoria"
 				+ " from categoria c "
-				+ " where idCategoria"+idCategoria+";";
+				+ " where idCategoria="+idCategoria+";";
 		
 		jdbcTemplate.query(sqlSelect, new Object []{}, (rs, row)-> new Categoria(rs.getInt("idCategoria"),
 				rs.getString("nombreCategoria")))
@@ -111,12 +111,10 @@ public class CategoriaDao {
 	
 	public void eliminarCategoria(int idCategoria) throws SQLException{
 		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-				.addValue("_idCategoria ", idCategoria);
+				.addValue("_idCategoria", idCategoria);
 		
 		simpleJdbcCallEliminarCategoria.execute(sqlParameterSource);
 	}
-	
-	
 	
 	public void saveImageCategory(String ruta, int idCategoria){
 		byte[] a= new byte[100000];

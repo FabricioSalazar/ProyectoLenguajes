@@ -98,7 +98,7 @@ public class MantenerProductoController {
 		if(bindingResult.hasErrors()){
 			model.addAttribute("categorias", categoriaService.findAllCategories());
 			model.addAttribute("productoForm", productoForm);
-			return "editarAutor";
+			return "modificarProducto";
 		}else{
 			try {
 				System.out.println(productoForm.toString());
