@@ -55,5 +55,17 @@ body, html {
 			
 		</div>
 	</div>
+	<script th:inline="javascript">
+	var id=[[${categoriaBorrar.idCategoria}]]
+	
+	$(document).ready(function() {
+    $("#locales").change(function () {
+        var selectedOption = $('#locales').val();
+        if (selectedOption != ''){
+            window.location.replace('/borrarCategoria/'+id+'?lang=' + selectedOption);
+        }
+    });
+});
+</script>
 </body>
 </html>

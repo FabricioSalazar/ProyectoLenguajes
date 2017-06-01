@@ -49,5 +49,18 @@ body, html {
 			<a th:href="@{/borrarProducto/accept}" class="btn btn-danger" th:text="#{botonAceptarProducto}"></a>
 		</div>
 	</div>
+	
+	<script th:inline="javascript">
+	var id=[[${productoBorrar.idProducto}]]
+	
+	$(document).ready(function() {
+    $("#locales").change(function () {
+        var selectedOption = $('#locales').val();
+        if (selectedOption != ''){
+            window.location.replace('/borrarProducto/'+id+'?lang=' + selectedOption);
+        }
+    });
+});
+</script>
 </body>
 </html>
