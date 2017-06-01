@@ -14,7 +14,6 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 
-@EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = "com.cr.ac.ucr.lenguajes.j2fshop.config")
 public class Config extends WebMvcConfigurerAdapter {
