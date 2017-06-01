@@ -8,10 +8,20 @@
 <link rel="stylesheet" th:href="@{/css/app.css}">
 <link rel="stylesheet" th:href="@{/css/foundation.css}">
 <link rel="stylesheet" th:href="@{/foundation-icons/foundation-icons.css}">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<title>Inicio de sesión</title>
+<title th:text="#{tituloLogin}"></title>
 </head>
 <body style="background: #92b6c8;">
+	<div style="margin-left: 82%;">
+		<span th:text="#{lang.change}"></span>: <select id="locales">
+			<option value=""></option>
+			<option value="en" th:text="#{lang.eng}"></option>
+			<option value="es" th:text="#{lang.es}"></option>
+			<option value="fr" th:text="#{lang.fr}"></option>
+		</select>
+	</div>
 	<div class="row">
 		<div class="small-12 columns"><p></p></div>
 	</div>
@@ -26,7 +36,7 @@
 						
 						<h2>
 							<i class="fi-key" style="padding-right: 10px; text-size: 24;"></i>
-							<span>Login</span>
+							<span th:text="#{login}"></span>
 						</h2>
 						</div>
 					</div>
@@ -40,7 +50,7 @@
 				<div class="row">
 					<div class="small-2 columns"><p></p></div>
 					<div class="small-8 columns">
-						<input name="username" type="text" placeholder="Username"
+						<input name="username" type="text" th:placeholder="#{placeHolderUserNameLogin}"
 									 autofocus="true"/>
 					</div>
 					<div class="small-2 columns">
@@ -51,7 +61,7 @@
 				<div class="row">
 					<div class="small-2 columns"><p></p></div>
 					<div class="small-8 columns">
-						<input name="password" type="password" class="form-control" placeholder="Password"/>
+						<input name="password" type="password" class="form-control" th:placeholder="#{placeHolderPasswordLogin}"/>
 					</div>
 					<div class="small-2 columns"><p></p></div>
 				</div>
@@ -63,8 +73,8 @@
 					<div class="small-2 columns"><p></p></div>
 					<div class="small-8 columns">
 						<div class="button-group">
-							<input type="submit" class="button success" value="Log in"/>
-							<a class="button primary" href="/registration">Create an account</a>
+							<input type="submit" class="button success" th:value="#{btnIngresarLogin}"/>
+							<a class="button primary" href="/registration" th:text="#{btnRegistrarseLogin}"></a>
 						</div>
 					</div>
 					<div class="small-2 columns"><p></p></div>
@@ -74,6 +84,17 @@
 		</div>
 		<div class="small-2 columns"><p></p></div>
 	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#locales").change(function() {
+				var selectedOption = $('#locales').val();
+				if (selectedOption != '') {
+					window.location.replace('login?lang=' + selectedOption);
+				}
+			});
+		});
+	</script>
 
 </body>
 </html>

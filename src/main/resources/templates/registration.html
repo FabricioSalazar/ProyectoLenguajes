@@ -9,11 +9,21 @@
 <link rel="stylesheet" th:href="@{/css/foundation.css}">
 <link rel="stylesheet" th:href="@{/foundation-icons/foundation-icons.css}">
 
-<title>Register</title>
+<title th:text="#{tituloRegistration}"></title>
 </head>
 <body style="background: #92b6c8;">
+
+	<div style="margin-left: 82%;">
+		<span th:text="#{lang.change}"></span>: <select id="locales">
+			<option value=""></option>
+			<option value="en" th:text="#{lang.eng}"></option>
+			<option value="es" th:text="#{lang.es}"></option>
+			<option value="fr" th:text="#{lang.fr}"></option>
+		</select>
+	</div>
 	<!-- Blank space -->
 	<div class="row">
+		
 		<div class="small-12 columns"><p></p></div>
 	</div>
 
@@ -28,13 +38,13 @@
 				<div class="row">
 					<div class="small-12 columns text-center">
 						<h2><i class="fi-key" style="padding-right: 10px; text-size: 24;"></i>
-							<span>Create your account</span></h2>
+							<span th:text="#{subTituloRegistration}"></span></h2>
 					</div>
 				</div>
 				<!-- Login field -->
 				<div class="row">
 					<div class="small-12 columns">
-						<input type="email" th:field="*{login}" placeholder="Username"
+						<input type="email" th:field="*{login}" th:placeholder="#{placeHolderUserNameRegistration}"
 						autofocus="true"/>
 					</div>
 				</div>
@@ -46,7 +56,7 @@
 				<!-- Password field -->
 				<div class="row">
 					<div class="small-12 columns">
-						<input type="password" th:field="*{password}" placeholder="Password"/>
+						<input type="password" th:field="*{password}" th:placeholder="#{placeHolderPasswordRegistration}"/>
 						<input th:field="*{enabled}" type="hidden" th:value="true"/>
 					</div>
 				</div>
@@ -58,7 +68,7 @@
 				<!-- Name field -->
 				<div class="row">
 					<div class="small-12 columns">
-						<input type="text" th:field="*{nombre}" placeholder="Name">
+						<input type="text" th:field="*{nombre}" th:placeholder="#{placeHolderNameRegistration}">
 					</div>
 				</div>
 				<div class="row" th:if="${errorName != null}">
@@ -69,7 +79,7 @@
 				<!-- Last Name field -->
 				<div class="row">
 					<div class="small-12 columns">
-						<input type="text" th:field="*{apellidos}" placeholder="Last Name">
+						<input type="text" th:field="*{apellidos}" th:placeholder="#{placeHolderLastNameRegistration}">
 					</div>
 				</div>
 				<div class="row" th:if="${errorLastName != null}">
@@ -80,7 +90,7 @@
 				<!-- Address 1 -->
 				<div class="row">
 					<div class="small-12 columns">
-						<textarea th:field="*{direccion1}" rows="4" cols="50" placeholder="Dirección 1"></textarea>
+						<textarea th:field="*{direccion1}" rows="4" cols="50" th:placeholder="#{placeHolderDireccion1Registration}"></textarea>
 					</div>
 				</div>
 				<div class="row" th:if="${errorAddress1 != null}">
@@ -91,7 +101,7 @@
 				<!-- Address 2 -->
 				<div class="row">
 					<div class="small-12 columns">
-						<textarea th:field="*{direccion2}" rows="4" cols="50" placeholder="Dirección 2"></textarea>
+						<textarea th:field="*{direccion2}" rows="4" cols="50" th:placeholder="#{placeHolderDireccion2Registration}"></textarea>
 					</div>
 				</div>
 				<div class="row" th:if="${errorAddress2 != null}">
@@ -103,17 +113,17 @@
 				<div class="row">
 					<div class="small-12 columns">
 						<div class="input-group">
-								<input class="input-group-field" type="text" th:field="*{pais}" placeholder="País">
-								<input class="input-group-field" type="text" th:field="*{ciudad}" placeholder="Ciudad">
-								<input class="input-group-field" type="text" th:field="*{estado}" placeholder="Estado">
-								<input class="input-group-field" type="text" th:field="*{codigoPostal}" placeholder="Código Postal">
+								<input class="input-group-field" type="text" th:field="*{pais}" th:placeholder="#{placeHolderPaisRegistration}">
+								<input class="input-group-field" type="text" th:field="*{ciudad}" th:placeholder="#{placeHolderCiudadRegistration}">
+								<input class="input-group-field" type="text" th:field="*{estado}" th:placeholder="#{placeHolderEstadoRegistration}">
+								<input class="input-group-field" type="text" th:field="*{codigoPostal}" th:placeholder="#{placeHolderCodigoPostalRegistration}">
 						</div>
 					</div>
 				</div>
 				<!-- Phone -->
 				<div class="row">
 					<div class="small-12 columns">
-						<input type="text" th:field="*{telefono}" placeholder="Teléfono">
+						<input type="text" th:field="*{telefono}" th:placeholder="#{placeHolderTelefonoRegistration}">
 					</div>
 				</div>
 				<div class="row" th:if="${errorPhone != null}">
@@ -125,7 +135,7 @@
 				<div class="row">
 					<div class="small-12 columns">
 						<div class="input-group">
-							<input class="input-field" type="text" th:field="*{numeroTarjeta}" placeholder="Número de Tarjeta">
+							<input class="input-field" type="text" th:field="*{numeroTarjeta}" th:placeholder="#{placeHolderTarjetaRegistration}">
 							<input type="text" class="input-field" th:field="*{ccv}" placeholder="CCV">
 						</div>
 					</div>
@@ -142,7 +152,7 @@
 				</div>
 				<!-- Account balance TODO -->
 
-				<input type="submit" class="button secondary" value="Register"/>
+				<input type="submit" class="button secondary" th:value="#{btnRegistration}"/>
 			</form>
 
 
@@ -150,5 +160,15 @@
 		<!-- Blank spacing -->
 		<div class="small-2 columns"><p></p></div>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#locales").change(function() {
+				var selectedOption = $('#locales').val();
+				if (selectedOption != '') {
+					window.location.replace('registration?lang=' + selectedOption);
+				}
+			});
+		});
+	</script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
@@ -13,7 +13,7 @@
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Open+Sans">
 
-<title>Modificar Producto</title>
+<title th:text="#{tituloModificarProducto}"></title>
 
 <style>
 
@@ -91,109 +91,152 @@ input, input::-webkit-input-placeholder {
 <body>
 <div class="header-menu"></div>
 	<div class="container">
+
+
 		<div class="row main">
+			<div style="margin-left: 82%;">
+				<span th:text="#{lang.change}"></span>: <select id="locales">
+					<option value=""></option>
+					<option value="en" th:text="#{lang.eng}"></option>
+					<option value="es" th:text="#{lang.es}"></option>
+					<option value="fr" th:text="#{lang.fr}"></option>
+				</select>
+			</div>
 			<div class="panel-heading">
 				<div class="panel-title text-center">
-					<h3 class="title">Cambio de datos</h3>
+					<h3 class="title" th:text="#{subtituloModificarProducto}"></h3>
 					<hr />
 				</div>
 			</div>
 			<div class="main-login main-center">
-				<form class="form-horizontal" th:object="${productoForm}" th:action="@{/modificarProducto/salvar}" action="#" method="post">
+				<form class="form-horizontal" th:object="${productoForm}"
+					th:action="@{/modificarProducto/salvar}" action="#" method="post">
 					<div class="form-group">
-						<label class="cols-sm-2 control-label">Codigo del Producto</label>
+						<label class="cols-sm-2 control-label"
+							th:text="#{codigoModificarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i></span> 
-								<input th:field="*{idProducto}"  type="text" class="form-control" th:value="productoForm.idProducto" th:readonly="readonly"/>
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-plus" aria-hidden="true"></i></span> <input
+									th:field="*{idProducto}" type="text" class="form-control"
+									th:value="productoForm.idProducto" th:readonly="readonly" />
 							</div>
-							<div th:if="${#fields.hasErrors('idProducto')}" th:errors="*{idProducto}"  class="alert alert-danger">ERROR</div>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="cols-sm-2 control-label">Nombre del producto</label>
-						<div class="cols-sm-10">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-font" aria-hidden="true"></i></span> 
-								<input th:field="*{nombre}"  type="text" class="form-control" name="inputNombre" placeholder="Ingrese el nombre" />
-							</div>
-							<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"  class="alert alert-danger">ERROR</div>
+							<div th:if="${#fields.hasErrors('idProducto')}"
+								th:errors="*{idProducto}" class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="cols-sm-2 control-label">Precio</label>
+						<label class="cols-sm-2 control-label"
+							th:text="#{nombreModificarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-euro" aria-hidden="true"></i></span> 
-								<input th:field="*{precio}" type="text" class="form-control" name="inputPrecio" placeholder="Ingrese el precio" />
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-font" aria-hidden="true"></i></span> <input
+									th:field="*{nombre}" type="text" class="form-control"
+									name="inputNombre" placeholder="Ingrese el nombre" />
 							</div>
-							<div th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"  class="alert alert-danger">ERROR</div>
+							<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+								class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="cols-sm-2 control-label">Impuesto</label>
+						<label class="cols-sm-2 control-label"
+							th:text="#{precioModificarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i></span>
-								<input th:field="*{porcentajeImpuesto}" type="number" class="form-control" name="inputImpuesto"/>
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-euro" aria-hidden="true"></i></span> <input
+									th:field="*{precio}" type="text" class="form-control"
+									name="inputPrecio" placeholder="Ingrese el precio" />
 							</div>
-							<div th:if="${#fields.hasErrors('porcentajeImpuesto')}" th:errors="*{porcentajeImpuesto}"  class="alert alert-danger">ERROR</div>
+							<div th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"
+								class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label for="categoria" class="cols-sm-2 control-label">Categoria</label>
+						<label class="cols-sm-2 control-label"
+							th:text="#{impuestoModificarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-glass" aria-hidden="true"></i></span> 
-								<select name="idCategoria" th:field="*{idCategoria}" class="form-control">
-									<option th:each="categoria: ${categorias}" th:value="${categoria.idCategoria}"
-										th:text="${categoria.nombreCategoria}">
-									</option>
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i></span>
+								<input th:field="*{porcentajeImpuesto}" type="number"
+									class="form-control" name="inputImpuesto" />
+							</div>
+							<div th:if="${#fields.hasErrors('porcentajeImpuesto')}"
+								th:errors="*{porcentajeImpuesto}" class="alert alert-danger">ERROR</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="categoria" class="cols-sm-2 control-label"
+							th:text="#{categoriaModificarProducto}"></label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-glass" aria-hidden="true"></i></span> <select
+									name="idCategoria" th:field="*{idCategoria}"
+									class="form-control">
+									<option th:each="categoria: ${categorias}"
+										th:value="${categoria.idCategoria}"
+										th:text="${categoria.nombreCategoria}"></option>
 								</select>
 							</div>
-							<div th:if="${#fields.hasErrors('idCategoria')}" th:errors="*{idCategoria}"  class="alert alert-danger">ERROR</div>
+							<div th:if="${#fields.hasErrors('idCategoria')}"
+								th:errors="*{idCategoria}" class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label for="confirm" class="cols-sm-2 control-label">Cantidad</label>
+						<label for="confirm" class="cols-sm-2 control-label"
+							th:text="#{cantidadModificarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
-								 <input th:field="*{unidadesStock}" type="number" class="form-control" name="inputCantidad"/>
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span> <input
+									th:field="*{unidadesStock}" type="number" class="form-control"
+									name="inputCantidad" />
 							</div>
-							<div th:if="${#fields.hasErrors('unidadesStock')}" th:errors="*{unidadesStock}"  class="alert alert-danger">ERROR</div>
+							<div th:if="${#fields.hasErrors('unidadesStock')}"
+								th:errors="*{unidadesStock}" class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label for="confirm" class="cols-sm-2 control-label">Descripcion</label>
+						<label for="confirm" class="cols-sm-2 control-label"
+							th:text="#{descripcionModificarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<textarea style="resize:none; " class="form-control"  maxlength="255"
-                					th:field="*{descripcion}" rows="3" cols="50" name="inputDescripcion"></textarea>
+								<textarea style="resize: none;" class="form-control"
+									maxlength="255" th:field="*{descripcion}" rows="3" cols="50"
+									name="inputDescripcion"></textarea>
 							</div>
-							<div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"  class="alert alert-danger">ERROR</div>
+							<div th:if="${#fields.hasErrors('descripcion')}"
+								th:errors="*{descripcion}" class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
-          			<div class="form-group">
-						<label for="password" class="cols-sm-2 control-label">Imagen</label>
+					<div class="form-group">
+						<label for="password" class="cols-sm-2 control-label"
+							th:text="#{imagenModificarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-picture" aria-hidden="true"></i></span>
-                  				<input th:field="*{imagen}"  class="file-loading"  type="file" name="pic" accept="image/*">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-picture" aria-hidden="true"></i></span> <input
+									th:field="*{imagen}" class="file-loading" type="file"
+									name="pic" accept="image/*">
 							</div>
-							<div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"  class="alert alert-danger">ERROR</div>
+							<div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"
+								class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
 					<div class="form-group ">
-						<button type="submit" class="btn btn-default">Salvar</button>
+						<button type="submit" class="btn btn-default"
+							th:text="#{botonModificarProducto}"></button>
 					</div>
 				</form>
 			</div>
@@ -202,5 +245,16 @@ input, input::-webkit-input-placeholder {
 	<br>
 	<br>
 	<br>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#locales").change(function() {
+				var selectedOption = $('#locales').val();
+				if (selectedOption != '') {
+					window.location.replace('modificarProducto?lang=' + selectedOption);
+				}
+			});
+		});
+	</script>
 </body>
 </html>

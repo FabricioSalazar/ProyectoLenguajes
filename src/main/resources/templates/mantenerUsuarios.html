@@ -1,89 +1,97 @@
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mantenimiento de usuarios</title>
-  <link rel="stylesheet" th:href="@{/css/app.css}">
-  <link rel="stylesheet" th:href="@{/css/foundation.css}">
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="#{tituloMantenerUsuarios}"></title>
+<link rel="stylesheet" th:href="@{/css/app.css}">
+<link rel="stylesheet" th:href="@{/css/foundation.css}">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-  <!-- Título -->
-  <div class="row">
-    <div class="small-12 columns">
-      <h1>Mantener usuarios</h1>
-    </div>
-  </div>
-
-
-  <div th:if="${users}">
-    <div th:if="${users.isEmpty()}">
-      <p>Aún no se ha registrado ningún usuario</p>
-    </div>
-    <div th:if="${!users.isEmpty()}">
-      <div class="row">
-        <div class="small-12 columns">
-          <p>Los usuarios son los siguientes:</p>
-          <table class="table hover small-stack scroll">
-            <thead>
-              <tr>
-                <th>id usuario</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Login</th>
-                <th>Direccion 1</th>
-                <th>Direccion 2</th>
-                <th>Pais</th>
-                <th>Ciudad</th>
-                <th>Estado</th>
-                <th>Código Postal</th>
-                <th>Teléfono</th>
-                <th>Número de Tarjeta</th>
-                <th>CCV</th>
-                <th>Saldo</th>
-                <th>Roles</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="entry : ${users}">
-                <td><span th:text="${entry.idUsuario}"></span></td>
-                <td><span th:text="${entry.nombre}"></span></td>
-                <td><span th:text="${entry.apellidos}"></span></td>
-                <td><span th:text="${entry.login}"></span></td>
-                <td><span th:text="${entry.direccion1}"></span></td>
-                <td><span th:text="${entry.direccion2}"></span></td>
-                <td><span th:text="${entry.pais}"></span></td>
-                <td><span th:text="${entry.ciudad}"></span></td>
-                <td><span th:text="${entry.estado}"></span></td>
-                <td><span th:text="${entry.codigoPostal}"></span></td>
-                <td><span th:text="${entry.telefono}"></span></td>
-                <td><span th:text="${entry.numeroTarjeta}"></span></td>
-                <td><span th:text="${entry.ccv}"></span></td>
-                <td><span th:text="${entry.saldo}"></span></td>
-                <td>
-                  <div th:each="e : ${entry.roles}">
-                    <span th:text="${e.roleName}"></span>
-                  </div>
-                </td>
-                <td>
-                  <div class="row">
-                    <div class="small-12 columns">
-                      <div class="input-group">
-                        <form action="#" th:action="@{/admin/borrarUsuario}"
-                          th:if="${entry.enabled}" method="post">
-                          <input type="hidden" name="username"
-                            th:value="${entry.login}" />
-                          <input class="button secondary" type="submit" value="Deshabilitar">
-                        </form>
-                        <form action="#" th:action="@{/admin/habilitarUsuario}"
-                          th:if="${!entry.enabled}" method="post">
-                          <input class="button success"
-                           type="submit" value="Habilitar">
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- <div class="row">
+	<!-- Título -->
+	<div style="margin-left: 82%;">
+		<span th:text="#{lang.change}"></span>: <select id="locales">
+			<option value=""></option>
+			<option value="en" th:text="#{lang.eng}"></option>
+			<option value="es" th:text="#{lang.es}"></option>
+			<option value="fr" th:text="#{lang.fr}"></option>
+		</select>
+	</div>
+	<div class="row">
+		<div class="small-12 columns">
+			<h1 th:text="#{subTituloMantenerUsuarios}"></h1>
+		</div>
+	</div>
+	<div th:if="${users}">
+		<div th:if="${users.isEmpty()}">
+			<p th:text="#{mensajeErrorMantenerUsuarios}"></p>
+		</div>
+		<div th:if="${!users.isEmpty()}">
+			<div class="row">
+				<div class="small-12 columns">
+					<p th:text="#{mensajeSuccessMantenerUsuarios}"></p>
+					<table class="table hover small-stack scroll">
+						<thead>
+							<tr>
+								<th th:text="#{idUsuarioMantenerUsuarios}"></th>
+								<th th:text="#{nombreMantenerUsuarios}"></th>
+								<th th:text="#{apellidosMantenerUsuarios}"></th>
+								<th th:text="#{loginMantenerUsuarios}"></th>
+								<th th:text="#{direccion1MantenerUsuarios}"></th>
+								<th th:text="#{direccion2MantenerUsuarios}"></th>
+								<th th:text="#{paisMantenerUsuarios}"></th>
+								<th th:text="#{ciudadMantenerUsuarios}"></th>
+								<th th:text="#{estadoMantenerUsuarios}"></th>
+								<th th:text="#{codigoPostalMantenerUsuarios}"></th>
+								<th th:text="#{telefonoMantenerUsuarios}"></th>
+								<th th:text="#{tarjetaMantenerUsuarios}"></th>
+								<th th:text="#{ccvMantenerUsuarios}"></th>
+								<th th:text="#{saldoMantenerUsuarios}"></th>
+								<th th:text="#{rolesMantenerUsuarios}"></th>
+								<th th:text="#{accionMantenerUsuarios}"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="entry : ${users}">
+								<td><span th:text="${entry.idUsuario}"></span></td>
+								<td><span th:text="${entry.nombre}"></span></td>
+								<td><span th:text="${entry.apellidos}"></span></td>
+								<td><span th:text="${entry.login}"></span></td>
+								<td><span th:text="${entry.direccion1}"></span></td>
+								<td><span th:text="${entry.direccion2}"></span></td>
+								<td><span th:text="${entry.pais}"></span></td>
+								<td><span th:text="${entry.ciudad}"></span></td>
+								<td><span th:text="${entry.estado}"></span></td>
+								<td><span th:text="${entry.codigoPostal}"></span></td>
+								<td><span th:text="${entry.telefono}"></span></td>
+								<td><span th:text="${entry.numeroTarjeta}"></span></td>
+								<td><span th:text="${entry.ccv}"></span></td>
+								<td><span th:text="${entry.saldo}"></span></td>
+								<td>
+									<div th:each="e : ${entry.roles}">
+										<span th:text="${e.roleName}"></span>
+									</div>
+								</td>
+								<td>
+									<div class="row">
+										<div class="small-12 columns">
+											<div class="input-group">
+												<form action="#" th:action="@{/admin/borrarUsuario}"
+													th:if="${entry.enabled}" method="post">
+													<input type="hidden" name="username"
+														th:value="${entry.login}" /> <input
+														class="button secondary" type="submit"
+														value="Deshabilitar">
+												</form>
+												<form action="#" th:action="@{/admin/habilitarUsuario}"
+													th:if="${!entry.enabled}" method="post">
+													<input class="button success" type="submit"
+														value="Habilitar">
+												</form>
+											</div>
+										</div>
+									</div> <!-- <div class="row">
                     <div class="small-6 columns">
                       <form action="#" th:action="@{/mantenerAutores/borrar}"
                         method="post">
@@ -104,12 +112,22 @@
                       </form>
                     </div>
                   </div> -->
-                </td>
-              </tr>
-            </tbody>
-          </table>
-            </div>
-          </div>
-      </div>
-  </div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	$(document).ready(function() {
+    $("#locales").change(function () {
+        var selectedOption = $('#locales').val();
+        if (selectedOption != ''){
+            window.location.replace('admin/mantenerUsuario?lang=' + selectedOption);
+        }
+    });
+});
+</script>
 </body>

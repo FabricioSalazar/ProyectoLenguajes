@@ -2,19 +2,41 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Ha ocurrido un error</title>
+<title th:text="#{tituloError}"></title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
 <link rel="stylesheet" type="text/css" media="all"
 	href="css/bootstrap-glyphicons.css"></link>
 <link rel="stylesheet" type="text/css" media="all" href="css/styles.css"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="container">
 		<div class="jumbotron">
+			<div style="margin-left: 82%;">
+				<span th:text="#{lang.change}"></span>: <select id="locales">
+					<option value=""></option>
+					<option value="en" th:text="#{lang.eng}"></option>
+					<option value="es" th:text="#{lang.es}"></option>
+					<option value="fr" th:text="#{lang.fr}"></option>
+				</select>
+			</div>
+
 			<h1>Oops!</h1>
-			<h3>Ha ocurrido un error</h3>
+			<h3 th:text="#{mensajeError}">Ha ocurrido un error</h3>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#locales").change(function() {
+				var selectedOption = $('#locales').val();
+				if (selectedOption != '') {
+					window.location.replace('error?lang=' + selectedOption);
+				}
+			});
+		});
+	</script>
 </body>
 </html>

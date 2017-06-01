@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
@@ -13,7 +13,7 @@
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Open+Sans">
 
-<title>Modificar Producto</title>
+<title th:text="#{tituloModificarCategoria}"></title>
 
 <style>
 
@@ -89,52 +89,76 @@ input, input::-webkit-input-placeholder {
 
 </head>
 <body>
-<div class="header-menu"></div>
+	<div class="header-menu"></div>
 	<div class="container">
+
+
 		<div class="row main">
+			<div style="margin-left: 82%;">
+				<span th:text="#{lang.change}"></span>: <select id="locales">
+					<option value=""></option>
+					<option value="en" th:text="#{lang.eng}"></option>
+					<option value="es" th:text="#{lang.es}"></option>
+					<option value="fr" th:text="#{lang.fr}"></option>
+				</select>
+			</div>
 			<div class="panel-heading">
 				<div class="panel-title text-center">
-					<h3 class="title">Cambio de datos</h3>
+					<h3 class="title" th:text="#{subtituloModificarCategoria}"></h3>
 					<hr />
 				</div>
 			</div>
 			<div class="main-login main-center">
-				<form class="form-horizontal" th:object="${categoriaForm}" th:action="@{/modificarCategoria/salvar}" action="#" method="post">
+				<form class="form-horizontal" th:object="${categoriaForm}"
+					th:action="@{/modificarCategoria/salvar}" action="#" method="post">
 					<div class="form-group">
-						<label class="cols-sm-2 control-label">Codigo del Producto</label>
+						<label class="cols-sm-2 control-label"
+							th:text="#{codigoModificarCategoria}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i></span> 
-								<input th:field="*{idCategoria}"  type="text" class="form-control" th:value="categoriaForm.idCategoria" th:readonly="readonly"/>
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-plus" aria-hidden="true"></i></span> <input
+									th:field="*{idCategoria}" type="text" class="form-control"
+									th:value="categoriaForm.idCategoria" th:readonly="readonly" />
 							</div>
-							<div th:if="${#fields.hasErrors('idCategoria')}" th:errors="*{idCategoria}"  class="alert alert-danger">ERROR</div>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="cols-sm-2 control-label">Nombre</label>
-						<div class="cols-sm-10">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-font" aria-hidden="true"></i></span> 
-								<input th:field="*{nombre}"  type="text" class="form-control" name="inputNombre" placeholder="Ingrese el nombre"/>
-							</div>
-							<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"  class="alert alert-danger">ERROR</div>
+							<div th:if="${#fields.hasErrors('idCategoria')}"
+								th:errors="*{idCategoria}" class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
-          			<div class="form-group">
-						<label for="password" class="cols-sm-2 control-label">Imagen</label>
+					<div class="form-group">
+						<label class="cols-sm-2 control-label"
+							th:text="#{nombreModificarCategoria}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-picture" aria-hidden="true"></i></span>
-                  				<input th:field="*{imagen}"  class="file-loading"  type="file" name="pic" accept="image/*">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-font" aria-hidden="true"></i></span> <input
+									th:field="*{nombre}" type="text" class="form-control"
+									name="inputNombre" placeholder="Ingrese el nombre" />
 							</div>
-							<div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"  class="alert alert-danger">ERROR</div>
+							<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+								class="alert alert-danger">ERROR</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="password" class="cols-sm-2 control-label"
+							th:text="#{imagenModificarCategoria}"></label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-picture" aria-hidden="true"></i></span> <input
+									th:field="*{imagen}" class="file-loading" type="file"
+									name="pic" accept="image/*">
+							</div>
+							<div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"
+								class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 
 					<div class="form-group ">
-						<button type="submit" class="btn btn-default">Salvar</button>
+						<button type="submit" class="btn btn-default"
+							th:text="#{botonModificarCategoria}"></button>
 					</div>
 				</form>
 			</div>
@@ -143,5 +167,15 @@ input, input::-webkit-input-placeholder {
 	<br>
 	<br>
 	<br>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#locales").change(function() {
+				var selectedOption = $('#locales').val();
+				if (selectedOption != '') {
+					window.location.replace('modificarCategoria?lang=' + selectedOption);
+				}
+			});
+		});
+	</script>
 </body>
 </html>

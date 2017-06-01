@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
@@ -13,7 +13,7 @@
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Open+Sans">
 
-<title>Admin</title>
+<title th:text="#{tituloInsertarProducto}"></title>
 
 <style>
 
@@ -91,17 +91,27 @@ input, input::-webkit-input-placeholder {
 <body>
 <div class="header-menu"></div>
 	<div class="container">
+
 		<div class="row main">
+
+			<div style="margin-left: 82%;">
+				<span th:text="#{lang.change}"></span>: <select id="locales">
+					<option value=""></option>
+					<option value="en" th:text="#{lang.eng}"></option>
+					<option value="es" th:text="#{lang.es}"></option>
+					<option value="fr" th:text="#{lang.fr}"></option>
+				</select>
+			</div>
 			<div class="panel-heading">
 				<div class="panel-title text-center">
-					<h3 class="title">Ingresar Datos</h3>
+					<h3 class="title" th:text="#{subtituloInsertarProducto}"></h3>
 					<hr />
 				</div>
 			</div>
 			<div class="main-login main-center">
 				<form class="form-horizontal" th:object="${productoForm}" th:action="@{/insertarProducto/salvar}" action="#" method="post">
 					<div class="form-group">
-						<label class="cols-sm-2 control-label">Nombre del producto</label>
+						<label class="cols-sm-2 control-label" th:text="#{nombreInsertarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-font" aria-hidden="true"></i></span> 
@@ -112,7 +122,7 @@ input, input::-webkit-input-placeholder {
 					</div>
 
 					<div class="form-group">
-						<label class="cols-sm-2 control-label">Precio</label>
+						<label class="cols-sm-2 control-label" th:text="#{precioInsertarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-euro" aria-hidden="true"></i></span> 
@@ -123,7 +133,7 @@ input, input::-webkit-input-placeholder {
 					</div>
 
 					<div class="form-group">
-						<label class="cols-sm-2 control-label">Impuesto</label>
+						<label class="cols-sm-2 control-label" th:text="#{impuestoInsertarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i></span>
@@ -134,7 +144,7 @@ input, input::-webkit-input-placeholder {
 					</div>
 
 					<div class="form-group">
-						<label for="password" class="cols-sm-2 control-label">Categoria</label>
+						<label for="password" class="cols-sm-2 control-label" th:text="#{categoriaInsertarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-glass" aria-hidden="true"></i></span> 
@@ -149,7 +159,7 @@ input, input::-webkit-input-placeholder {
 					</div>
 
 					<div class="form-group">
-						<label for="confirm" class="cols-sm-2 control-label">Cantidad</label>
+						<label for="confirm" class="cols-sm-2 control-label" th:text="#{cantidadInsertarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span>
@@ -160,7 +170,7 @@ input, input::-webkit-input-placeholder {
 					</div>
 
 					<div class="form-group">
-						<label for="confirm" class="cols-sm-2 control-label">Descripcion</label>
+						<label for="confirm" class="cols-sm-2 control-label" th:text="#{descripcionInsertarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<textarea style="resize:none; " class="form-control"  maxlength="255"
@@ -171,7 +181,7 @@ input, input::-webkit-input-placeholder {
 					</div>
 
           			<div class="form-group">
-						<label for="password" class="cols-sm-2 control-label">Imagen</label>
+						<label for="password" class="cols-sm-2 control-label" th:text="#{imagenInsertarProducto}"></label>
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-picture" aria-hidden="true"></i></span>
@@ -182,7 +192,7 @@ input, input::-webkit-input-placeholder {
 					</div>
 
 					<div class="form-group ">
-						<button type="submit" class="btn btn-default">Salvar</button>
+						<button type="submit" class="btn btn-default" th:text="#{botonInsertarProducto}"></button>
 					</div>
 				</form>
 			</div>
@@ -191,5 +201,16 @@ input, input::-webkit-input-placeholder {
 	<br>
 	<br>
 	<br>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#locales").change(function() {
+				var selectedOption = $('#locales').val();
+				if (selectedOption != '') {
+					window.location.replace('insertarProducto?lang=' + selectedOption);
+				}
+			});
+		});
+	</script>
 </body>
 </html>

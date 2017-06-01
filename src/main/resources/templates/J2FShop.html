@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<title>J2F Shop</title>
+<title th:text="#{tituloJ2FShop}"></title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -22,6 +22,16 @@
 		
 
 	<div class="container">
+
+		<div style="margin-left: 82%;">
+			<span th:text="#{lang.change}"></span>: <select id="locales">
+				<option value=""></option>
+				<option value="en" th:text="#{lang.eng}"></option>
+				<option value="es" th:text="#{lang.es}"></option>
+				<option value="fr" th:text="#{lang.fr}"></option>
+			</select>
+		</div>
+
 		<div class="row">
 			<div class="col-sm-4">Categoria 1</div>
 			<div class="col-sm-4">Categoria 2</div>
@@ -39,6 +49,17 @@
 		</div>
 
 	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#locales").change(function() {
+				var selectedOption = $('#locales').val();
+				if (selectedOption != '') {
+					window.location.replace('J2FShop?lang=' + selectedOption);
+				}
+			});
+		});
+	</script>
 	<script type="text/javascript" th:src="@{/js/script.js}"></script>
 </body>
 </html>

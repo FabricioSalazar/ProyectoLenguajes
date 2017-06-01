@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <title></title>
-<meta charset="utf-8">
+<meta charset=UTF-8>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -71,22 +71,22 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Inicio</a></li>
-					<li><a href="#">Productos</a></li>
-					<li><a href="#">Contactenos</a></li>
-					<li><a href="#">Tiendas</a></li>
-					<li><a href="#">Acerca de</a></li>
+					<li class="active"><a href="#" th:text="#{inicioHeader}"></a></li>
+					<li><a href="#" th:text="#{productosHeader}"></a></li>
+					<li><a href="#" th:text="#{contactenosHeader}"></a></li>
+					<li><a href="#" th:text="#{tiendasHeader}"></a></li>
+					<li><a href="#" th:text="#{acercaDeHeader}"></a></li>
 					<li><input style="margin-top: 7px;" class="form-control"
-						type="text" id="search" placeholder="Que deseas Comprar?"></li>
-					<li><a href="#" id="btn-search"><span
-							class="glyphicon glyphicon-search"></span> Buscar</a></li>
+						type="text" id="search" th:placeholder="#{placeHolderBuscarHeader}"></li>
+					<li><a href="#" id="btn-search" th:text="#{buscarHeader}"><span
+							class="glyphicon glyphicon-search"></span></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 
-					<li><a id="dropdownMenu1"  data-toggle="modal" data-target="#myModal" href="#"><span
-							class="glyphicon glyphicon-user"></span>Cuenta</a></li>
-					<li><a href="#"><span
-							class="glyphicon glyphicon-shopping-cart"></span> Carrito</a></li>
+					<li><a id="dropdownMenu1"  data-toggle="modal" data-target="#myModal" href="#" th:text="#{cuentaHeader}"><span
+							class="glyphicon glyphicon-user"></span></a></li>
+					<li><a href="#" th:text="#{carritoHeader}"><span
+							class="glyphicon glyphicon-shopping-cart"></span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -99,15 +99,15 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Opciones de usuario</h4>
+          <h4 class="modal-title" th:text="#{opcionesUsuarioHeader}"></h4>
         </div>
         <div class="modal-body">
           
           					<ul >
-							<li><a href="/login">Iniciar Sesion</a></li>
-							<li><a href="registration">Registrarse</a></li>
+							<li><a href="/login" th:text="#{iniciarSesionHeader}"></a></li>
+							<li><a href="registration" th:text="#{registrarseHeader}"></a></li>
 							
-							<li><a href="#">Funciones de Usuario</a></li>
+							<li><a href="#" th:text="#{funcionesUsuarioHeader}"></a></li>
 						</ul>
           
           
@@ -120,8 +120,6 @@
       
     </div>
   </div>
-  
-
 
 
 	<script

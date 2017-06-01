@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
@@ -7,7 +7,9 @@
 <link rel="stylesheet" type="text/css" media="all"
 	href="css/bootstrap-glyphicons.css"></link>
 <link rel="stylesheet" type="text/css" media="all" href="css/styles.css"></link>
-<title>Borrar Producto</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<title th:text="#{tituloBorrarProducto}"></title>
 <style>
 body, html {
 	height: 100%;
@@ -23,19 +25,28 @@ body, html {
 <div class="header-menu"></div>
 	<div class="container">
 		<div class="jumbotron">
+
+			<div style="margin-left: 82%;">
+				<span th:text="#{lang.change}"></span>: <select id="locales">
+					<option value=""></option>
+					<option value="en" th:text="#{lang.eng}"></option>
+					<option value="es" th:text="#{lang.es}"></option>
+					<option value="fr" th:text="#{lang.fr}"></option>
+				</select>
+			</div>
 			<div th:if="${productoBorrar} == null">
-				<p class="small"><label th:text="'El producto que desea eliminar no existe"></label></p>
+				<p class="small"><label th:text="#{mensajeErrorBorrarProducto}"></label></p>
 			</div>
 			<div th:if="${productoBorrar} != null">
-				<p class="small"><label th:text="'¿Esta seguro que desea eliminar el siguente producto?'"></label></p>
+				<p class="small"><label th:text="#{mensajeConfirmacionBorrarProducto}"></label></p>
 				<br>
-				<p class="small"><label th:text="'Codigo del producto: ' + ${productoBorrar.idProducto}"></label></p>
+				<p class="small"><label th:text="#{codigoBorrarProducto}+' '+${productoBorrar.idProducto}"></label></p>
 				<br>
-				<p class="small"><label th:text="'Nombre: ' + ${productoBorrar.nombre}"></label></p>
+				<p class="small"><label th:text="#{nombreBorrarProducto}+' '+${productoBorrar.nombre}"></label></p>
 			</div>
 			
-			<a th:href="@{/mantenerProductos}" class="btn btn-success">Cancelar</a>
-			<a th:href="@{/borrarProducto/accept}" class="btn btn-danger">Aceptar</a>
+			<a th:href="@{/mantenerProductos}" class="btn btn-success" th:text="#{botonCancelarProducto}"></a>
+			<a th:href="@{/borrarProducto/accept}" class="btn btn-danger" th:text="#{botonAceptarProducto}"></a>
 		</div>
 	</div>
 </body>
