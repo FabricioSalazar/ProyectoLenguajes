@@ -1,3 +1,3 @@
-$(function () {
-    $(".header-menu").load("/header.html");
-  });
+$(function(){
+  $(".header-menu").load("/header.html");
+});

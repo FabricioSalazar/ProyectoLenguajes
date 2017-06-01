@@ -35,7 +35,19 @@ public class UsuarioService {
 		return usuarioDao.findUserByLogIn(login);
 	}
 	
+	public List<Usuario> findUserByLogInLike(String login) {
+		return usuarioDao.findUserByLogInLike(login);
+	}
+	
+	public void updateRoles(int idUsuario, boolean administrador, boolean cliente, boolean desarrollador){
+		usuarioDao.updateRoles(idUsuario, administrador, cliente,desarrollador);
+	}
+	
 	public List<Usuario> findAllUsers(){
 		return usuarioDao.findAllUsers();
+	}
+	
+	public void enable(String login) {
+		usuarioDao.enable(login);
 	}
 }
