@@ -22,8 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Role;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Usuario;
 
-
-
 @Repository
 public class UsuarioDao {
 
@@ -31,6 +29,9 @@ public class UsuarioDao {
 	private SimpleJdbcCall simpleJdbcCallSaveUsers;
 	private SimpleJdbcCall simpleJdbcCallEraseUsers; //Borra virtualmente el usuario (set enabled=0)
 	private SimpleJdbcCall simpleJdbcCallModifyUsers;
+	private SimpleJdbcCall simpleJdbcCallEnableUsers;
+	private SimpleJdbcCall simpleJdbcCallUpdateRoles;
+	
 	private float saldoDefault=500000;
 	
 	@Autowired
@@ -39,6 +40,8 @@ public class UsuarioDao {
 		this.simpleJdbcCallSaveUsers = new SimpleJdbcCall(datasource).withProcedureName("InsertarUsuario");
 		this.simpleJdbcCallEraseUsers = new SimpleJdbcCall(datasource).withProcedureName("EliminarUsuario");
 		this.simpleJdbcCallModifyUsers = new SimpleJdbcCall(datasource).withProcedureName("ModificarUsuario");
+		this.simpleJdbcCallEnableUsers = new SimpleJdbcCall(datasource).withProcedureName("HabilitarUsuario");
+		this.simpleJdbcCallUpdateRoles = new SimpleJdbcCall(datasource).withProcedureName("CambiarRoles");
 	}
 	
 	public Usuario findUserByLogIn(String login) {
@@ -53,6 +56,20 @@ public class UsuarioDao {
 		List<Usuario> usuarios = jdbcTemplate.query(sqlSelect, new UsuarioExtractor());
 		
 		return usuarios.isEmpty()?null:usuarios.get(0);
+	}
+	
+	public List<Usuario> findUserByLogInLike(String login) {
+		String sqlSelect="select u.idUsuario, u.nombre, u.apellido, u.login, u.password, u.enabled, du.direccion1,"
+				+ " du.direccion2, du.pais, du.ciudad, du.estado, du.codigoPostal, iu.telefono,iu.numeroTarjeta, "
+				+ " iu.ccv, iu.saldo, r.idRole, r.role_Name"
+				+ " from Usuario u left join DireccionUsuario as du on u.idDireccionUsuario=du.idDireccion"
+				+ " left join InformacionUsuario iu on u.idInformacionUsuario= iu.idInformacionUsuario"
+				+ " left join role_usuario ru on u.idUsuario= ru.idUsuario"
+				+ " left join role r on r.idRole= ru.idRole where u.login like '"+login+"';";
+		
+		List<Usuario> usuarios = jdbcTemplate.query(sqlSelect, new UsuarioExtractor());
+		
+		return usuarios;
 	}
 	
 	public List<Usuario> findAllUsers(){
@@ -159,5 +176,22 @@ public class UsuarioDao {
 				.addValue("_ccv", user.getCcv());
 		
 		simpleJdbcCallModifyUsers.execute(parameterSource);
+	}
+
+	public void enable(String login) {
+		SqlParameterSource parameterSource = new MapSqlParameterSource()
+				.addValue("_login", login);
+		simpleJdbcCallEnableUsers.execute(parameterSource);
+	}
+
+	
+	public void updateRoles(int idUsuario, boolean administrador, boolean cliente, boolean desarrollador) {
+		SqlParameterSource parameterSource = new MapSqlParameterSource()
+				.addValue("_idUsuario", idUsuario)
+				.addValue("_admin", administrador)
+				.addValue("_client", cliente)
+				.addValue("_desarrollador", desarrollador);
+		
+		simpleJdbcCallUpdateRoles.execute(parameterSource);
 	}
 }

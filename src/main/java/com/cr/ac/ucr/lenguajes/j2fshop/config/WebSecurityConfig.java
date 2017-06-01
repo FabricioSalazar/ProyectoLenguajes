@@ -29,9 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/resources/**", "/registration").permitAll()
 				.antMatchers("/catalogoProductos/**").permitAll()
 				.antMatchers("/index", "/header", "/J2FShop", "/").permitAll()
-				.antMatchers("/css/**", "/js/**", "/foundation-icons/*").permitAll()
+				.antMatchers("/css/**", "/js/**", "/foundation-icons/**").permitAll()
 				.antMatchers("/header.html").permitAll()
-				//.antMatchers("/").hasAuthority("Administrador")
+				.antMatchers("/admin/**").hasAuthority("Administrador")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll();
 	}
 
+	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());

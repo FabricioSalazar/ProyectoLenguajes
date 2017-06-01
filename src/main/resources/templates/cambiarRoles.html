@@ -1,0 +1,72 @@
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mantenimiento de usuarios</title>
+  <!-- Foundation -->
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+  <link rel="stylesheet" th:href="@{/css/foundation.css}">
+</head>
+<body>
+  <!-- Contenedor principal-->
+  <div class="row" style="margin-top:10;">
+    <div class="small-12 columns callout primary">
+
+      <!-- Título -->
+      <div class="row">
+        <div class="small-2 columns"><p></p></div>
+        <div class="small-8 columns text-center">
+          <h4><strong>Modificar roles de usuario</strong></h4>
+        </div>
+        <div class="small-2 columns"><p></p></div>
+      </div>
+
+      <!-- Datos -->
+      <div class="row">
+        <div class="small-2 columns"><p></p></div>
+        <div class="small-8 columns">
+          <span>ID de usuario: <strong th:text="${user.idUsuario}"></strong></span>
+        </div>
+        <div class="small-2 columns"><p></p></div>
+      </div>
+
+      <div class="row">
+        <div class="small-2 columns"><p></p></div>
+        <div class="small-8 columns">
+          <span>Login: <strong th:text="${user.login}"></strong></span>
+        </div>
+        <div class="small-2 columns"><p></p></div>
+      </div>
+
+      <form th:action="@{/admin/cambiarRoles/guardar}" method="post">
+        <input type="hidden" name="username" th:value="${user.login}">
+        <div class="row">
+          <div class="small-12 columns">
+              <div class="small-4 columns">
+                <label>Administrador</label>
+                <input type="checkbox" th:checked="${Administrador}" name="Admin"/>
+              </div>
+              <div class="small-4 columns">
+                <label>Cliente</label>
+                <input type="checkbox" th:checked="${Cliente}" name="Cliente"/>
+              </div>
+
+              <div class="small-4 columns">
+                <label>Desarrollador</label>
+                <input type="checkbox" th:checked="${Desarrollador}" name="Desarrollador"/>
+              </div>
+          </div>
+        </div>
+
+        <input type="submit" class="button success" value="guardar">
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts para foundation -->
+  <script th:src="@{/js/vendor/jquery.js}"></script>
+  <script th:src="@{/js/vendor/what-input.js}"></script>
+  <script th:src="@{/js/vendor/foundation.js}"></script>
+  <script th:src="@{/js/app.js}"></script>
+</body>

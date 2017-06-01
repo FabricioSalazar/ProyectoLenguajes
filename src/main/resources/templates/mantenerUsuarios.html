@@ -18,11 +18,22 @@
 			<option value="fr" th:text="#{lang.fr}"></option>
 		</select>
 	</div>
+
 	<div class="row">
 		<div class="small-12 columns">
 			<h1 th:text="#{subTituloMantenerUsuarios}"></h1>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="small-12 columns">
+			<form th:action="@{/admin/mantenerUsuarios}" method="post">
+				<input type="text" name="login" placeholder="Ingrese un login"/>
+				<input type="submit" value="Buscar" class="button primary"/>
+			</form>
+		</div>
+	</div>
+
 	<div th:if="${users}">
 		<div th:if="${users.isEmpty()}">
 			<p th:text="#{mensajeErrorMantenerUsuarios}"></p>
@@ -89,29 +100,13 @@
 													<input class="button success" type="submit"
 														value="Habilitar">
 												</form>
+												<form action="#" th:action="@{/admin/cambiarRoles}" method="post">
+													<input type="hidden" th:value="${entry.login}" name="username">
+													<input type="submit" class="button primary" value="Cambiar roles">
+												</form>
 											</div>
 										</div>
-									</div> <!-- <div class="row">
-                    <div class="small-6 columns">
-                      <form action="#" th:action="@{/mantenerAutores/borrar}"
-                        method="post">
-
-                        <input type="hidden" name="codAutor"
-                          th:value="${entry.codAutor}" />
-                        <input type="submit"
-                          class="button alert" th:value="#{eliminar}" />
-                      </form>
-                    </div>
-                    <div class="small-6 columns">
-                      <form action="#" th:action="@{/mantenerAutores/editar}"
-                        method="post">
-                          <input type="hidden" name="codAutor"
-                            th:value="${entry.codAutor}" />
-                            <input type="submit"
-                            class="button primary" th:value="#{modificar}"/>
-                      </form>
-                    </div>
-                  </div> -->
+									</div>
 								</td>
 							</tr>
 						</tbody>
@@ -125,7 +120,7 @@
     $("#locales").change(function () {
         var selectedOption = $('#locales').val();
         if (selectedOption != ''){
-            window.location.replace('admin/mantenerUsuario?lang=' + selectedOption);
+            window.location.replace('mantenerUsuarios?lang=' + selectedOption);
         }
     });
 });
