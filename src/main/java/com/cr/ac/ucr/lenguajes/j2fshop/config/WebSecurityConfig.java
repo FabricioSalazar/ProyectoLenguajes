@@ -31,6 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/index", "/header", "/J2FShop", "/", "/login").permitAll()
 				.antMatchers("/css/**", "/js/**", "/foundation-icons/**").permitAll()
 				.antMatchers("/header.html", "/error").permitAll()
+				.antMatchers("/reports/**").permitAll()
+				.antMatchers("/pdf").permitAll()
 				.antMatchers("/admin/**").hasAuthority("Administrador")
 				.anyRequest().authenticated()
 				.and()
