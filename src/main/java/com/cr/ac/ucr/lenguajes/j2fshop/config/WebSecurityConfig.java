@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/header.html", "/error").permitAll()
 				.antMatchers("/reports/**").permitAll()
 				.antMatchers("/pdfTotalVentas").permitAll()
+				.antMatchers("/static/", "/images/**").permitAll()
 				.antMatchers("/admin/**", "/insertarCategoria","/insertarCategoria/**"
 						,"/modificarCategoria/**","/borrarCategoria/**", "/mantenerCategorias"
 						,"/mantenerCategorias/**").hasAuthority("Administrador")
@@ -46,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.logout()
 				.permitAll();
+		http.csrf().disable();
 	}
 
 	
