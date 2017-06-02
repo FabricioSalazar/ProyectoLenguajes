@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Foundation -->
+<link rel="stylesheet" th:href="@{/css/app.css}">
+<link rel="stylesheet" th:href="@{/css/foundation.css}">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" th:href="@{/foundation-icons/foundation-icons.css}">
+
+<title th:text="#{tituloRegistration}"></title>
+</head>
+<body style="background: #92b6c8;">
+
+	<div style="margin-left: 82%;">
+		<span th:text="#{lang.change}"></span>: <select id="locales">
+			<option value=""></option>
+			<option value="en" th:text="#{lang.eng}"></option>
+			<option value="es" th:text="#{lang.es}"></option>
+			<option value="fr" th:text="#{lang.fr}"></option>
+		</select>
+	</div>
+	<!-- Blank space -->
+	<div class="row">
+
+		<div class="small-12 columns"><p></p></div>
+	</div>
+
+	<div class="row">
+		<!-- Blank spacing -->
+		<div class="small-2 columns"><p></p></div>
+		<!-- Form row -->
+		<div class="small-8 columns callout primary">
+
+			<form method="POST" th:action="@{/registration}" th:object="${userForm}">
+				<!-- Title -->
+				<div class="row">
+					<div class="small-12 columns text-center">
+						<h2><i class="fi-key" style="padding-right: 10px; text-size: 24;"></i>
+							<span th:text="#{subTituloRegistration}"></span></h2>
+					</div>
+				</div>
+				<!-- Login field -->
+				<div class="row">
+					<div class="small-12 columns">
+						<input type="email" th:field="*{login}" th:placeholder="#{placeHolderUserNameRegistration}"
+						autofocus="true"/>
+					</div>
+				</div>
+				<div class="row" th:if="${errorLogin != null}">
+					<div class="small-12 columns callout alert">
+						<span th:text="${errorLogin}"></span>
+					</div>
+				</div>
+				<!-- Password field -->
+				<div class="row">
+					<div class="small-12 columns">
+						<input type="password" th:field="*{password}" th:placeholder="#{placeHolderPasswordRegistration}"/>
+						<input th:field="*{enabled}" type="hidden" th:value="true"/>
+					</div>
+				</div>
+				<div class="row" th:if="${errorPass != null}">
+					<div class="small-12 columns callout alert">
+						<span th:text="${errorPass}"></span>
+					</div>
+				</div>
+				<!-- Name field -->
+				<div class="row">
+					<div class="small-12 columns">
+						<input type="text" th:field="*{nombre}" th:placeholder="#{placeHolderNameRegistration}">
+					</div>
+				</div>
+				<div class="row" th:if="${errorName != null}">
+					<div class="small-12 columns callout alert">
+						<span th:text="${errorName}"></span>
+					</div>
+				</div>
+				<!-- Last Name field -->
+				<div class="row">
+					<div class="small-12 columns">
+						<input type="text" th:field="*{apellidos}" th:placeholder="#{placeHolderLastNameRegistration}">
+					</div>
+				</div>
+				<div class="row" th:if="${errorLastName != null}">
+					<div class="small-12 columns callout alert">
+						<span th:text="${errorLastName}"></span>
+					</div>
+				</div>
+				<!-- Address 1 -->
+				<div class="row">
+					<div class="small-12 columns">
+						<textarea th:field="*{direccion1}" rows="4" cols="50" th:placeholder="#{placeHolderDireccion1Registration}"></textarea>
+					</div>
+				</div>
+				<div class="row" th:if="${errorAddress1 != null}">
+					<div class="small-12 columns callout alert">
+						<span th:text="${errorAddress1}"></span>
+					</div>
+				</div>
+				<!-- Address 2 -->
+				<div class="row">
+					<div class="small-12 columns">
+						<textarea th:field="*{direccion2}" rows="4" cols="50" th:placeholder="#{placeHolderDireccion2Registration}"></textarea>
+					</div>
+				</div>
+				<div class="row" th:if="${errorAddress2 != null}">
+					<div class="small-12 columns callout danger">
+						<span th:text="${errorAddress2}"></span>
+					</div>
+				</div>
+				<!-- Country, City, State, Postal code -->
+				<div class="row">
+					<div class="small-12 columns">
+						<div class="input-group">
+								<input class="input-group-field" type="text" th:field="*{pais}" th:placeholder="#{placeHolderPaisRegistration}">
+								<input class="input-group-field" type="text" th:field="*{ciudad}" th:placeholder="#{placeHolderCiudadRegistration}">
+								<input class="input-group-field" type="text" th:field="*{estado}" th:placeholder="#{placeHolderEstadoRegistration}">
+								<input class="input-group-field" type="text" th:field="*{codigoPostal}" th:placeholder="#{placeHolderCodigoPostalRegistration}">
+						</div>
+					</div>
+				</div>
+				<!-- Phone -->
+				<div class="row">
+					<div class="small-12 columns">
+						<input type="text" th:field="*{telefono}" th:placeholder="#{placeHolderTelefonoRegistration}">
+					</div>
+				</div>
+				<div class="row" th:if="${errorPhone != null}">
+					<div class="small-12 columns callout danger">
+						<span th:text="${errorPhone}"></span>
+					</div>
+				</div>
+				<!-- Card number, CCV -->
+				<div class="row">
+					<div class="small-12 columns">
+						<div class="input-group">
+							<input class="input-field" type="text" th:field="*{numeroTarjeta}" th:placeholder="#{placeHolderTarjetaRegistration}">
+							<input type="text" class="input-field" th:field="*{ccv}" placeholder="CCV">
+						</div>
+					</div>
+				</div>
+				<div class="row" th:if="${errorCCV != null}">
+					<div class="small-12 columns callout danger">
+						<span th:text="${errorCCV}"></span>
+					</div>
+				</div>
+				<div class="row" th:if="${errorCard != null}">
+					<div class="small-12 columns callout alert">
+						<span th:text="${errorCard}"></span>
+					</div>
+				</div>
+				<!-- Account balance TODO -->
+
+				<input type="submit" class="button secondary" th:value="#{btnRegistration}"/>
+			</form>
+
+
+		</div>
+		<!-- Blank spacing -->
+		<div class="small-2 columns"><p></p></div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#locales").change(function() {
+				var selectedOption = $('#locales').val();
+				if (selectedOption != '') {
+					window.location.replace('registration?lang=' + selectedOption);
+				}
+			});
+		});
+	</script>
+</body>
+</html>

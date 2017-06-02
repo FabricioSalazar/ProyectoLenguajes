@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title th:text="#{tituloMantenerCategorias}"></title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="all"
+	href="css/bootstrap-glyphicons.css"></link>
+<link rel="stylesheet" type="text/css" media="all" href="css/styles.css"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<style>
+body, html {
+	height: 100%;
+	background-repeat: no-repeat;
+	background-color: #d3d3d3;
+	font-family: 'Oxygen', sans-serif;
+}
+
+</style>
+
+</head>
+<body>
+<div class="header-menu"></div>
+<div class="container">
+		<div style="margin-left: 82%;">
+			<span th:text="#{lang.change}"></span>: <select id="locales">
+				<option value=""></option>
+				<option value="en" th:text="#{lang.eng}"></option>
+				<option value="es" th:text="#{lang.es}"></option>
+				<option value="fr" th:text="#{lang.fr}"></option>
+			</select>
+		</div>
+		<h1 th:text="#{subtituloMantenerCategorias}"></h1>
+	<form action="#" th:action="@{/mantenerCategorias/buscar}" method="post">
+		<div class="form-group">
+			<label for="criterioBusqueda" th:text="#{criterioBusquedaMantenerCategorias}"></label> 
+				<input type="text" class="form-control" name="criterioBusqueda"
+					th:placeholder="#{placeHolderMantenerCategorias}" size="20">
+		</div>
+		
+		<button type="submit" class="btn btn-sucess" name="Buscar" th:text="#{botonBuscarMantenerCategorias}"></button>
+		
+	</form>
+	<div th:if="${categorias}">
+		<div th:if="${categorias.isEmpty()}">
+			<br>
+			<p th:text="#{mensajeErrorMantenerCategorias}"></p>
+		</div>
+		<div th:if="${!categorias.isEmpty()}">
+			<br>
+			<table class="table table-striped table-hover">
+				<tr>
+					<th th:text="#{codigoMantenerCategorias}"></th>
+					<th th:text="#{nombreMantenerCategorias}"></th>
+					<th th:text="#{accionMantenerCategorias}"></th>
+				</tr>
+				<tr th:each="entry,status : ${categorias}">
+					<td><span th:text="${entry.idCategoria}"></span></td>
+					<td><span th:text="${entry.nombreCategoria}"></span></td>
+					<td>
+						<a th:href="@{/modificarCategoria/{id}(id=${entry.idCategoria})}" class="btn btn-success" th:text="#{btnModificarCategoria}"></a>
+						<a th:href="@{/borrarCategoria/{id}(id=${entry.idCategoria})}" class="btn btn-danger" th:text="#{btnEliminarCategoria}"></a>
+					</td>
+				</tr>
+			</table>
+			<a th:href="@{/insertarCategoria}" class="btn btn-success" th:text="#{btnInsertarCategoria}"></a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+    $("#locales").change(function () {
+        var selectedOption = $('#locales').val();
+        if (selectedOption != ''){
+            window.location.replace('mantenerCategorias?lang=' + selectedOption);
+        }
+    });
+});
+</script>
+</body>
+</html>

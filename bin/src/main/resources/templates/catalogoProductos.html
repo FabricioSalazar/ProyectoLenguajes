@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{tituloCatalogo}"></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+
+</head>
+<body>
+<div class="header-menu"></div>
+<div class="container" style="width: 600px;">
+		
+		<div style="margin-left: 82%;">
+			<span th:text="#{lang.change}"></span>: <select id="locales">
+				<option value=""></option>
+				<option value="en" th:text="#{lang.eng}"></option>
+				<option value="es" th:text="#{lang.es}"></option>
+				<option value="fr" th:text="#{lang.fr}"></option>
+			</select>
+		</div>
+		
+		<div th:if="${productos}">
+		<div th:if="${productos.isEmpty()}">
+			<br>
+			<div class="alert alert-danger">
+				<strong th:text="#{mensajeError1Catalogo}"></strong>
+				<h4 th:text="#{mensajeError2Catalogo}"></h4>
+			</div>
+		</div>
+		<div th:if="${!productos.isEmpty()}">
+			<br>
+			<div class="alert alert-success">
+				<h3 th:text="#{mensajeSuccessCatalogo}">
+					<span th:text="${cantidadProductos}"></span>
+				</h3>
+			</div>
+				<div class="row" th:each="entry,status : ${productos}" style="padding-top:10px;">
+				<div  style="padding-bottom: 10px; padding-left: 10px;">
+					<span th:text="${entry.nombre}"></span>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="col-sm-4" style="border-left: 10px;">
+							<img width="200" height="200" th:src="${entry.imagen}">
+						</div>
+						<div class="col-sm-4" style="max-height: 100px; max-width: 200px;">
+							<textarea style="resize:none;border:none;" rows="4" cols="20" readonly th:text="${entry.descripcion}">
+							</textarea>
+						</div>
+						<div class="col-sm-4">
+							<div style="padding-bottom: 10px;">
+								<span th:text="#{precioCatalogo}"></span><span th:text="${entry.precio}"></span>
+							</div>
+							<div style="padding-bottom: 10px;">
+								<span th:text="#{cantidadCatalogo}"></span><input type=number th:value="${entry.unidadesStock}" style="width: 45px;">
+							</div>
+							<div class="btn-group">
+
+								<button th:href="@{/catalogoProductos/add?search=${entry.idProducto}}" type="button" class="btn-xs btn-primary">Añadir al carrito</button>
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>
+			<div th:if="${cantidadProductos>5}">
+				<div class="container">
+					<ul class="pagination">
+					<li th:if="${pagActual>0}"><a th:href="@{/catalogoProductos/buscar/prev}" name="prev" th:text="#{pagPrevCatalogo}"></a></li>
+					<li th:if="${totalPag>pagActual}"><a th:href="@{/catalogoProductos/buscar/next}" name="next" th:text="#{pagNextCatalogo}"></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<br>
+<br>
+<script th:inline="javascript">
+	var id=[[${busqueda}]]
+	$(document).ready(function() {
+    $("#locales").change(function () {
+        var selectedOption = $('#locales').val();
+        if (selectedOption != ''){
+            window.location.replace('catalogoProductos?search='+id+'?lang=' + selectedOption);
+        }
+    });
+});
+</script>
+
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>

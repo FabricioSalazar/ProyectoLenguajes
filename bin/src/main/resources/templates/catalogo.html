@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="row" th:each="entry,status : ${productos}" style="padding-top:10px;">
+<img width="200" height="200" th:src="${entry.imagen}">
+</div>
+</body>
+</html>
