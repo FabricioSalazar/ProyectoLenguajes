@@ -66,8 +66,6 @@ public class UsuarioController {
 
         return "login";
     }
-
-    
     
     @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -75,6 +73,24 @@ public class UsuarioController {
         if (auth != null){    
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
+        return "redirect:/login?logout";
+    }
+    
+    @RequestMapping(value = {"/disable"}, method = RequestMethod.GET)
+    public String disableAccount(Model model) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	Usuario user = userService.findUserByLogIn(auth.getName());
+        model.addAttribute("idUsuario",user.getIdUsuario());
+        model.addAttribute("login", auth.getName());
+        return "disable";
+    }
+    
+    @RequestMapping(value = {"/disable"}, method = RequestMethod.POST)
+    public String disableAccountPost(HttpServletRequest request, HttpServletResponse response) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	Usuario user = userService.findUserByLogIn(auth.getName());
+    	if(user.isEnabled())
+    		userService.erase(auth.getName());
         return "redirect:/login?logout";
     }
 }

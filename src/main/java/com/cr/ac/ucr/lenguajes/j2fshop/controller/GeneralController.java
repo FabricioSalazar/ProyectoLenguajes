@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cr.ac.ucr.lenguajes.j2fshop.business.UsuarioService;
+import com.cr.ac.ucr.lenguajes.j2fshop.domain.Usuario;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -32,6 +35,8 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 public class GeneralController {
 	@Autowired
 	DataSource dataSource;
+	@Autowired
+	UsuarioService usuarioService;
 	
 	@RequestMapping(value = {"/", "/welcome", "/index"}, method = RequestMethod.GET)
 	public String home(Model model) {
@@ -39,8 +44,13 @@ public class GeneralController {
 		for(Object autho : auth.getAuthorities().toArray()){
 			System.out.println(autho.toString());
 		}
-		if(!auth.getName().equals("anonymousUser"))
+		if(!auth.getName().equals("anonymousUser")) {
 			model.addAttribute("username",auth.getName());
+			Usuario user = usuarioService.findUserByLogIn(auth.getName());
+			if (!user.isEnabled()) {
+				usuarioService.enable(auth.getName());
+			}
+		}
 		return "J2FShop";
 	}
 	

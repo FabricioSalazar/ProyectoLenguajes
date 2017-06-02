@@ -33,7 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/header.html", "/error").permitAll()
 				.antMatchers("/reports/**").permitAll()
 				.antMatchers("/pdfTotalVentas").permitAll()
-				.antMatchers("/admin/**").hasAuthority("Administrador")
+				.antMatchers("/admin/**", "/insertarCategoria","/insertarCategoria/**"
+						,"/modificarCategoria/**","/borrarCategoria/**", "/mantenerCategorias"
+						,"/mantenerCategorias/**").hasAuthority("Administrador")
+				.antMatchers("/insertarProducto","/insertarProducto/**",
+						"/modificarProducto/**","/borrarProducto/**",
+						"/mantenerProductos", "/mantenerProductos/**").hasAuthority("Administrador")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
