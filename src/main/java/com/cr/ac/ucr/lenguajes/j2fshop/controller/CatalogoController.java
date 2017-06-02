@@ -1,5 +1,7 @@
 package com.cr.ac.ucr.lenguajes.j2fshop.controller;
 
+import static org.assertj.core.api.Assertions.setMaxElementsForPrinting;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cr.ac.ucr.lenguajes.j2fshop.J2FShopApplication;
 import com.cr.ac.ucr.lenguajes.j2fshop.business.ProductoService;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Producto;
+import com.cr.ac.ucr.lenguajes.j2fshop.domain.Articulo;
 
 @Controller
 public class CatalogoController {
@@ -71,10 +74,13 @@ public class CatalogoController {
 	@RequestMapping(value = "/catalogoProductos/add")
 	public String addCarrito(Model model, HttpServletRequest request) {
 		
-		criterioBusqueda = (String) request.getParameter("val");
+		criterioBusqueda = (String) request.getParameter("val").split("A")[0];
 		
-		J2FShopApplication.carrito.add(productoService.findProductByCode(Integer.parseInt(criterioBusqueda)));
-
+		int cant = Integer.parseInt(request.getParameter("val").split("A")[1]);
+		
+		J2FShopApplication.carrito.add(new Articulo(cant,productoService.findProductByCode(Integer.parseInt(criterioBusqueda))));
+		
+			
 		model.addAttribute("cantidadProductos", cantidad);
 		model.addAttribute("productos", paged.getPage(pagActual));
 		model.addAttribute("pagActual", pagActual);
@@ -100,8 +106,8 @@ public class CatalogoController {
 	public String eliminar(HttpServletRequest request, Model model) {
 
 		criterioBusqueda = (String) request.getParameter("search");
-		for (Producto producto : J2FShopApplication.carrito) {
-			if (producto.getIdProducto() == Integer.parseInt(criterioBusqueda)) {
+		for (Articulo producto : J2FShopApplication.carrito) {
+			if (producto.getProducto().getIdProducto() == Integer.parseInt(criterioBusqueda)) {
 				J2FShopApplication.carrito.remove(producto);
 			}
 

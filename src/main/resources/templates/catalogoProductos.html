@@ -59,7 +59,7 @@
 								<span th:text="#{precioCatalogo}"></span><span th:text="${entry.precio}"></span>
 							</div>
 							<div style="padding-bottom: 10px;">
-								<span th:text="#{cantidadCatalogo}"></span><input type=number th:value="${entry.unidadesStock}" style="width: 45px;">
+								<span th:text="#{cantidadCatalogo}"></span><input id="cantidad" type=number th:value="${entry.unidadesStock}" style="width: 45px;">
 							</div>
 							<div class="btn-group">
 
@@ -86,8 +86,9 @@
 <script>
 function del(p){
    alert("Producto Agregado Correctamente");
-   
-   window.location.replace('/catalogoProductos/add?val='+p);
+   var cant  = document.getElementById('cantidad').value;
+   var param = p+"A"+cant;
+   window.location.replace('/catalogoProductos/add?val='+param);
 }
 
 </script>
