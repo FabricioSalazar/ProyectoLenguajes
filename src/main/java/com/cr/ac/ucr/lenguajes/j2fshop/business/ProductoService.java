@@ -41,8 +41,8 @@ public class ProductoService {
 		productoDao.editarProducto(productoForm);
 	}
 	
-	public void insertarProducto(ProductoForm productoForm) throws SQLException{
-		productoDao.insertarProducto(productoForm);
+	public int insertarProducto(ProductoForm productoForm) throws SQLException{
+		return productoDao.insertarProducto(productoForm);
 	}
 	
 	public void eliminarProducto(int idProducto) throws SQLException{

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cr.ac.ucr.lenguajes.j2fshop.business.UsuarioService;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Usuario;
-
+/*
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -30,7 +30,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-
+*/
 @Controller
 public class GeneralController {
 	@Autowired
@@ -57,6 +57,7 @@ public class GeneralController {
 		return "J2FShop";
 	}
 	
+	/*
 	@RequestMapping(path = "/pdfTotalVentas", method = RequestMethod.GET)
     public @ResponseBody void report(HttpServletResponse response) {
     	try {
@@ -122,4 +123,5 @@ public class GeneralController {
 		}
     	
     }
+    */
 }

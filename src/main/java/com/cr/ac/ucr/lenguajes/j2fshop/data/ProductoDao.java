@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ import com.cr.ac.ucr.lenguajes.j2fshop.domain.Producto;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Role;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Usuario;
 import com.cr.ac.ucr.lenguajes.j2fshop.form.ProductoForm;
+import com.cr.ac.ucr.lenguajes.j2fshop.storage.StorageFile;
 import com.mysql.jdbc.Blob;
 
 @Repository
@@ -114,25 +116,27 @@ public class ProductoDao {
 				.addValue("_precio",productoForm.getPrecio())
 				.addValue("_unidadesStock", productoForm.getUnidadesStock())
 				.addValue("_porcentajeImpuesto", productoForm.getPorcentajeImpuesto())
-				.addValue("_imagen", productoForm.getImagen())
+			//	.addValue("_imagen", productoForm.getImagen())
 				.addValue("_idCategoria", productoForm.getIdCategoria());
 		
 		simpleJdbcCallEditarProducto.execute(sqlParameterSource);
 	}
 	
 	@Transactional
-	public void insertarProducto(ProductoForm productoForm) throws SQLException{
+	public int insertarProducto(ProductoForm productoForm) throws SQLException {
 		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-				.addValue("_nombre", productoForm.getNombre())
-				.addValue("_descripcion",productoForm.getDescripcion())
-				.addValue("_precio",productoForm.getPrecio())
-				.addValue("_unidadesStock", productoForm.getUnidadesStock())
-				.addValue("_impuesto", true)
+				.addValue("_nombre", productoForm.getNombre()).addValue("_descripcion", productoForm.getDescripcion())
+				.addValue("_precio", productoForm.getPrecio())
+				.addValue("_unidadesStock", productoForm.getUnidadesStock()).addValue("_impuesto", true)
 				.addValue("_porcentajeImpuesto", productoForm.getPorcentajeImpuesto())
-				.addValue("_imagen", productoForm.getImagen())
+				.addValue("_imagen", productoForm.getUrlImagen())
 				.addValue("_idCategoria", productoForm.getIdCategoria());
-		
-		simpleJdbcCallInsertarProducto.execute(sqlParameterSource);
+		System.out.println("Creacion del mapa");
+		Map<String, Object> params = simpleJdbcCallInsertarProducto.execute(sqlParameterSource);
+		Iterator i = params.values().iterator();
+		i.next();
+		int cod = Integer.parseInt(i.next().toString());
+		return cod;
 	}
 	
 	@Transactional
@@ -184,12 +188,13 @@ public class ProductoDao {
 	}
 	
 	private static final class ProductoExtractor implements ResultSetExtractor<List<Producto>> {
-		
+
 		@Autowired
 		private ProductoDao productoDao;
-		
+
 		@Override
 		public List<Producto> extractData(ResultSet rs) throws SQLException, DataAccessException {
+			StorageFile almacenamiento = new StorageFile();
 			Map<Integer, Producto> map = new HashMap<Integer, Producto>();
 			Producto producto = null;
 			while (rs.next()) {
@@ -204,17 +209,20 @@ public class ProductoDao {
 					producto.setUnidadesStock(rs.getInt("unidadesStock"));
 					producto.setImpuesto(rs.getBoolean("impuesto"));
 					producto.setPorcentajeImpuesto(rs.getFloat("porcentajeImpuesto"));
-					//producto.setImagen(productoDao.obtenerImagen(rs.getBlob("imagen")));
+					
+					producto.setImagen(almacenamiento.getUriImage(idProducto,rs.getString("imagen")));
+					System.out.println(producto.getImagen()+"*************************************");
+					// producto.setImagen(productoDao.obtenerImagen(rs.getBlob("imagen")));
 					producto.getCategoria().setIdCategoria(rs.getInt("idCategoria"));
 					producto.getCategoria().setNombreCategoria(rs.getString("nombreCategoria"));
-					//producto.getCategoria().setImagenCategoria(productoDao.obtenerImagen(rs.getBlob("imagenCategoria")));
-					
+					// producto.getCategoria().setImagenCategoria(productoDao.obtenerImagen(rs.getBlob("imagenCategoria")));
+
 					map.put(idProducto, producto);
 				}
 			} // while
 			return new ArrayList<Producto>(map.values());
 
-		} //extractData
-		
-	}//ProductoExtractor
+		} // extractData
+
+	}// ProductoExtractor
 }

@@ -8,19 +8,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.cr.ac.ucr.lenguajes.j2fshop.business.CategoriaService;
 import com.cr.ac.ucr.lenguajes.j2fshop.business.ProductoService;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Producto;
 import com.cr.ac.ucr.lenguajes.j2fshop.form.ProductoForm;
+import com.cr.ac.ucr.lenguajes.j2fshop.storage.StorageFile;
 
 @Controller
 public class MantenerProductoController {
@@ -29,7 +34,7 @@ public class MantenerProductoController {
 	private CategoriaService categoriaService;
 	@Autowired
 	private ProductoService productoService;
-	
+	private StorageFile almacenamiento;
 	private Producto producto;
 	private List<Producto> productos;
 	
@@ -38,28 +43,29 @@ public class MantenerProductoController {
 	@RequestMapping("insertarProducto")
 	public String iniciarInsertarProducto(ProductoForm productoForm, Model model) {
 		model.addAttribute("categorias", categoriaService.findAllCategories());
+		almacenamiento = new StorageFile();
 		return "insertarProducto";
 	}
 
 	@RequestMapping(value = "/insertarProducto/salvar", method = RequestMethod.POST)
-	public String saveInsertarProducto(@RequestParam Map<String, String> requestParams, @Valid ProductoForm productoForm,
-		BindingResult bindingResult, Model model) {
-
+	public String saveInsertarProducto(@Valid ProductoForm productoForm, BindingResult bindingResult, Model model,
+			@RequestParam("file") CommonsMultipartFile file) {
+		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("categorias", categoriaService.findAllCategories());
 			return "insertarProducto";
 		} else {
-			
 			try {
-				//productoService.saveImageProduct(productoForm.getImagen());
-				productoService.insertarProducto(productoForm);
-			} catch (SQLException e) {
-				 return "error";
+			 productoForm.setUrlImagen(almacenamiento.formato(file.getFileItem().getName()));	
+			 System.out.println(productoForm.toString());	 
+			 int cod =  productoService.insertarProducto(productoForm);
+			 productoForm.setUrlImagen(almacenamiento.guardarImagen(file,"PD"+cod));
+			} catch (Exception e) {
+				return "error";
 			}
 			model.addAttribute("msg", "Producto insertado con exito");
 			return "success";
 		}
-
 	}
 	
 	

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="all"
+	href="css/bootstrap-glyphicons.css"></link>
+<link rel="stylesheet" type="text/css" media="all" href="css/styles.css"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<title th:text="#{tituloBorrarCategoria}"></title>
+
+<style>
+body, html {
+	height: 100%;
+	background-repeat: no-repeat;
+	background-color: #d3d3d3;
+	font-family: 'Oxygen', sans-serif;
+}
+
+</style>
+
+</head>
+<body>
+<div class="header-menu"></div>
+	<div class="container">
+		<div class="jumbotron">
+			
+			<div style="margin-left: 82%;" >
+				<span th:text="#{lang.change}"></span>:
+				<select id="locales">
+					<option value="" ></option>
+	    			<option value="en" th:text="#{lang.eng}"></option>
+   	    			<option value="es" th:text="#{lang.es}"></option>
+   	    			<option value="fr" th:text="#{lang.fr}"></option>
+				</select>
+			</div>
+	
+			<div th:if="${categoriaBorrar} == null">
+				<p class="small"><label th:text="#{mensajeErrorBorrarCategoria}"></label></p>
+			</div>
+			<div th:if="${categoriaBorrar} != null">
+				<p class="small"><label th:text="#{mensajeConfirmacionBorrarCategoria}"></label></p>
+				<br>
+				<p class="small"><label th:text="#{codigoBorrarCategoria}+' '+${categoriaBorrar.idCategoria}"></label></p>
+				<br>
+				<p class="small"><label th:text="#{nombreBorrarCategoria}+' '+${categoriaBorrar.nombreCategoria}"></label></p>
+	
+				
+				<a th:href="@{/mantenerCategorias}" class="btn btn-success" th:text="#{botonCancelCategoria}"></a>
+				<a th:href="@{/borrarCategoria/accept}" class="btn btn-danger" th:text="#{botonAceptarCategoria}"></a>
+			</div>
+			
+			
+		</div>
+	</div>
+	<script th:inline="javascript">
+	var id=[[${categoriaBorrar.idCategoria}]]
+	
+	$(document).ready(function() {
+    $("#locales").change(function () {
+        var selectedOption = $('#locales').val();
+        if (selectedOption != ''){
+            window.location.replace('/borrarCategoria/'+id+'?lang=' + selectedOption);
+        }
+    });
+});
+</script>
+</body>
+</html>

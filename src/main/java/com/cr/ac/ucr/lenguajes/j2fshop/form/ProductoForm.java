@@ -1,6 +1,5 @@
 package com.cr.ac.ucr.lenguajes.j2fshop.form;
 
-import java.io.File;
 
 import javax.validation.constraints.NotNull;
 
@@ -20,10 +19,10 @@ public class ProductoForm {
 	private boolean impuesto;
 	@NotNull
 	private float porcentajeImpuesto;
-	@NotNull
-	private File imagen;
+	
 	@NotNull
 	private int idCategoria;
+	private String urlImagen;
 	
 	public ProductoForm() {
 		
@@ -85,13 +84,6 @@ public class ProductoForm {
 		this.porcentajeImpuesto = porcentajeImpuesto;
 	}
 
-	public File getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(File imagen) {
-		this.imagen = imagen;
-	}
 
 	public int getIdCategoria() {
 		return idCategoria;
@@ -105,8 +97,16 @@ public class ProductoForm {
 	public String toString() {
 		return "ProductoForm [idProducto=" + idProducto + ", nombre=" + nombre + ", descripcion=" + descripcion
 				+ ", precio=" + precio + ", unidadesStock=" + unidadesStock + ", impuesto=" + impuesto
-				+ ", porcentajeImpuesto=" + porcentajeImpuesto + ", imagen=" + imagen.getPath()+ " "+imagen.getTotalSpace()+" "+imagen.length() + ", categoria=" + idCategoria
+				+ ", porcentajeImpuesto=" + porcentajeImpuesto + ", imagen=" + ", categoria=" + idCategoria
 				+ "]";
+	}
+
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
 	}
 	
 	
