@@ -49,16 +49,6 @@
 								<th th:text="#{nombreMantenerUsuarios}"></th>
 								<th th:text="#{apellidosMantenerUsuarios}"></th>
 								<th th:text="#{loginMantenerUsuarios}"></th>
-								<th th:text="#{direccion1MantenerUsuarios}"></th>
-								<th th:text="#{direccion2MantenerUsuarios}"></th>
-								<th th:text="#{paisMantenerUsuarios}"></th>
-								<th th:text="#{ciudadMantenerUsuarios}"></th>
-								<th th:text="#{estadoMantenerUsuarios}"></th>
-								<th th:text="#{codigoPostalMantenerUsuarios}"></th>
-								<th th:text="#{telefonoMantenerUsuarios}"></th>
-								<th th:text="#{tarjetaMantenerUsuarios}"></th>
-								<th th:text="#{ccvMantenerUsuarios}"></th>
-								<th th:text="#{saldoMantenerUsuarios}"></th>
 								<th th:text="#{rolesMantenerUsuarios}"></th>
 								<th th:text="#{accionMantenerUsuarios}"></th>
 							</tr>
@@ -69,16 +59,6 @@
 								<td><span th:text="${entry.nombre}"></span></td>
 								<td><span th:text="${entry.apellidos}"></span></td>
 								<td><span th:text="${entry.login}"></span></td>
-								<td><span th:text="${entry.direccion1}"></span></td>
-								<td><span th:text="${entry.direccion2}"></span></td>
-								<td><span th:text="${entry.pais}"></span></td>
-								<td><span th:text="${entry.ciudad}"></span></td>
-								<td><span th:text="${entry.estado}"></span></td>
-								<td><span th:text="${entry.codigoPostal}"></span></td>
-								<td><span th:text="${entry.telefono}"></span></td>
-								<td><span th:text="${entry.numeroTarjeta}"></span></td>
-								<td><span th:text="${entry.ccv}"></span></td>
-								<td><span th:text="${entry.saldo}"></span></td>
 								<td>
 									<div th:each="e : ${entry.roles}">
 										<span th:text="${e.roleName}"></span>
