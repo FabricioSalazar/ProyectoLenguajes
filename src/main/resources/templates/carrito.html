@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="ISO-8859-1">
+      <title>Crrito de Compras</title>
+   </head>
+   <body>
+      <div class="header-menu"></div>
+      <div class="container" style="width: 600px;">
+         <div th:if="${carrito}">
+            <div th:if="${carrito.isEmpty()}">
+               <br>
+               <div class="alert alert-danger">
+                  <strong>Atencion:</strong>
+                  <h4>No se encontraron resultados</h4>
+               </div>
+            </div>
+            <div th:if="${!carrito.isEmpty()}">
+               <br>
+               <div class="alert alert-success"></div>
+               <div class="row" th:each="entry,status : ${carrito}"
+                  style="padding-top: 10px;">
+                  <div style="padding-bottom: 10px; padding-left: 10px;">
+                     <span th:text="${entry.nombre}"></span>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <div class="col-sm-4" style="border-left: 10px;">
+                           <span class="input-group-addon col-sm-6"
+                              style="width: 150px; height: 100px;"><i
+                              class="glyphicon glyphicon-picture col-sm-6" aria-hidden="true"
+                              style="align-items: center"></i></span>
+                        </div>
+                        <div class="col-sm-4"
+                           style="max-height: 100px; max-width: 200px;">
+                           <textarea style="resize: none; border: none;" rows="4" cols="20"
+                              readonly th:text="${entry.descripcion}">
+                           </textarea>
+                        </div>
+                        <div class="col-sm-4">
+                           <div style="padding-bottom: 10px;">
+                              <span>Precio: $</span><span th:text="${entry.precio}"></span>
+                           </div>
+                           <img th:src="${entry.imagen}">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="btn-group">
+               <button th:href="/carrito/pago" type="button" class="btn-xs btn-primary">Pagar</button>
+            </div>
+         </div>
+      </div>
+      <script type="text/javascript" th:src="@{/js/script.js}"></script>
+   </body>
+</html>

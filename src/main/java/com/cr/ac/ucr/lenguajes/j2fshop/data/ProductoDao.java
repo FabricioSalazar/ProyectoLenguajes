@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -114,25 +115,27 @@ public class ProductoDao {
 				.addValue("_precio",productoForm.getPrecio())
 				.addValue("_unidadesStock", productoForm.getUnidadesStock())
 				.addValue("_porcentajeImpuesto", productoForm.getPorcentajeImpuesto())
-				.addValue("_imagen", productoForm.getImagen())
+			//	.addValue("_imagen", productoForm.getImagen())
 				.addValue("_idCategoria", productoForm.getIdCategoria());
 		
 		simpleJdbcCallEditarProducto.execute(sqlParameterSource);
 	}
 	
 	@Transactional
-	public void insertarProducto(ProductoForm productoForm) throws SQLException{
+	public int insertarProducto(ProductoForm productoForm) throws SQLException {
 		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-				.addValue("_nombre", productoForm.getNombre())
-				.addValue("_descripcion",productoForm.getDescripcion())
-				.addValue("_precio",productoForm.getPrecio())
-				.addValue("_unidadesStock", productoForm.getUnidadesStock())
-				.addValue("_impuesto", true)
+				.addValue("_nombre", productoForm.getNombre()).addValue("_descripcion", productoForm.getDescripcion())
+				.addValue("_precio", productoForm.getPrecio())
+				.addValue("_unidadesStock", productoForm.getUnidadesStock()).addValue("_impuesto", true)
 				.addValue("_porcentajeImpuesto", productoForm.getPorcentajeImpuesto())
-				.addValue("_imagen", productoForm.getImagen())
+				.addValue("_imagen", productoForm.getUrlImagen())
 				.addValue("_idCategoria", productoForm.getIdCategoria());
-		
-		simpleJdbcCallInsertarProducto.execute(sqlParameterSource);
+		System.out.println("Creacion del mapa");
+		Map<String, Object> params = simpleJdbcCallInsertarProducto.execute(sqlParameterSource);
+		Iterator i = params.values().iterator();
+		i.next();
+		int cod = Integer.parseInt(i.next().toString());
+		return cod;
 	}
 	
 	@Transactional

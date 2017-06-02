@@ -48,7 +48,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="col-sm-4" style="border-left: 10px;">
-							<span class="input-group-addon col-sm-6"  style="width: 150px; height: 100px;"><i class="glyphicon glyphicon-picture col-sm-6" aria-hidden="true" style="align-items: center"></i></span>
+							<img "width="200" height="200" th:src="${entry.imagen}">
 						</div>
 						<div class="col-sm-4" style="max-height: 100px; max-width: 200px;">
 							<textarea style="resize:none;border:none;" rows="4" cols="20" readonly th:text="${entry.descripcion}">
@@ -62,8 +62,7 @@
 								<span th:text="#{cantidadCatalogo}"></span><input type=number th:value="${entry.unidadesStock}" style="width: 45px;">
 							</div>
 							<div class="btn-group">
-								<button type="button" class="btn-xs btn-primary" th:text="#{btnAnadirCatalogo}"></button>
-								<button type="button" class="btn-xs btn-primary" th:text="#{btnPagarCatalogo}"></button>
+								<button th:href="@{/catalogoProductos/add?search=${entry.idProducto}}" type="button" class="btn-xs btn-primary">Añadir al carrito</button>
 							</div>
 						</div>
 					</div>	

@@ -109,7 +109,7 @@ input, input::-webkit-input-placeholder {
 				</div>
 			</div>
 			<div class="main-login main-center">
-				<form class="form-horizontal" th:object="${productoForm}" th:action="@{/insertarProducto/salvar}" action="#" method="post">
+				<form enctype="multipart/form-data"  class="form-horizontal" th:object="${productoForm}" th:action="@{/insertarProducto/salvar}" action="#" method="post">
 					<div class="form-group">
 						<label class="cols-sm-2 control-label" th:text="#{nombreInsertarProducto}"></label>
 						<div class="cols-sm-10">
@@ -185,9 +185,8 @@ input, input::-webkit-input-placeholder {
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-picture" aria-hidden="true"></i></span>
-                  				<input th:field="*{imagen}"  class="file-loading"  type="file" name="pic" accept="image/*">
+                  				<input name="file" class="file-loading"  type="file">
 							</div>
-							<div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"  class="alert alert-danger">ERROR</div>
 						</div>
 					</div>
 

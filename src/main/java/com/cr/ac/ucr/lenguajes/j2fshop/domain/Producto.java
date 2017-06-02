@@ -12,7 +12,7 @@ public class Producto {
 	private int unidadesStock;
 	private boolean impuesto;
 	private float porcentajeImpuesto;
-	private File imagen;
+	private String imagen;
 	private Categoria categoria;
 	
 	public Producto() {
@@ -75,11 +75,11 @@ public class Producto {
 		this.porcentajeImpuesto = porcentajeImpuesto;
 	}
 
-	public File getImagen() {
+	public String getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(File imagen) {
+	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
 
