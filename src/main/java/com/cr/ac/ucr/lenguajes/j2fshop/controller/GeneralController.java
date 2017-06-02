@@ -44,17 +44,23 @@ public class GeneralController {
 		for(Object autho : auth.getAuthorities().toArray()){
 			System.out.println(autho.toString());
 			if (autho.toString().equals("Administrador")){
-				return "headerAdmin";
+				model.addAttribute("admin",true);
 			}
 		}
 		if(!auth.getName().equals("anonymousUser")) {
-			model.addAttribute("username",auth.getName());
+			model.addAttribute("usuario",auth.getName());
 			Usuario user = usuarioService.findUserByLogIn(auth.getName());
 			if (!user.isEnabled()) {
 				usuarioService.enable(auth.getName());
 			}
-		}
-		return "J2FShop";
+		} 
+			
+		return "header";
+	}
+	
+	@RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
+	public String admin(){
+		return "headerAdmin";
 	}
 	
 	/*

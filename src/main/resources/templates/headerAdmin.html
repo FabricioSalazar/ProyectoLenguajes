@@ -13,6 +13,9 @@
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Open+Sans">
 <!--CSS HEADER (SE DEBE LLEVAR A UN ARCHIVO CSS APARTE) -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <style>
 .carousel-inner>.item>img, .carousel-inner>.item>a>img {
 	width: 100%;
@@ -73,7 +76,7 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#" th:text="#{inicioHeader}"></a></li>
 					<li><a th:href="@{/mantenerProductos}" th:text="#{productosHeader}"></a></li>
-					<li><a th:href="@{/mantenerCategorias}" th:text="#{categrias}"></a></li>
+					<li><a th:href="@{/mantenerCategorias}" th:text="#{categorias}"></a></li>
 					<li><a th:href="@{/admin/mantenerUsuarios}" th:text="#{usuarios}"></a></li>
 					<li><input style="margin-top: 7px;" class="form-control"
 						type="text" id="search" th:placeholder="#{placeHolderBuscarHeader}"></li>
@@ -90,10 +93,10 @@
 			</div>
 		</div>
 	</nav>
-	
+
 	<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -101,22 +104,18 @@
           <h4 class="modal-title" th:text="#{opcionesUsuarioHeader}"></h4>
         </div>
         <div class="modal-body">
-          
-          					<ul >
-							<li><a href="/login" th:text="#{iniciarSesionHeader}"></a></li>
-							<li><a href="registration" th:text="#{registrarseHeader}"></a></li>
+
+  					<ul >
 							<li><a href="/logout">Log out</a></li>
-							<li><a href="#" th:text="#{funcionesUsuarioHeader}"></a></li>
+							<li><a href="/">Vista de Usuario</a></li>
 						</ul>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
     </div>
   </div>
-
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -142,6 +141,15 @@
 
 		}());
 	</script>
-	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#locales").change(function () {
+				var selectedOption = $('#locales').val();
+				if (selectedOption != ''){
+						window.location.replace('mantenerUsuarios?lang=' + selectedOption);
+				}
+		});
+	});
+	</script>
 </body>
 </html>

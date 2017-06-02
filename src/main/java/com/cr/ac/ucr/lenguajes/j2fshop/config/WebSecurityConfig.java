@@ -31,15 +31,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/index", "/header", "/J2FShop", "/", "/login").permitAll()
 				.antMatchers("/css/**", "/js/**", "/foundation-icons/**").permitAll()
 				.antMatchers("/header.html", "/error").permitAll()
-				.antMatchers("/reports/**").permitAll()
-				.antMatchers("/pdfTotalVentas").permitAll()
 				.antMatchers("/static/", "/images/**").permitAll()
+				.antMatchers("/contact","/acercaDe").permitAll()
 				.antMatchers("/admin/**", "/insertarCategoria","/insertarCategoria/**"
 						,"/modificarCategoria/**","/borrarCategoria/**", "/mantenerCategorias"
-						,"/mantenerCategorias/**").hasAuthority("Administrador")
+						,"/mantenerCategorias/**", "/admin").hasAuthority("Administrador")
 				.antMatchers("/insertarProducto","/insertarProducto/**",
 						"/modificarProducto/**","/borrarProducto/**",
-						"/mantenerProductos", "/mantenerProductos/**").hasAuthority("Administrador")
+						"/mantenerProductos", "/mantenerProductos/**", "/headearAdmin").hasAuthority("Administrador")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()

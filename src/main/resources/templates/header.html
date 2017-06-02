@@ -78,8 +78,6 @@
 						type="text" id="search" th:placeholder="#{placeHolderBuscarHeader}"></li>
 					<li><a href="#" id="btn-search" th:text="#{buscarHeader}"><span
 							class="glyphicon glyphicon-search"></span></a></li>
-					<li><a href="#" id="btn-search" th:text="#{buscarHeader}"><span
-							class="glyphicon glyphicon-search"></span></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 
@@ -91,10 +89,10 @@
 			</div>
 		</div>
 	</nav>
-	
+
 	<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -102,19 +100,20 @@
           <h4 class="modal-title" th:text="#{opcionesUsuarioHeader}"></h4>
         </div>
         <div class="modal-body">
-          
-          					<ul >
-							<li><a href="/login" th:text="#{iniciarSesionHeader}"></a></li>
-							<li><a href="registration" th:text="#{registrarseHeader}"></a></li>
-							<li><a href="/logout">Log out</a></li>
-							<li><a href="/borrarUsuario">Desabilitar Cuenta</a></li>
+
+          				<ul >
+							<li th:if="${usuario == null}"><a href="/login" th:text="#{iniciarSesionHeader}"></a></li>
+							<li th:if="${usuario == null}"><a href="/registration" th:text="#{registrarseHeader}" ></a></li>
+							<li th:if="${usuario != null}"><a href="/logout">Log out</a></li>
+							<li th:if="${usuario != null}"><a href="/borrarUsuario">Desabilitar Cuenta</a></li>
+							<li th:if="${admin == true}"><a href="/admin" >Admin view</a></li>
 						</ul>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -143,6 +142,6 @@
 
 		}());
 	</script>
-	
+
 </body>
 </html>
