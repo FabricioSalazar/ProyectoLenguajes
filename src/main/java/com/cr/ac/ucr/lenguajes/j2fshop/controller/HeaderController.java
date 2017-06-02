@@ -11,5 +11,19 @@ public class HeaderController {
 	public String iniciar(Model model) {
 		return "header";
 	}
-		
+	
+	@RequestMapping("/headerAdmin")
+	public String iniciarAdmin(Model model) {
+		return "headerAdmin";
+	}
+	
+	@RequestMapping("/contact")
+	public String contact(Model model) {
+		return "contact";
+	}
+	
+	@RequestMapping("/acercaDe")
+	public String acercaDe(Model model) {
+		return "acercaDe";
+	}
 }

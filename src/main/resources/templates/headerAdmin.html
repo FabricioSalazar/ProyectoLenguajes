@@ -72,9 +72,9 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#" th:text="#{inicioHeader}"></a></li>
-					<li><a th:href="" th:text="#{productosHeader}"></a></li>
-					<li><a href="#" th:text="#{categrias}"></a></li>
-					<li><a href="#" th:text="#{usuarios}"></a></li>
+					<li><a th:href="@{/mantenerProductos}" th:text="#{productosHeader}"></a></li>
+					<li><a th:href="@{/mantenerCategorias}" th:text="#{categrias}"></a></li>
+					<li><a th:href="@{/admin/mantenerUsuarios}" th:text="#{usuarios}"></a></li>
 					<li><input style="margin-top: 7px;" class="form-control"
 						type="text" id="search" th:placeholder="#{placeHolderBuscarHeader}"></li>
 					<li><a href="#" id="btn-search" th:text="#{buscarHeader}"><span
@@ -105,7 +105,7 @@
           					<ul >
 							<li><a href="/login" th:text="#{iniciarSesionHeader}"></a></li>
 							<li><a href="registration" th:text="#{registrarseHeader}"></a></li>
-							
+							<li><a href="/logout">Log out</a></li>
 							<li><a href="#" th:text="#{funcionesUsuarioHeader}"></a></li>
 						</ul>
         </div>
