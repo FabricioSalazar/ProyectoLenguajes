@@ -2,59 +2,78 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mantenimiento de usuarios</title>
+	<title th:text="#{tituloMantenerUsuarios}"></title>
   <!-- Foundation -->
   <link rel="stylesheet" th:href="@{/css/app.css}">
   <link rel="stylesheet" th:href="@{/css/foundation.css}">
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-  <!-- Contenedor principal-->
-  <div class="row" style="margin-top:10;">
-    <div class="small-12 columns callout primary">
+	<!-- Contenedor principal-->
+	<div class="row" style="margin-top:10;">
+		<div class="small-12 columns callout primary">
+			<div style="margin-left: 82%;">
+				<span th:text="#{lang.change}"></span>: <select id="locales">
+					<option value=""></option>
+					<option value="en" th:text="#{lang.eng}"></option>
+					<option value="es" th:text="#{lang.es}"></option>
+					<option value="fr" th:text="#{lang.fr}"></option>
+				</select>
+			</div>
 
-      <!-- Título -->
-      <div class="row">
-        <div class="small-2 columns"><p></p></div>
-        <div class="small-8 columns text-center">
-          <h4><strong>¿Está seguro de que desea deshabilitar este usuario?</strong></h4>
-        </div>
-        <div class="small-2 columns"><p></p></div>
-      </div>
+			<!-- Título -->
+			<div class="row">
+				<div class="small-2 columns"><p></p></div>
+				<div class="small-8 columns text-center">
+					<h4><strong th:text="#{disableTitle}"></strong></h4>
+				</div>
+				<div class="small-2 columns"><p></p></div>
+			</div>
 
-      <!-- Datos -->
-      <div class="row">
-        <div class="small-2 columns"><p></p></div>
-        <div class="small-8 columns">
-          <span>ID de usuario: <strong th:text="${idUsuario}"></strong></span>
-        </div>
-        <div class="small-2 columns"><p></p></div>
-      </div>
+			<!-- Datos -->
+			<div class="row">
+				<div class="small-2 columns"><p></p></div>
+				<div class="small-8 columns">
+					<span th:text="#{idUsuarioMantenerUsuarios}">: <strong th:text="${idUsuario}"></strong></span>
+				</div>
+				<div class="small-2 columns"><p></p></div>
+			</div>
 
-      <div class="row">
-        <div class="small-2 columns"><p></p></div>
-        <div class="small-8 columns">
-          <span>Login: <strong th:text="${login}"></strong></span>
-        </div>
-        <div class="small-2 columns"><p></p></div>
-      </div>
+			<div class="row">
+				<div class="small-2 columns"><p></p></div>
+				<div class="small-8 columns">
+					<span th:text="#{loginMantenerUsuarios}"><strong th:text="${login}"></strong></span>
+				</div>
+				<div class="small-2 columns"><p></p></div>
+			</div>
 
-      <div class="row text-center">
-        <div class="small-2 columns"><p></p></div>
-        <div class="small-8 columns">
-          <div class="button-group">
-            <a th:href="@{/admin/mantenerUsuarios}" class="button success">Cancelar</a>
-            <a th:href="@{/admin/borrarUsuario}" class="button alert">Aceptar</a>
-          </div>
-        </div>
-        <div class="small-2 columns"><p></p></div>
-      </div>
+			<div class="row text-center">
+				<div class="small-2 columns"><p></p></div>
+				<div class="small-8 columns">
+					<div class="button-group">
+						<a th:href="@{/admin/mantenerUsuarios}" th:text="#{botonCancelarProducto}" class="button success"></a>
+						<a th:href="@{/admin/borrarUsuario}" th:text="#{botonAceptarProducto}" class="button alert"></a>
+					</div>
+				</div>
+				<div class="small-2 columns"><p></p></div>
+			</div>
 
-    </div>
-  </div>
-
+		</div>
+	</div>
   <!-- Scripts para foundation -->
   <script th:src="@{/js/vendor/jquery.js}"></script>
   <script th:src="@{/js/vendor/what-input.js}"></script>
   <script th:src="@{/js/vendor/foundation.js}"></script>
   <script th:src="@{/js/app.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		  $("#locales").change(function () {
+		      var selectedOption = $('#locales').val();
+		      if (selectedOption != ''){
+		          window.location.replace('mantenerUsuarios?lang=' + selectedOption);
+		      }
+		  });
+		});
+	</script>
 </body>

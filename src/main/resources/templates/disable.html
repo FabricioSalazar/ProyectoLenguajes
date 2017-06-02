@@ -16,7 +16,7 @@
       <div class="row">
         <div class="small-2 columns"><p></p></div>
         <div class="small-8 columns text-center">
-          <h4><strong>¿Está seguro de que desea deshabilitar este usuario?</strong></h4>
+          <h4><strong th:text="#{disableTitle}"></strong></h4>
         </div>
         <div class="small-2 columns"><p></p></div>
       </div>
@@ -25,7 +25,7 @@
       <div class="row">
         <div class="small-2 columns"><p></p></div>
         <div class="small-8 columns">
-          <span>ID de usuario: <strong th:text="${idUsuario}"></strong></span>
+          <span th:text="#{idUsuarioMantenerUsuarios}">: <strong th:text="${idUsuario}"></strong></span>
         </div>
         <div class="small-2 columns"><p></p></div>
       </div>
@@ -33,7 +33,7 @@
       <div class="row">
         <div class="small-2 columns"><p></p></div>
         <div class="small-8 columns">
-          <span>Login: <strong th:text="${login}"></strong></span>
+          <span th:text="#{loginMantenerUsuarios}"><strong th:text="${login}"></strong></span>
         </div>
         <div class="small-2 columns"><p></p></div>
       </div>
@@ -42,8 +42,8 @@
         <div class="small-2 columns"><p></p></div>
         <div class="small-8 columns">
           <div class="button-group">
-            <a th:href="@{/}" class="button success">Cancelar</a>
-            <a th:href="@{/disable}" class="button alert">Aceptar</a>
+            <a th:href="@{/}" th:text="#{botonCancelarProducto}" class="button success"></a>
+            <a th:href="@{/disable}" th:text="#{botonAceptarProducto}" class="button alert"></a>
           </div>
         </div>
         <div class="small-2 columns"><p></p></div>
