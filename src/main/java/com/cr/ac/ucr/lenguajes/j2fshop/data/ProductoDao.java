@@ -32,6 +32,7 @@ import com.cr.ac.ucr.lenguajes.j2fshop.domain.Producto;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Role;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Usuario;
 import com.cr.ac.ucr.lenguajes.j2fshop.form.ProductoForm;
+import com.cr.ac.ucr.lenguajes.j2fshop.storage.StorageFile;
 import com.mysql.jdbc.Blob;
 
 @Repository
@@ -187,12 +188,13 @@ public class ProductoDao {
 	}
 	
 	private static final class ProductoExtractor implements ResultSetExtractor<List<Producto>> {
-		
+
 		@Autowired
 		private ProductoDao productoDao;
-		
+
 		@Override
 		public List<Producto> extractData(ResultSet rs) throws SQLException, DataAccessException {
+			StorageFile almacenamiento = new StorageFile();
 			Map<Integer, Producto> map = new HashMap<Integer, Producto>();
 			Producto producto = null;
 			while (rs.next()) {
@@ -207,17 +209,20 @@ public class ProductoDao {
 					producto.setUnidadesStock(rs.getInt("unidadesStock"));
 					producto.setImpuesto(rs.getBoolean("impuesto"));
 					producto.setPorcentajeImpuesto(rs.getFloat("porcentajeImpuesto"));
-					//producto.setImagen(productoDao.obtenerImagen(rs.getBlob("imagen")));
+					
+					producto.setImagen(almacenamiento.getUriImage(idProducto,rs.getString("imagen")));
+					System.out.println(producto.getImagen()+"*************************************");
+					// producto.setImagen(productoDao.obtenerImagen(rs.getBlob("imagen")));
 					producto.getCategoria().setIdCategoria(rs.getInt("idCategoria"));
 					producto.getCategoria().setNombreCategoria(rs.getString("nombreCategoria"));
-					//producto.getCategoria().setImagenCategoria(productoDao.obtenerImagen(rs.getBlob("imagenCategoria")));
-					
+					// producto.getCategoria().setImagenCategoria(productoDao.obtenerImagen(rs.getBlob("imagenCategoria")));
+
 					map.put(idProducto, producto);
 				}
 			} // while
 			return new ArrayList<Producto>(map.values());
 
-		} //extractData
-		
-	}//ProductoExtractor
+		} // extractData
+
+	}// ProductoExtractor
 }

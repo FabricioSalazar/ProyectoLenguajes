@@ -13,7 +13,7 @@ import com.cr.ac.ucr.lenguajes.j2fshop.business.ProductoService;
 
 public class StorageFile {
 
-	private String url = "C:/Users/jumoc/Documents/GitHub/ProyectoUnoLenguajes/ProyectoLenguajes/src/main/resources/static/images";
+	private String url = "C:/Users/jumoc/Documents/GitHub/PLPAC/ProyectoLenguajes/src/main/resources/static/images";
 
 	@Autowired
 	ProductoService prductoService;

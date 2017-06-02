@@ -43,7 +43,7 @@ public class CatalogoController {
 		criterioBusqueda = (String) request.getParameter("search");
 
 		listaProductos = productoService.findProducts(criterioBusqueda.trim());
-
+		System.out.println(listaProductos.get(0).getImagen());
 		pagActual = 0; // reinicia la pagina visible actual a 0
 		paged = new PagedList(ELEM_POR_PAG, listaProductos);
 
