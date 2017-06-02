@@ -63,7 +63,7 @@
 							</div>
 							<div class="btn-group">
 
-								<button th:href="@{/catalogoProductos/add?search=${entry.idProducto}}" type="button" class="btn-xs btn-primary">Añadir al carrito</button>
+								<button th:onclick="'javascript:del(\'' + ${entry.idProducto} + '\')'" type="button" class="btn-xs btn-primary">Añadir al carrito</button>
 							</div>
 						</div>
 					</div>	
@@ -83,6 +83,14 @@
 <br>
 <br>
 <br>
+<script>
+function del(p){
+   alert("Producto Agregado Correctamente");
+   
+   window.location.replace('/catalogoProductos/add?val='+p);
+}
+
+</script>
 <script th:inline="javascript">
 	var id=[[${busqueda}]]
 	$(document).ready(function() {

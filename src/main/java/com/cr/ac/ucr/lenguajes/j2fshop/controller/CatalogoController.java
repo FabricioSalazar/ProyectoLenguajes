@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cr.ac.ucr.lenguajes.j2fshop.J2FShopApplication;
 import com.cr.ac.ucr.lenguajes.j2fshop.business.ProductoService;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Producto;
 
@@ -25,7 +26,7 @@ public class CatalogoController {
 	@Autowired
 	private ProductoService productoService;
 	private List<Producto> listaProductos;
-	private List<Producto> carrito;
+
 	
 	private PagedList paged;
 
@@ -37,7 +38,7 @@ public class CatalogoController {
 	
 	@RequestMapping(value = "/catalogoProductos", method = RequestMethod.GET)
 	public String iniciar(HttpServletRequest request, Model model){
-		carrito = new ArrayList<Producto>();
+		
 		model.addAttribute("productos", listaProductos);
 	
 		criterioBusqueda = (String) request.getParameter("search");
@@ -69,10 +70,10 @@ public class CatalogoController {
 	// Funciones del carrito
 	@RequestMapping(value = "/catalogoProductos/add")
 	public String addCarrito(Model model, HttpServletRequest request) {
-
-		criterioBusqueda = (String) request.getParameter("search");
 		
-		carrito.add(productoService.findProductByCode(Integer.parseInt(criterioBusqueda)));
+		criterioBusqueda = (String) request.getParameter("val");
+		
+		J2FShopApplication.carrito.add(productoService.findProductByCode(Integer.parseInt(criterioBusqueda)));
 
 		model.addAttribute("cantidadProductos", cantidad);
 		model.addAttribute("productos", paged.getPage(pagActual));
@@ -85,27 +86,28 @@ public class CatalogoController {
 	
 	@RequestMapping(value = "/carrito", method = RequestMethod.GET)
 	public String iniciarCarrito(HttpServletRequest request, Model model) {
-		return "/carrito";
+		model.addAttribute("carrito",J2FShopApplication.carrito);
+		return "carrito";
 	}
 
 	@RequestMapping(value = "/carrito/pago", method = RequestMethod.POST)
 	public String comprar(HttpServletRequest request, Model model) {
 		// ingresa en la tabla pago 
-		return "/pago";
+		return "pago";
 	}
 
 	@RequestMapping(value = "/carrito/eliminar")
 	public String eliminar(HttpServletRequest request, Model model) {
 
 		criterioBusqueda = (String) request.getParameter("search");
-		for (Producto producto : carrito) {
+		for (Producto producto : J2FShopApplication.carrito) {
 			if (producto.getIdProducto() == Integer.parseInt(criterioBusqueda)) {
-				carrito.remove(producto);
+				J2FShopApplication.carrito.remove(producto);
 			}
 
 		}
 
-		return "/carrito";
+		return "carrito";
 	}
 	
 
