@@ -32,12 +32,14 @@ public class CatalogoController {
 	private int cantidad = 0;
 	private final int ELEM_POR_PAG = 5; // elementos visibles por cada pagina
 	
+	String criterioBusqueda ="";
+	
 	@RequestMapping(value = "/catalogoProductos", method = RequestMethod.GET)
 	public String iniciar(HttpServletRequest request, Model model){
 		
 		model.addAttribute("productos", listaProductos);
 	
-		String criterioBusqueda = (String) request.getParameter("search");
+		criterioBusqueda = (String) request.getParameter("search");
 
 		listaProductos = productoService.findProducts(criterioBusqueda.trim());
 
@@ -46,6 +48,7 @@ public class CatalogoController {
 
 		cantidad=listaProductos.size();
 		
+		model.addAttribute("busqueda", criterioBusqueda);
 		model.addAttribute("cantidadProductos", cantidad);
 		model.addAttribute("productos", paged.getPage(pagActual));
 		model.addAttribute("pagActual", pagActual);
@@ -68,6 +71,7 @@ public class CatalogoController {
 		if (pagActual < paged.paginas.size() - 2) {
 			pagActual++;
 		}
+		model.addAttribute("busqueda", criterioBusqueda);
 		model.addAttribute("cantidadProductos", cantidad);
 		model.addAttribute("productos", paged.getPage(pagActual));
 		model.addAttribute("pagActual", pagActual);
@@ -80,6 +84,7 @@ public class CatalogoController {
 			if (pagActual != 0) {
 				pagActual--;
 			}
+			model.addAttribute("busqueda", criterioBusqueda);
 			model.addAttribute("cantidadProductos", cantidad);
 			model.addAttribute("productos", paged.getPage(pagActual));
 			model.addAttribute("pagActual", pagActual);
