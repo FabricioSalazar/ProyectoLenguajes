@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/css/**", "/js/**", "/foundation-icons/**").permitAll()
 				.antMatchers("/header.html", "/error").permitAll()
 				.antMatchers("/reports/**").permitAll()
-				.antMatchers("/pdf").permitAll()
+				.antMatchers("/pdfTotalVentas").permitAll()
 				.antMatchers("/admin/**").hasAuthority("Administrador")
 				.anyRequest().authenticated()
 				.and()

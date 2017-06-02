@@ -44,10 +44,43 @@ public class GeneralController {
 		return "J2FShop";
 	}
 	
-	@RequestMapping(path = "/pdf", method = RequestMethod.GET)
+	@RequestMapping(path = "/pdfTotalVentas", method = RequestMethod.GET)
     public @ResponseBody void report(HttpServletResponse response) {
     	try {
     		InputStream is = this.getClass().getResourceAsStream("/reports/TotalVentas.jrxml");
+    	
+			JasperDesign design = JRXmlLoader.load(is);
+			
+			JasperReport report = JasperCompileManager.compileReport(design);
+			
+			Map<String,Object> parameterMap = new HashMap();
+			
+			parameterMap.put("datasource", dataSource.getConnection());
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameterMap, dataSource.getConnection());
+			
+			response.setContentType("application/x-pdf");
+			response.setHeader("Content-Disposition", "inline: filename=totalventas.pdf");
+			
+			final OutputStream os = response.getOutputStream();
+			JasperExportManager.exportReportToPdfStream(jasperPrint, os);
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    }
+	
+	@RequestMapping(path = "/pdfProductosVendidos", method = RequestMethod.GET)
+    public @ResponseBody void reportProduct(HttpServletResponse response) {
+    	try {
+    		InputStream is = this.getClass().getResourceAsStream("/reports/ProductosMasVendidos.jrxml");
     	
 			JasperDesign design = JRXmlLoader.load(is);
 			
