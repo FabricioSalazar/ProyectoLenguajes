@@ -43,6 +43,9 @@ public class GeneralController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		for(Object autho : auth.getAuthorities().toArray()){
 			System.out.println(autho.toString());
+			if (autho.toString().equals("Administrador")){
+				return "headerAdmin";
+			}
 		}
 		if(!auth.getName().equals("anonymousUser")) {
 			model.addAttribute("username",auth.getName());
