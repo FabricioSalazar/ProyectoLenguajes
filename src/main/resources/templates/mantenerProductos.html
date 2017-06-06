@@ -8,7 +8,8 @@
 <link rel="stylesheet" type="text/css" media="all"
 	href="css/bootstrap-glyphicons.css"></link>
 <link rel="stylesheet" type="text/css" media="all" href="css/styles.css"></link>
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
 body, html {
 	height: 100%;
@@ -80,7 +81,7 @@ body, html {
     $("#locales").change(function () {
         var selectedOption = $('#locales').val();
         if (selectedOption != ''){
-            window.location.replace('mantenerProductos?lang=' + selectedOption);
+            window.location.replace('?lang=' + selectedOption);
         }
     });
 });

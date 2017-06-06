@@ -67,7 +67,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Logo</a>
+				<a class="navbar-brand" href="#">J2F Shop</a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
@@ -102,11 +102,11 @@
         <div class="modal-body">
 
           				<ul >
-							<li th:if="${usuario == null}"><a href="/login" th:text="#{iniciarSesionHeader}"></a></li>
-							<li th:if="${usuario == null}"><a href="/registration" th:text="#{registrarseHeader}" ></a></li>
-							<li th:if="${usuario != null}"><a href="/logout">Log out</a></li>
-							<li th:if="${usuario != null}"><a href="/borrarUsuario">Desabilitar Cuenta</a></li>
-							<li th:if="${admin == true}"><a href="/admin" >Admin view</a></li>
+							<div sec:authorize="!isAuthenticated()"><li th:if="${usuario == null}"><a href="/login" th:text="#{iniciarSesionHeader}"></a></li></div>
+							<div sec:authorize="!isAuthenticated()"><li th:if="${usuario == null}"><a href="/registration" th:text="#{registrarseHeader}" ></a></li></div>
+							<div sec:authorize="isAuthenticated()"><li th:if="${usuario != null}"><a href="/logout">Log out</a></li></div>
+							<div sec:authorize="isAuthenticated()"><li th:if="${usuario != null}"><a href="/borrarUsuario">Desabilitar Cuenta</a></li></div>
+							<div sec:authorize="hasRole('Administrador')"><li th:if="${admin == true}"><a href="/admin" >Admin view</a></li></div>
 						</ul>
         </div>
         <div class="modal-footer">
