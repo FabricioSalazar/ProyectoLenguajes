@@ -1,26 +1,31 @@
 package com.cr.ac.ucr.lenguajes.j2fshop.storage;
 
 import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.cr.ac.ucr.lenguajes.j2fshop.business.ProductoService;
 
 public class StorageFile {
 
-	private String url = "C:/Users/jumoc/Documents/GitHub/PLPAC/ProyectoLenguajes/src/main/resources/static/images";
-
+	private String url = "src/main/resources/static/images";		
+	FileSystem sistemaFicheros= FileSystems.getDefault();
+	
 	@Autowired
 	ProductoService prductoService;
+	
 	private final Path rootLocation = Paths.get(url);
-
+	
 	public StorageFile() {
-
+		
 	}
 
 	public String getStringPath() {
@@ -44,8 +49,6 @@ public class StorageFile {
 		String formato = formato(file.getFileItem().getName());
 		name+=formato;
 		
-		System.out.println(name);
-
 		try {
 			Files.copy(file.getInputStream(), this.rootLocation.resolve(name),
 					StandardCopyOption.REPLACE_EXISTING);

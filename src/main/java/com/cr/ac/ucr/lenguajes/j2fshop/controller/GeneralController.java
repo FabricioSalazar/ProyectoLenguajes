@@ -1,13 +1,7 @@
 package com.cr.ac.ucr.lenguajes.j2fshop.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.cr.ac.ucr.lenguajes.j2fshop.business.UsuarioService;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Usuario;

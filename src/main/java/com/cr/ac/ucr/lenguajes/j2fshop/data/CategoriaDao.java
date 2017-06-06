@@ -22,17 +22,17 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Categoria;
 import com.cr.ac.ucr.lenguajes.j2fshop.form.CategoriaForm;
-import com.cr.ac.ucr.lenguajes.j2fshop.form.ProductoForm;
+
 
 
 @Repository
 public class CategoriaDao {
 
-	private DataSource dataSource;
+
 	private JdbcTemplate jdbcTemplate;
 	private SimpleJdbcCall simpleJdbcCallEditarCategoria;
 	private SimpleJdbcCall simpleJdbcCallInsertarCategoria;
@@ -40,7 +40,7 @@ public class CategoriaDao {
 	
 	@Autowired
 	public void setDataSource(DataSource dataSource){
-		this.dataSource= dataSource;
+
 		this.jdbcTemplate= new JdbcTemplate(dataSource);
 		simpleJdbcCallEditarCategoria = new SimpleJdbcCall(dataSource).withProcedureName("modificarCategoria");
 		simpleJdbcCallEliminarCategoria = new SimpleJdbcCall(dataSource).withProcedureName("eliminarCategoria");
@@ -152,6 +152,7 @@ public class CategoriaDao {
 		}
 		return imagen;
 	}
+	
 	private static final class CategoriaExtractor implements ResultSetExtractor<List<Categoria>> {
 		
 		@Autowired

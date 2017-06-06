@@ -59,11 +59,11 @@
 								<span th:text="#{precioCatalogo}"></span><span th:text="${entry.precio}"></span>
 							</div>
 							<div style="padding-bottom: 10px;">
-								<span th:text="#{cantidadCatalogo}"></span><input type=number th:value="${entry.unidadesStock}" style="width: 45px;">
+								<span th:text="#{cantidadCatalogo}"></span><input id="cantidad" type=number th:value="${entry.unidadesStock}" style="width: 45px;">
 							</div>
 							<div class="btn-group">
 
-								<button th:href="@{/catalogoProductos/add?search=${entry.idProducto}}" type="button" class="btn-xs btn-primary">Añadir al carrito</button>
+								<button th:onclick="'javascript:del(\'' + ${entry.idProducto} + '\')'" type="button" class="btn-xs btn-primary">Añadir al carrito</button>
 							</div>
 						</div>
 					</div>	
@@ -83,6 +83,15 @@
 <br>
 <br>
 <br>
+<script>
+function del(p){
+   alert("Producto Agregado Correctamente");
+   var cant  = document.getElementById('cantidad').value;
+   var param = p+"A"+cant;
+   window.location.replace('/catalogoProductos/add?val='+param);
+}
+
+</script>
 <script th:inline="javascript">
 	var id=[[${busqueda}]]
 	$(document).ready(function() {
