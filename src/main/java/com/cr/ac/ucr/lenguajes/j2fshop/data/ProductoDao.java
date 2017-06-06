@@ -1,6 +1,5 @@
 package com.cr.ac.ucr.lenguajes.j2fshop.data;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -27,13 +26,9 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cr.ac.ucr.lenguajes.j2fshop.domain.Categoria;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Producto;
-import com.cr.ac.ucr.lenguajes.j2fshop.domain.Role;
-import com.cr.ac.ucr.lenguajes.j2fshop.domain.Usuario;
 import com.cr.ac.ucr.lenguajes.j2fshop.form.ProductoForm;
 import com.cr.ac.ucr.lenguajes.j2fshop.storage.StorageFile;
-import com.mysql.jdbc.Blob;
 
 @Repository
 public class ProductoDao {

@@ -6,7 +6,7 @@
 	<groupId>com.cr.ac.ucr.lenguajes.j2fshop</groupId>
 	<artifactId>J2FShop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>J2FShop</name>
 	<description></description>
@@ -80,6 +80,11 @@
 			<version>1.3.2</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
