@@ -38,6 +38,7 @@ public class ProductoDao {
 	private SimpleJdbcCall simpleJdbcCallEditarProducto;
 	private SimpleJdbcCall simpleJdbcCallInsertarProducto;
 	private SimpleJdbcCall simpleJdbcCallEliminarProducto;
+	private SimpleJdbcCall simpleJdbcCallReporteProducto;
 	
 	@Autowired
 	public void setDataSource(DataSource datasource){
@@ -46,6 +47,7 @@ public class ProductoDao {
 		this.simpleJdbcCallEditarProducto = new SimpleJdbcCall(datasource).withProcedureName("modificarproducto");
 		this.simpleJdbcCallEliminarProducto = new SimpleJdbcCall(datasource).withProcedureName("eliminarProducto");
 		this.simpleJdbcCallInsertarProducto = new SimpleJdbcCall(datasource).withProcedureName("insertarProducto");
+		this.simpleJdbcCallReporteProducto = new SimpleJdbcCall(datasource).withProcedureName("reporte2");
 	}
 	
 	public List<Producto> findAllProducts(){
@@ -180,6 +182,11 @@ public class ProductoDao {
 			// No hay imagen
 		}
 		return imagen;
+	}
+	
+	public void actualizaReporte(){
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+		simpleJdbcCallReporteProducto.execute(sqlParameterSource);
 	}
 	
 	private static final class ProductoExtractor implements ResultSetExtractor<List<Producto>> {

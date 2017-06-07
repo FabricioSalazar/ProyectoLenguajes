@@ -49,5 +49,8 @@ public class ProductoService {
 		productoDao.eliminarProducto(idProducto);
 	}
 	
+	public void actualizaReporte(){
+		productoDao.actualizaReporte();
+	}
 	
 }
