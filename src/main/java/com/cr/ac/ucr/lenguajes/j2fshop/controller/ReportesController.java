@@ -53,8 +53,6 @@ public class ReportesController {
             JasperReport report = JasperCompileManager.compileReport(design);
             
             //Create jasper print object
-            Map<String,String> map = new HashMap<>();
-            map.put("jasper report", "reporte de empleados");
             
             JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, con);
             
@@ -80,8 +78,6 @@ public class ReportesController {
             JasperReport report = JasperCompileManager.compileReport(design);
             
             //Create jasper print object
-            Map<String,String> map = new HashMap<>();
-            map.put("jasper report", "reporte de empleados");
             
             JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, con);
             
@@ -113,7 +109,6 @@ public class ReportesController {
             
             //Create jasper print object
             Map<String,String> map = new HashMap<>();
-            map.put("jasper report", "reporte de empleados");
             
             JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, con);
             
@@ -140,9 +135,6 @@ public class ReportesController {
             JasperReport report = JasperCompileManager.compileReport(design);
             
             //Create jasper print object
-            Map<String,String> map = new HashMap<>();
-            map.put("jasper report", "reporte de empleados");
-            
             JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, con);
             
             //Export the report
@@ -159,6 +151,64 @@ public class ReportesController {
         }
 	}
 	
+	//Sell products pdf
+		@RequestMapping(path = "/admin/reportes/totalVentasPdf", method = RequestMethod.GET)
+		public @ResponseBody void report(HttpServletResponse response){
+			try{
+				productoService.actualizaReporte();
+				
+				Connection con = dataSource.getConnection();
+	            //Load jrxml file
+	            InputStream fis = new FileInputStream(new File("src/main/resources/reports/TotalVentas.jrxml"));
+	            
+	            //Compile jrxml file
+	            JasperDesign design = JRXmlLoader.load(fis);
+	            JasperReport report = JasperCompileManager.compileReport(design);
+	            
+	            //Create jasper print object
+	            Map<String,String> map = new HashMap<>();
+	            
+	            JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, con);
+	            
+	            //Export the report
+	            OutputStream os = response.getOutputStream();
+	            JasperExportManager.exportReportToPdfStream(jasperPrint, os);
+	            
+	        }catch(Exception e){
+	            System.out.println(e);
+	        }
+		}
+		//Sell products xlsx
+		@RequestMapping(path = "/admin/reportes/totalVentasXlsx", method = RequestMethod.GET)
+		public @ResponseBody void totalVentasXlsx(HttpServletResponse response){
+			try{
+				productoService.actualizaReporte();
+				
+				Connection con = dataSource.getConnection();
+	            //Load jrxml file
+	            InputStream fis = new FileInputStream(new File("src/main/resources/reports/TotalVentas.jrxml"));
+	            
+	            //Compile jrxml file
+	            JasperDesign design = JRXmlLoader.load(fis);
+	            JasperReport report = JasperCompileManager.compileReport(design);
+	            
+	            //Create jasper print object
+	            JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, con);
+	            
+	            //Export the report
+	            OutputStream os = response.getOutputStream();
+	            JRXlsxExporter exporter = new JRXlsxExporter();
+	            exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+	            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput("TotalVentas.xlsx"));
+	            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(os));
+	            
+	            exporter.exportReport();
+	            
+	        }catch(Exception e){
+	            System.out.println(e);
+	        }
+		}
+	
 	//Factura pdf
 	@RequestMapping(path = "/pago/factura", method = RequestMethod.POST)
 	public @ResponseBody void reportFactura(HttpServletResponse response, @RequestParam Map<String, String> requestParams){
@@ -174,7 +224,6 @@ public class ReportesController {
             //Create jasper print object
             Map<String,Object> map = new HashMap<>();
             map.put("idOrden", requestParams.get("idOrden"));
-            //map.put("idOrden", 1);
             
             JasperPrint jasperPrint = JasperFillManager.fillReport(report, map, con);
             
