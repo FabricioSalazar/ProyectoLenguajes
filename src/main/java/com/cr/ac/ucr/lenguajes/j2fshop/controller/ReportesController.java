@@ -174,6 +174,7 @@ public class ReportesController {
             //Create jasper print object
             Map<String,Object> map = new HashMap<>();
             map.put("idOrden", requestParams.get("idOrden"));
+            //map.put("idOrden", 1);
             
             JasperPrint jasperPrint = JasperFillManager.fillReport(report, map, con);
             
