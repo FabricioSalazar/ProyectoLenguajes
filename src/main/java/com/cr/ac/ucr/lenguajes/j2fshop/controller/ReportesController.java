@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cr.ac.ucr.lenguajes.j2fshop.business.ProductoService;
@@ -157,65 +158,33 @@ public class ReportesController {
             System.out.println(e);
         }
 	}
-	//Total Sells pdf
-		@RequestMapping(path = "/admin/reportes/reporteVentasPdf", method = RequestMethod.GET)
-		public @ResponseBody void reportSells(HttpServletResponse response){
-			try{
-				productoService.actualizaReporte();
-				
-				Connection con = dataSource.getConnection();
-	            //Load jrxml file
-	            InputStream fis = new FileInputStream(new File("src/main/resources/reports/TotalVentas.jrxml"));
-	            
-	            //Compile jrxml file
-	            JasperDesign design = JRXmlLoader.load(fis);
-	            JasperReport report = JasperCompileManager.compileReport(design);
-	            
-	            //Create jasper print object
-	            Map<String,String> map = new HashMap<>();
-	            map.put("jasper report", "reporte de empleados");
-	            
-	            JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, con);
-	            
-	            //Export the report
-	            OutputStream os = response.getOutputStream();
-	            JasperExportManager.exportReportToPdfStream(jasperPrint, os);
-	            
-	        }catch(Exception e){
-	            System.out.println(e);
-	        }
-		}
-		//Total Sells xlsx
-		@RequestMapping(path = "/admin/reportes/reporteVentasXlsx", method = RequestMethod.GET)
-		public @ResponseBody void reportSellsXlsx(HttpServletResponse response){
-			try{
-				productoService.actualizaReporte();
-				
-				Connection con = dataSource.getConnection();
-	            //Load jrxml file
-	            InputStream fis = new FileInputStream(new File("src/main/resources/reports/TotalVentas.jrxml"));
-	            
-	            //Compile jrxml file
-	            JasperDesign design = JRXmlLoader.load(fis);
-	            JasperReport report = JasperCompileManager.compileReport(design);
-	            
-	            //Create jasper print object
-	            Map<String,String> map = new HashMap<>();
-	            map.put("jasper report", "reporte de empleados");
-	            
-	            JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, con);
-	            
-	            //Export the report
-	            OutputStream os = response.getOutputStream();
-	            JRXlsxExporter exporter = new JRXlsxExporter();
-	            exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-	            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput("TotalDeVentas.xlsx"));
-	            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(os));
-	            
-	            exporter.exportReport();
-	            
-	        }catch(Exception e){
-	            System.out.println(e);
-	        }
-		}
+	
+	//Factura pdf
+	@RequestMapping(path = "/pago/factura", method = RequestMethod.POST)
+	public @ResponseBody void reportFactura(HttpServletResponse response, @RequestParam Map<String, String> requestParams){
+		try{
+			Connection con = dataSource.getConnection();
+            //Load jrxml file
+            InputStream fis = new FileInputStream(new File("src/main/resources/reports/factura.jrxml"));
+            
+            //Compile jrxml file
+            JasperDesign design = JRXmlLoader.load(fis);
+            JasperReport report = JasperCompileManager.compileReport(design);
+            
+            //Create jasper print object
+            Map<String,Object> map = new HashMap<>();
+            map.put("idOrden", requestParams.get("idOrden"));
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(report, map, con);
+            
+            //Export the report
+            OutputStream os = response.getOutputStream();
+            JasperExportManager.exportReportToPdfStream(jasperPrint, os);
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+	}
+		
+		
 }
