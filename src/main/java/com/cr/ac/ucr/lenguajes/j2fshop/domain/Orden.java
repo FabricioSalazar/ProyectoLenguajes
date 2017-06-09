@@ -8,6 +8,7 @@ public class Orden {
 	private Usuario usuario;
 	private ArrayList<Articulo> productos;
 
+	private String direccion;
 	private String trackNumber;
 
 	private float totalCompra;
@@ -36,6 +37,14 @@ public class Orden {
 		
 	}
 
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}

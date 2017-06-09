@@ -104,7 +104,7 @@ public class CatalogoController {
 	public String confirmarPago(HttpServletRequest request, Model model) {
 
 		SessionUser sesionActual = SessionManager.getSession(request.getSession().getId());
-		System.out.println(sesionActual.getArticulos().size() + " ***************************** *** *** ***");
+		
 
 		Orden orden = new Orden(sesionActual.getUser(), sesionActual.getArticulos(), request.getSession().getId(),
 				getCostoTotal(sesionActual.getArticulos()));

@@ -54,7 +54,7 @@
 			</div>
 			<div class="btn-group">
 			<form class="form-horizontal" th:action="@{/carrito/pago}" action="#" method="post">				
-			<input  th:value="${sesion}" name="sesionA">
+			<input  style="display:none"  th:value="${sesion}" name="sesionA">
 			<button  type="submit" class="btn-xs btn-primary">Pagar</button>
 			</form>
 			</div>
