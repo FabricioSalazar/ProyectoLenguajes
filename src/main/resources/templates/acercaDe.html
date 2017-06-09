@@ -22,25 +22,30 @@ body, html {
 
 </head>
 <body>
-<div class="header-menu"></div>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-8">
-				<h2>Acerca de la Compañia</h2>
-				<h4>J2F Shop</h4>
-				<p>Desarrolladores:<br>
-				   Juan Carlos Mora Cruz<br>
-				   Fabricio Salazar Mayorga<br>
-				   José Coto Víquez<br><br>
-				   Universidad de Costa Rica<br>
-				   Lenguajes para las Aplicaciones Comerciales<br>
-				</p>
-				<button class="btn btn-default btn-lg" href="/contact">Contact</button>
-			</div>
-			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-home"></span>
-			</div>
-		</div>
-	</div>
+<div id="about" class="container-fluid" style="margin-left: 10%; margin-right: 10%; margin-top: 5%;">
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Acerca de J2F Shop</h2><br>
+            <h3>Sitio de compras en línea</h3>
+            <br>
+            <h4>Universidad de Costa Rica.
+            <br>Sede del Atlántico.
+            <br>Recinto de Paraíso.</h4>
+            <br>
+            <h4>Lenguajes para Aplicaciones Comerciales.</h4>
+            <br>
+            <h4>Desarrolladores:</h4>
+            <br><p>B32144 - Coto Víquez José
+            <br>B44540 - Mora Cruz Juan Carlos
+            <br>B56535 - Salazar Mayorga Fabricio</p>
+            <br>
+            <a href="/contact" class="btn btn-default">Contactenos</a>
+        </div>
+        <div class="col-sm-6" style="margin-top:2%;">
+           <img th:src="@{/images/logo.PNG}"
+              alt="Logo" width="90%" height="100%">
+        </div>
+    </div>
+</div>
 </body>
 </html>
