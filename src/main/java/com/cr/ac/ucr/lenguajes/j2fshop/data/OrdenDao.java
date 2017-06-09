@@ -74,7 +74,7 @@ public class OrdenDao {
 		
 		int detalleOrden = (Integer.parseInt(outParametersDetalleOrden.get("_idDetalleOrden").toString()));
 		
-		for (int i = 1; i <= orden.getProductos().size(); i++) {
+		for (int i = 0; i < orden.getProductos().size(); i++) {
 			SqlParameterSource parameterSource = new MapSqlParameterSource()
 					.addValue("_idProducto", orden.getProductos().get(i).getProducto().getIdProducto())
 					.addValue("_idDetalleOrden", detalleOrden)

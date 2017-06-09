@@ -26,7 +26,7 @@
 					<div class="col-sm-3">
 						<label th:text="${'Numero de Tarjeta: '+ user.numeroTarjeta}"></label>
 						<br> <label>Seleccione la direccion de envio</label> <select
-							class="form-control">
+							name = "dir" class="form-control">
 							<option th:text="${user.direccion1}"
 								th:value="${user.direccion1}">
 							<option th:text="${user.direccion2}"
