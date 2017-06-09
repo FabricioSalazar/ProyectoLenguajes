@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Open+Sans">
+
+<title>J2F Shop - Modificar Datos Organizacionales</title>
+
+<style>
+
+/*
+/* Created by Filipe Pina
+ * Specific styles of signin, register, component
+ */
+/*
+ * General styles
+ */
+body, html {
+	height: 100%;
+	background-repeat: no-repeat;
+	background-color: #d3d3d3;
+	font-family: 'Oxygen', sans-serif;
+}
+
+.main {
+	margin-top: 70px;
+}
+
+h1.title {
+	font-size: 50px;
+	font-family: 'Passion One', cursive;
+	font-weight: 400;
+}
+
+hr {
+	width: 10%;
+	color: #fff;
+}
+
+.form-group {
+	margin-bottom: 15px;
+}
+
+label {
+	margin-bottom: 15px;
+}
+
+input, input::-webkit-input-placeholder {
+	font-size: 11px;
+	padding-top: 3px;
+}
+
+.main-login {
+	background-color: #fff;
+	/* shadows and rounded borders */
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.main-center {
+	margin-top: 30px;
+	margin: 0 auto;
+	max-width: 330px;
+	padding: 40px 40px;
+}
+
+.login-button {
+	margin-top: 5px;
+}
+
+.login-register {
+	font-size: 11px;
+	text-align: center;
+}
+</style>
+
+</head>
+<body>
+<div class="header-menu"></div>
+	<div class="container">
+
+
+		<div class="row main">
+			<div class="panel-heading">
+				<div class="panel-title text-center">
+					<h3 class="title">Actualiza los siguientes datos</h3>
+					<hr />
+				</div>
+			</div>
+			<div class="main-login main-center">
+				<form class="form-horizontal" th:object="${organizacionForm}"
+					th:action="@{/admin/modificarOrganizacion/salvar}" action="#" method="post">
+					<div class="form-group">
+						<label class="cols-sm-2 control-label">Código</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-plus" aria-hidden="true"></i></span> <input
+									th:field="*{idOrganizacion}" type="text" class="form-control"
+									th:value="organizacionForm.idOrganizacion" th:readonly="readonly" />
+							</div>
+							<div th:if="${#fields.hasErrors('idOrganizacion')}"
+								th:errors="*{idOrganizacion}" class="alert alert-danger">ERROR</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="cols-sm-2 control-label">Nombre</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-font" aria-hidden="true"></i></span> <input
+									th:field="*{nombre}" type="text" class="form-control"
+									name="inputNombre" placeholder="Ingrese el nombre" />
+							</div>
+							<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+								class="alert alert-danger">ERROR</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="cols-sm-2 control-label">Descripción</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-euro" aria-hidden="true"></i></span> <input
+									th:field="*{descripcion}" type="text" class="form-control"
+									name="inputDescripcion" placeholder="Ingrese la descripción" />
+							</div>
+							<div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"
+								class="alert alert-danger">ERROR</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="cols-sm-2 control-label">Ubicación</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i></span>
+								<input th:field="*{ubicacion}" type="text"
+									class="form-control" name="inputUbicacion" />
+							</div>
+							<div th:if="${#fields.hasErrors('ubicacion')}"
+								th:errors="*{ubicacion}" class="alert alert-danger">ERROR</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="confirm" class="cols-sm-2 control-label">Teléfono</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span> <input
+									th:field="*{telefono}" type="text" class="form-control"
+									name="inputTelefono" />
+							</div>
+							<div th:if="${#fields.hasErrors('telefono')}"
+								th:errors="*{telefono}" class="alert alert-danger">ERROR</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="confirm" class="cols-sm-2 control-label">Correo</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></span> <input
+									th:field="*{correo}" type="text" class="form-control"
+									name="inputCorreo" />
+							</div>
+							<div th:if="${#fields.hasErrors('correo')}"
+								th:errors="*{correo}" class="alert alert-danger">ERROR</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="confirm" class="cols-sm-2 control-label">Misión</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<textarea style="resize: none;" class="form-control"
+									maxlength="255" th:field="*{mision}" rows="3" cols="50"
+									name="inputMision"></textarea>
+							</div>
+							<div th:if="${#fields.hasErrors('mision')}"
+								th:errors="*{mision}" class="alert alert-danger">ERROR</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="confirm" class="cols-sm-2 control-label">Visión</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<textarea style="resize: none;" class="form-control"
+									maxlength="255" th:field="*{vision}" rows="3" cols="50"
+									name="inputVision"></textarea>
+							</div>
+							<div th:if="${#fields.hasErrors('vision')}"
+								th:errors="*{vision}" class="alert alert-danger">ERROR</div>
+						</div>
+					</div>
+
+					<div class="form-group ">
+						<button type="submit" class="btn btn-default">Salvar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<br>
+</body>
+</html>

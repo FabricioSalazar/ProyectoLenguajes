@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						,"/mantenerCategorias/**", "/admin").hasAuthority("Administrador")
 				.antMatchers("/insertarProducto","/insertarProducto/**",
 						"/modificarProducto/**","/borrarProducto/**",
-						"/mantenerProductos", "/mantenerProductos/**", "/headearAdmin").hasAuthority("Administrador")
+						"/mantenerProductos", "/mantenerProductos/**", "/headearAdmin","/modificarOrganizacion/**").hasAuthority("Administrador")
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
