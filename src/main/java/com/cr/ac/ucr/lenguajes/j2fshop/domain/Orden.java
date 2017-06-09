@@ -96,7 +96,7 @@ public class Orden {
 	@Override
 	public String toString() {
 		return "Orden [usuario=" + usuario + ", productos=" + productos + ", trackNumber=" + trackNumber
-				+ ", totalCompra=" + totalCompra + ", idOrden=" + idOrden + ", detalleOrden=" + detalleOrden + "]";
+				+ ", totalCompra=" + totalCompra + ", idOrden=" + idOrden + ", detalleOrden=" + detalleOrden + ", direccion=" + direccion +"]";
 	}
 	
 		
