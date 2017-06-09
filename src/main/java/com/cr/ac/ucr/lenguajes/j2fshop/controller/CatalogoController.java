@@ -243,8 +243,10 @@ public class CatalogoController {
 		Iterator<Articulo> iterator = articulos.iterator();
 
 		while (iterator.hasNext()) {
+			
 			Articulo aux = iterator.next();
 			totalPrecio += aux.getSubtotal();
+		
 		}
 		return totalPrecio;
 	}
