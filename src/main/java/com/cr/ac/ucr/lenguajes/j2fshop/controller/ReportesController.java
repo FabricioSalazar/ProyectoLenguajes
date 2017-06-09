@@ -155,7 +155,6 @@ public class ReportesController {
 		@RequestMapping(path = "/admin/reportes/totalVentasPdf", method = RequestMethod.GET)
 		public @ResponseBody void report(HttpServletResponse response){
 			try{
-				productoService.actualizaReporte();
 				
 				Connection con = dataSource.getConnection();
 	            //Load jrxml file
@@ -182,7 +181,6 @@ public class ReportesController {
 		@RequestMapping(path = "/admin/reportes/totalVentasXlsx", method = RequestMethod.GET)
 		public @ResponseBody void totalVentasXlsx(HttpServletResponse response){
 			try{
-				productoService.actualizaReporte();
 				
 				Connection con = dataSource.getConnection();
 	            //Load jrxml file

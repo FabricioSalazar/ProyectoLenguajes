@@ -47,7 +47,7 @@ public class ProductoDao {
 		this.simpleJdbcCallEditarProducto = new SimpleJdbcCall(datasource).withProcedureName("modificarproducto");
 		this.simpleJdbcCallEliminarProducto = new SimpleJdbcCall(datasource).withProcedureName("eliminarProducto");
 		this.simpleJdbcCallInsertarProducto = new SimpleJdbcCall(datasource).withProcedureName("insertarProducto");
-		this.simpleJdbcCallReporteProducto = new SimpleJdbcCall(datasource).withProcedureName("reporte2");
+		this.simpleJdbcCallReporteProducto = new SimpleJdbcCall(datasource).withProcedureName("reporteVentas");
 	}
 	
 	public List<Producto> findAllProducts(){
