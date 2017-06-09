@@ -20,10 +20,10 @@
 		<div class="container">
 			<h3
 				th:text="${'Hola '+ user.nombre+ ' Procedamos a verificar la informacion'}"></h3>
-			<form class="form-horizontal" th:action="@{/confirm}"
-				action="#" method="get">
+			<form class="form-horizontal" th:action="@{/confirm}" action="#"
+				method="get">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<label th:text="${'Numero de Tarjeta: '+ user.numeroTarjeta}"></label>
 						<br> <label>Seleccione la direccion de envio</label> <select
 							class="form-control">
@@ -31,13 +31,42 @@
 								th:value="${user.direccion1}">
 							<option th:text="${user.direccion2}"
 								th:value="${user.direccion2}">
-						</select>
-
-					</div>
-					<div class="col-sm-4"></div>
-					<div class="col-sm-4">
+						</select> <br>
+						<br>
+						<br>
+						<br>
 						<button type="submit" class="btn btn-default">Realizar
 							Pago</button>
+					</div>
+					<div class="col-sm-4">
+					<h3>Informacion de Pedido</h3>
+					<br>
+					<h4  th:text="'Total por pagar $'+ ${precioTotal}"></h4>
+					<br>
+					<h4  th:text="'Enviar a '+ ${orden.usuario.nombre} +' '+ ${orden.usuario.apellidos} "></h4>
+					<br>
+					<h4  th:text="'Telefono '+ ${orden.usuario.telefono}"></h4>
+					</div>
+					<div class="col-sm-5">
+						<h3>Resumen de compra</h3>
+						<table class="table table-striped table-hover">
+
+							<tr>
+								<th>Nombre</th>
+								<th>Descripcion</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+								<th>Subtotal</th>
+							</tr>
+
+							<tr th:each="entry,status : ${orden.productos}">
+								<td><span th:text="${entry.producto.nombre}"></span></td>
+								<td><span th:text="${entry.producto.descripcion}"></span></td>
+								<td><span th:text="'$'+ ${entry.producto.precio}"></span></td>
+								<td><span th:text="${entry.cantidad}"></span></td>
+								<td><span th:text="'$'+ ${entry.getSubtotal()}"></span></td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</form>

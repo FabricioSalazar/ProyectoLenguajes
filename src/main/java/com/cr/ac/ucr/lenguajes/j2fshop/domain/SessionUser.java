@@ -35,15 +35,6 @@ public class SessionUser {
 		this.user = user;
 	}
 
-	public float getPrecioTotal() {
-		float totalPrecio = 0;
-		Iterator<Articulo> iterator = articulos.iterator();
-		while (iterator.hasNext()) {
-			totalPrecio += iterator.next().getProducto().getPrecioTotal();
-		}
-		return totalPrecio;
-	}
-
 	@Override
 	public String toString() {
 		return "SessionUser [articulos=" + articulos + ", user=" + user + "]";

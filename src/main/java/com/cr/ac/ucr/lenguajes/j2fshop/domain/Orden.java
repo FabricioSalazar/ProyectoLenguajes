@@ -44,11 +44,11 @@ public class Orden {
 		this.usuario = usuario;
 	}
 
-	public ArrayList<Articulo> getProducto() {
+	public ArrayList<Articulo> getProductos() {
 		return productos;
 	}
 
-	public void setProducto(ArrayList<Articulo> producto) {
+	public void setProductos(ArrayList<Articulo> producto) {
 		this.productos = producto;
 	}
 

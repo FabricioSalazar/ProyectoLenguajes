@@ -28,6 +28,10 @@ public void setProducto(Producto producto) {
 	this.producto = producto;
 }
 
+public float getSubtotal(){
+	return cantidad*producto.getPrecio();
+}
+
 @Override
 public String toString() {
 	return "Articulo [cantidad=" + cantidad + ", producto=" + producto + "]\n" ;

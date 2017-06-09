@@ -1,6 +1,7 @@
 package com.cr.ac.ucr.lenguajes.j2fshop.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -95,31 +96,24 @@ public class CatalogoController {
 	@RequestMapping(value = "/carrito", method = RequestMethod.GET)
 	public String iniciarCarrito(HttpServletRequest request, Model model) {
 		model.addAttribute("carrito", SessionManager.getCarBySessionId(request.getSession().getId()));
-		model.addAttribute("sesion",request.getSession().getId());
+		model.addAttribute("sesion", request.getSession().getId());
 		return "carrito";
 	}
-	
+
 	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
 	public String confirmarPago(HttpServletRequest request, Model model) {
-		
+
 		SessionUser sesionActual = SessionManager.getSession(request.getSession().getId());
-		System.out.println(sesionActual.getArticulos().size()+" ***************************** *** *** ***");
-		
-		Orden orden = new Orden(
-				sesionActual.getUser(),
-				sesionActual.getArticulos(),
-				request.getSession().getId(),
-				sesionActual.getPrecioTotal());
-		
-				
+		System.out.println(sesionActual.getArticulos().size() + " ***************************** *** *** ***");
+
+		Orden orden = new Orden(sesionActual.getUser(), sesionActual.getArticulos(), request.getSession().getId(),
+				getCostoTotal(sesionActual.getArticulos()));
+
 		System.out.println(orden.toString());
-		
-	
-		
+
 		return "success";
 	}
-	
-	
+
 	@RequestMapping(value = "/carrito/pago", method = RequestMethod.POST)
 	public String comprar(HttpServletRequest request, Model model, @RequestParam Map<String, String> requestParams) {
 		try {
@@ -131,16 +125,21 @@ public class CatalogoController {
 
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String nameUser = auth.getName();
-			System.out.println(nameUser + "***************");
 
 			if (!auth.getName().equals("anonymousUser")) {
-				System.out.println("Autenticando........................");
-				System.out.println(requestParams.get("sesionA")+" ····· *****" );
+
 				Usuario currentUser = usuarioService.findUserByLogIn(nameUser);
 
 				SessionManager.setSession(request.getSession().getId(), currentUser,
 						SessionManager.getSession(requestParams.get("sesionA")).getArticulos());
 
+				SessionUser sesionActual = SessionManager.getSession(request.getSession().getId());
+
+				Orden orden = new Orden(sesionActual.getUser(), sesionActual.getArticulos(),
+						request.getSession().getId(), getCostoTotal(sesionActual.getArticulos()));
+
+				model.addAttribute("orden", orden);
+				model.addAttribute("pagoTotal", getCostoTotal(sesionActual.getArticulos()));
 				if (!currentUser.isEnabled()) {
 					usuarioService.enable(auth.getName());
 				}
@@ -238,4 +237,16 @@ public class CatalogoController {
 			return paginas.get(page);
 		}// getPage()
 	}
+
+	public float getCostoTotal(ArrayList<Articulo> articulos) {
+		float totalPrecio = 0;
+		Iterator<Articulo> iterator = articulos.iterator();
+
+		while (iterator.hasNext()) {
+			Articulo aux = iterator.next();
+			totalPrecio += aux.getSubtotal();
+		}
+		return totalPrecio;
+	}
+
 }
