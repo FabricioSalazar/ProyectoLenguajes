@@ -83,18 +83,12 @@ public class Orden {
 	public void setDetalleOrden(int detalleOrden) {
 		this.detalleOrden = detalleOrden;
 	}
+
+	@Override
+	public String toString() {
+		return "Orden [usuario=" + usuario + ", productos=" + productos + ", trackNumber=" + trackNumber
+				+ ", totalCompra=" + totalCompra + ", idOrden=" + idOrden + ", detalleOrden=" + detalleOrden + "]";
+	}
 	
 		
-	/* IdUsuario
-	 * Fecha orden y fecha de compra
-	 * track number
-	 * total precio total (calculo de prd*prd impuesto )
-	 * direccion de envio
-	 * idOrden (retorna el procedimiento)
-	 * idProduto Lista
-	 * idDetalleOrden (retorn el rocedimiento)
-	 * canTidadProductos por id
-	 * subTotal
-	 * impuesto
-	 * */
 }

@@ -13,6 +13,7 @@ public class SessionManager {
 
 	public static void addProduct(String idSesion, Articulo product) {
 		if (sesiones.get(idSesion) == null) {
+			System.out.println(product.toString());
 			ArrayList<Articulo> carrito = new ArrayList<Articulo>();
 			carrito.add(product);
 			sesiones.put(idSesion, new SessionUser(carrito, new Usuario()));
@@ -21,9 +22,10 @@ public class SessionManager {
 		}
 	}
 	
-	public static void setSession(String idSesion, Usuario user){
+	public static void setSession(String idSesion, Usuario user, ArrayList<Articulo> carrito){
 		if (sesiones.get(idSesion) == null) {
-			ArrayList<Articulo> carrito = new ArrayList<Articulo>();
+			System.out.println(idSesion);
+			System.out.println("INGRESANDO NUEVO");
 			sesiones.put(idSesion, new SessionUser(carrito, user));
 		} else {
 			sesiones.get(idSesion).setUser(user);

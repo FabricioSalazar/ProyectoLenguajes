@@ -87,6 +87,17 @@ public class Producto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Producto [idProducto=" + idProducto + ", nombre=" + nombre + ", descripcion=" + descripcion
+				+ ", precio=" + precio + ", unidadesStock=" + unidadesStock + ", impuesto=" + impuesto
+				+ ", porcentajeImpuesto=" + porcentajeImpuesto + ", imagen=" + imagen + ", categoria=" + categoria
+				+ "] \n";
+	}
 
 	public float getPrecioTotal() {
 		if (impuesto)

@@ -3,6 +3,8 @@ package com.cr.ac.ucr.lenguajes.j2fshop.domain;
 public class Articulo {
 
 private int cantidad;
+private Producto producto;
+
 
 public Articulo() {
 
@@ -25,6 +27,11 @@ public Producto getProducto() {
 public void setProducto(Producto producto) {
 	this.producto = producto;
 }
-private Producto producto;
+
+@Override
+public String toString() {
+	return "Articulo [cantidad=" + cantidad + ", producto=" + producto + "]\n" ;
+}
 
 }
+

@@ -43,4 +43,11 @@ public class SessionUser {
 		}
 		return totalPrecio;
 	}
+
+	@Override
+	public String toString() {
+		return "SessionUser [articulos=" + articulos + ", user=" + user + "]";
+	}
+	
+	
 }

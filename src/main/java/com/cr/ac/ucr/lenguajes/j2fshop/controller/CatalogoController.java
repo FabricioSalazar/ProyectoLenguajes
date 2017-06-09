@@ -95,6 +95,7 @@ public class CatalogoController {
 	@RequestMapping(value = "/carrito", method = RequestMethod.GET)
 	public String iniciarCarrito(HttpServletRequest request, Model model) {
 		model.addAttribute("carrito", SessionManager.getCarBySessionId(request.getSession().getId()));
+		model.addAttribute("sesion",request.getSession().getId());
 		return "carrito";
 	}
 	
@@ -102,7 +103,7 @@ public class CatalogoController {
 	public String confirmarPago(HttpServletRequest request, Model model) {
 		
 		SessionUser sesionActual = SessionManager.getSession(request.getSession().getId());
-		
+		System.out.println(sesionActual.getArticulos().size()+" ***************************** *** *** ***");
 		
 		Orden orden = new Orden(
 				sesionActual.getUser(),
@@ -110,16 +111,17 @@ public class CatalogoController {
 				request.getSession().getId(),
 				sesionActual.getPrecioTotal());
 		
-		model.addAttribute("carrito", SessionManager.getCarBySessionId(request.getSession().getId()));
+				
+		System.out.println(orden.toString());
 		
 	
 		
-		return "s";
+		return "success";
 	}
 	
 	
 	@RequestMapping(value = "/carrito/pago", method = RequestMethod.POST)
-	public String comprar(HttpServletRequest request, Model model) {
+	public String comprar(HttpServletRequest request, Model model, @RequestParam Map<String, String> requestParams) {
 		try {
 
 			Usuario currentUser = SessionManager.getUserBySessionId(request.getSession().getId());
@@ -133,10 +135,11 @@ public class CatalogoController {
 
 			if (!auth.getName().equals("anonymousUser")) {
 				System.out.println("Autenticando........................");
-
+				System.out.println(requestParams.get("sesionA")+" ····· *****" );
 				Usuario currentUser = usuarioService.findUserByLogIn(nameUser);
 
-				SessionManager.setSession(request.getSession().getId(), currentUser);
+				SessionManager.setSession(request.getSession().getId(), currentUser,
+						SessionManager.getSession(requestParams.get("sesionA")).getArticulos());
 
 				if (!currentUser.isEnabled()) {
 					usuarioService.enable(auth.getName());
