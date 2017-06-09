@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.cr.ac.ucr.lenguajes.j2fshop.business.SecurityServiceImp;
 import com.cr.ac.ucr.lenguajes.j2fshop.business.UsuarioService;
 import com.cr.ac.ucr.lenguajes.j2fshop.domain.Usuario;
+import com.cr.ac.ucr.lenguajes.j2fshop.storage.SessionManager;
 import com.cr.ac.ucr.lenguajes.j2fshop.validator.UserValidator;
 
 @Controller
@@ -40,7 +41,7 @@ public class UsuarioController {
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") Usuario userForm, BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
-
+       
         if (bindingResult.hasErrors()) {
         	if(bindingResult.hasFieldErrors("login"))
         		model.addAttribute("errorLogin", "Hay un error con el login");
@@ -58,7 +59,8 @@ public class UsuarioController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
-        if (error != null)
+           	
+    	if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
 
         if (logout != null)

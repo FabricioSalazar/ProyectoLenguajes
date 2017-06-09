@@ -1,8 +1,5 @@
 package com.cr.ac.ucr.lenguajes.j2fshop.domain;
 
-import java.io.File;
-
-
 public class Producto {
 
 	private int idProducto;
@@ -14,9 +11,9 @@ public class Producto {
 	private float porcentajeImpuesto;
 	private String imagen;
 	private Categoria categoria;
-	
+
 	public Producto() {
-		this.categoria= new Categoria();
+		this.categoria = new Categoria();
 	}
 
 	public int getIdProducto() {
@@ -90,9 +87,11 @@ public class Producto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
-	
-	
-	
-	
+
+	public float getPrecioTotal() {
+		if (impuesto)
+			return (precio + ((precio / 100) * porcentajeImpuesto));
+		else
+			return precio;
+	}
 }

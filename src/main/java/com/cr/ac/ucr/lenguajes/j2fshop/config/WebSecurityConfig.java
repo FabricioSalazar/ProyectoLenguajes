@@ -41,11 +41,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						"/mantenerProductos", "/mantenerProductos/**", "/headearAdmin").hasAuthority("Administrador")
 				.anyRequest().authenticated()
 				.and()
-			.formLogin()
+				.formLogin()
 				.loginPage("/login").permitAll()
 				.and()
-			.logout()
+				.logout()
 				.permitAll();
+		
 		http.csrf().disable();
 	}
 

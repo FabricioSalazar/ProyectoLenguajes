@@ -161,5 +161,15 @@ public class Usuario {
 	public void setRoles(LinkedList<Role> roles) {
 		this.roles = roles;
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", apellidos=" + apellidos + ", login="
+				+ login + ", password=" + password + ", enabled=" + enabled + ", direccion1=" + direccion1
+				+ ", direccion2=" + direccion2 + ", pais=" + pais + ", ciudad=" + ciudad + ", estado=" + estado
+				+ ", codigoPostal=" + codigoPostal + ", telefono=" + telefono + ", numeroTarjeta=" + numeroTarjeta
+				+ ", ccv=" + ccv + ", saldo=" + saldo + ", roles=" + roles + "]";
+	}
+	
 	
 }
